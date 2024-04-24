@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Graficos</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="../../Resources/css/cssGraficas.css">
+</head>
+
+<!--Etiqueta para aplicar plantilla de navbar-->
+<header class="header sticky-top">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar"></nav>
+</header>
+
+<body>
+
+  <!--Div de container de contenido-->
+  <div class="container-fluid flexi" id="jj2">
+    <div class="row flex-column align-items-center">
+
+      <div class="col-lg-10 welcome">
+        <h1 class="text-center">Bienvenido a Super Admin</h1>
+      </div>
+
+      <!--Grafica 1-->
+      <div class="col-lg-10 chart-container">
+        <canvas id="monthlySalesChart" class="chart-canvas"></canvas>
+      </div>
+
+      <!--Grafica 2-->
+      <div class="col-lg-10 mt-4 chart-container">
+        <canvas id="annualSalesChart" class="chart-canvas"></canvas>
+      </div>
+
+    </div>
+
+    <!--Contendedor de footer para aplicar plantilla-->
+    <div id="footer"> </div>
+  </div>
+
+  <!--Scripts nesesarios-->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../../controllers/admin/navbar.js"></script>
+  <script src="../../controllers/admin/footer.js"></script>
+  <script src="../../Controllers/admin/graficas.js"></script>
+</body>
+
+</html>

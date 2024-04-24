@@ -1,0 +1,67 @@
+/*Fuentes*/
+
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
+
+* {
+    font-family: "ABeeZee", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.abeezee-regular {
+    font-family: "ABeeZee", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body::-webkit-scrollbar {
+    background-color: #F0F0F0;
+    width: 15px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 200, 221, .8);
+    border-radius: 10px;
+    border-right: 2px solid #F0F0F0;
+}
+
+.rounded-white {
+    background-color: #ffffff;
+}
+
+.btn-pale-pink {
+    color: #000;
+    background-color: #F0F0F0;
+    border-color: #F0F0F0;
+}
+
+.btn-pale-pink:hover {
+    color: #fff;
+    background-color: #ff9aa2;
+    border-color: #ff9aa2;
+}
+
+.rounded-white img {
+    width: 100%;
+    height: auto;
+}
+
+.borrar-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    width: 20px;
+    /* Ajusta el tamaño según sea necesario */
+}
+
+input[type=text]{
+    background-color: #F0F0F0;
+    border: none;
+}
+
+#btnRealizarCompra{
+    color: #ffffff;
+    background-color: #000;
+}

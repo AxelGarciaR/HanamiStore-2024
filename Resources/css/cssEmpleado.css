@@ -1,0 +1,113 @@
+/*Fuentes*/
+
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
+
+* {
+    font-family: "ABeeZee", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.abeezee-regular {
+    font-family: "ABeeZee", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body::-webkit-scrollbar {
+    background-color: #F0F0F0;
+    width: 15px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 200, 221, .8);
+    border-radius: 10px;
+    border-right: 2px solid #F0F0F0;
+}
+
+
+.tablaContainer {
+    margin-top: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 50px;
+    padding-left: 50px;
+    flex-direction: column;
+}
+
+tbody tr th img {
+    height: 75px;
+    width: 75px;
+}
+
+.botonAccion {
+    height: 50px;
+    width: 50px;
+    transition-duration: 0.2s;
+}
+
+.botonAccion:hover {
+    filter: brightness(1.1);
+}
+
+.containerT {
+    width: 100%;
+}
+
+.containerBotones {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+}
+
+.containerBotones button {
+    width: 15%;
+    background-color: #F0F0F0;
+    color: black;
+    border-style: none;
+}
+
+.containerBotones button:hover {
+    background-color: #FADAE6;
+    color: black;
+}
+
+
+#cosoBuscar {
+    width: 15%;
+}
+
+
+.footer {
+    margin-top: 50%;
+}
+
+.containerT {
+    height: 550px;
+    padding: 15px;
+    border-radius: 5px;
+    border-color: #dee2e6;
+    border-style: solid;
+    border-width: thin;
+    margin-bottom: 50px;
+    align-items: center;
+}
+
+
+@media (max-width: 425px) {
+
+    .tablaContainer {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+
+    .containerBotones button {
+        font-size: 12px;
+    }
+
+}

@@ -1,0 +1,203 @@
+/*Fuentes*/
+
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
+
+* {
+    font-family: "ABeeZee", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.abeezee-regular {
+    font-family: "ABeeZee", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body::-webkit-scrollbar {
+    background-color: #F0F0F0;
+    width: 15px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 200, 221, .8);
+    border-radius: 10px;
+    border-right: 2px solid #F0F0F0;
+}
+
+/**Aqui empiesa el css de detalle producto**/
+
+#containerFotosYCarrito {
+    height: 100%;
+    margin-top: 115px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#containerImagenes img {
+    height: 155px;
+    width: 155px;
+    padding: 15px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    border: black solid;
+}
+
+#imagenPrincipal {
+    width: 70%;
+    height: 70%;
+    padding: 15px;
+    background-color: #FFC8DD;
+    border-radius: 10px;
+}
+
+#btnAgregarCarrito {
+    background-color: #000000;
+    border: none;
+    height: 50px;
+    border-radius: 62px;
+}
+
+.rating {
+    display: flex;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.rating input:checked~label,
+.rating input:checked~label~label {
+    color: orange;
+}
+
+.counter {
+    display: flex;
+    align-items: center;
+}
+
+.number {
+    margin: 0 10px;
+    font-size: 24px;
+}
+
+button {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.containerCarrito {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.containerCarrito button {
+    width: 50%;
+}
+
+.counter {
+    padding: 15px;
+    background-color: #F0F0F0;
+    width: 30%;
+    border-radius: 62px;
+}
+
+.counter button {
+    background: none;
+    border: none;
+    font-size: 25px;
+}
+
+.containerCarrito {
+    align-items: center;
+}
+
+.containerContador {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.containerContador h3 {
+    margin-left: 10px;
+}
+
+#containerComentarios {
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.nombreYcheck {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.contenidocomentario {
+    border-radius: 15px;
+    padding: 20px;
+    border-style: solid;
+    border-color: #F0F0F0;
+}
+
+.cards img {
+    width: 100%;
+}
+
+.cards {
+    border-radius: 15px;
+    padding: 20px;
+    border-style: solid;
+    border-color: #F0F0F0;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 100%;
+}
+
+#containerCards {
+    overflow: hidden;
+    overflow-x: scroll;
+    display: flex;
+    flex-direction: row;
+}
+
+#containerCards::-webkit-scrollbar {
+    background-color: #F0F0F0;
+    width: 15px;
+}
+
+#containerCards::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 200, 221, .8);
+    border-radius: 10px;
+    border-right: 2px solid #F0F0F0;
+}
+
+
+@media (max-width: 850px) {
+
+    #containerFotosYCarrito{
+        flex-direction: column;
+    }
+
+    #containerImagenes{
+        flex-direction: row;
+    }
+    
+}

@@ -1,0 +1,62 @@
+/*Fuentes*/
+
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
+
+* {
+    font-family: "ABeeZee", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.abeezee-regular {
+    font-family: "ABeeZee", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body::-webkit-scrollbar {
+    background-color: #F0F0F0;
+    width: 15px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 200, 221, .8);
+    border-radius: 10px;
+    border-right: 2px solid #F0F0F0;
+}
+
+ /* Estilo adicional para las cards */
+ .card {
+    margin-bottom: 20px;
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.add-review-btn {
+    width: 100%;
+    background-color: #ffb6c1;
+    /* Cambia el color a rosado */
+    border-color: #ffb6c1;
+    /* Cambia el color del borde a rosado */
+}
+
+.add-review-btn:hover {
+    background-color: #ffb6c1;
+    /* Cambia el color de fondo al pasar el mouse */
+    border-color: #ffb6c1;
+    /* Cambia el color del borde al pasar el mouse */
+}

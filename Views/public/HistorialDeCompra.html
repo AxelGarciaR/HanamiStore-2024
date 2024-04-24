@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documento</title>
+    <link rel="icon" type="image/x-icon" href="../../Resources/images/HanamiLogo.ico">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../Resources/css/cssHistorialDeCompra.css">
+</head>
+
+<body>
+    <header class="header sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar"></nav>
+    </header>
+
+    <div class="container">
+        <div class="row" id="cardRow">
+            <!-- Primera Card -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="../../Resources/images/allclean.png" class="card-img-top" alt="Imagen 1">
+                    <div class="card-body">
+                        <h5 class="card-title">allclean</h5>
+                        <div class="card-rating">
+                            <span class="stars">4</span>
+                        </div>
+                        <button class="btn btn-primary add-review-btn" data-bs-toggle="modal"
+                            data-bs-target="#reviewModal">Agregar reseña</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Segunda Card -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="../../Resources/images/allclean.png" class="card-img-top" alt="Imagen 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Nombre 2</h5>
+                        <div class="card-rating">
+                            <span class="stars">3</span>
+                        </div>
+                        <button class="btn btn-primary add-review-btn" data-bs-toggle="modal"
+                            data-bs-target="#reviewModal">Agregar reseña</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Tercera Card -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="../../Resources/images/allclean.png" class="card-img-top" alt="Imagen 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Nombre 3</h5>
+                        <div class="card-rating">
+                            <span class="stars">5</span>
+                        </div>
+                        <button class="btn btn-primary add-review-btn" data-bs-toggle="modal"
+                            data-bs-target="#reviewModal">Agregar reseña</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Cuarta Card -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="../../Resources/images/allclean.png" class="card-img-top" alt="Imagen 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Nombre 4</h5>
+                        <div class="card-rating">
+                            <span class="stars">4</span>
+                        </div>
+                        <button class="btn btn-primary add-review-btn" data-bs-toggle="modal"
+                            data-bs-target="#reviewModal">Agregar reseña</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Quinta Card -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="../../Resources/images/allclean.png" class="card-img-top" alt="Imagen 5">
+                    <div class="card-body">
+                        <h5 class="card-title">Nombre 5</h5>
+                        <div class="card-rating">
+                            <span class="stars">2</span>
+                        </div>
+                        <button class="btn btn-primary add-review-btn" data-bs-toggle="modal"
+                            data-bs-target="#reviewModal">Agregar reseña</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Sexta Card -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="../../Resources/images/allclean.png" class="card-img-top" alt="Imagen 6">
+                    <div class="card-body">
+                        <h5 class="card-title">Nombre 6</h5>
+                        <div class="card-rating">
+                            <span class="stars">3</span>
+                        </div>
+                        <button class="btn btn-primary add-review-btn" data-bs-toggle="modal"
+                            data-bs-target="#reviewModal">Agregar reseña</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para agregar reseña -->
+    <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reviewModalLabel">Agregar reseña</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Aquí va el formulario para agregar reseña -->
+                    <form>
+                        <div class="mb-3">
+                            <label for="reviewTextarea" class="form-label">Escribe tu reseña:</label>
+                            <textarea class="form-control" id="reviewTextarea" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar reseña</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de página -->
+    <div id="footer"></div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../../Controllers/admin/footer.js"></script>
+    <script src="../../Controllers/public/navbarP.js"></script>
+    <script src="../../Controllers/public/HistorialDeCompra.js"></script>
+</body>
+
+</html>

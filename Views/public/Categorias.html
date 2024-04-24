@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorias</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../Resources/css/admin&publicstyle.css">
+</head>
+
+<body>
+    <header class="header sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar"></nav>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Columna para los filtros de productos -->
+            <div class="col-lg-3">
+                <div class="container-box" id="jj" style="border: 1px solid #ccc; padding: 10px;">
+
+                    <h2>Filtros de Productos</h2>
+
+                    <details>
+                        <summary>Skincare</summary>
+                        <ul>
+                            <li>Limpieza Facial</li>
+                            <li>Hidratantes</li>
+                            <li>Mascarillas</li>
+                        </ul>
+                    </details>
+
+                    <details>
+                        <summary>Cuidado Personal</summary>
+                        <ul>
+                            <li>Cuidado del Cabello</li>
+                            <li>Cuidado Bucal</li>
+                            <li>Higiene Corporal</li>
+                        </ul>
+                    </details>
+
+                    <details>
+                        <summary>Accesorios de Belleza</summary>
+                        <ul>
+                            <li>Cepillos y Peines</li>
+                            <li>Esponjas y Aplicadores</li>
+                            <li>Estuches y Organizadores</li>
+                        </ul>
+                    </details>
+
+                    <details>
+                        <summary>Salud y Belleza</summary>
+                        <ul>
+                            <li>Vitaminas y Suplementos</li>
+                            <li>Equipos de Ejercicio</li>
+                            <li>Productos para el Bienestar</li>
+                        </ul>
+                    </details>
+
+                    <h4 class="widget-title">Precio</h4>
+                    <div class="ui-range-label">
+                        <h5>Rango:</h5>
+                        <div class="ui-range-values">
+                            <div class="ui-range-value-min">
+                                $
+                                <span>1</span>
+                                <input type="hidden" name="minprice" id="minprice" value="1">
+                            </div>
+                            &nbsp;-&nbsp;
+                            <div class="ui-range-value-max">
+                                $
+                                <p id="price-value"><span>50</span></p>
+                                <input type="hidden" name="maxprice" id="maxprice" value="50">
+                            </div>
+                        </div>
+                    </div>
+                    <input type="range" id="price-range" min="0" max="100" value="50" step="1">
+                    <div class="col-lg-3">
+                        <button type="button" class="btn btn-dark">Aplicar Filtros</button>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Columna para mostrar los productos -->
+            <div class="col-lg-9">
+                <div class="container product-list">
+                    <div class="container-fluid flexi">
+                        <div class="row flex-column align-items-center">
+                            <div class="col-lg-10 welcome" id="jj">
+                                <h1 class="text-center">Categorias</h1>
+                            </div>
+                        </div>
+
+                        <div class="container product-container">
+                            <div class="row">
+                                <!-- Tarjeta de producto 1 -->
+                                <div class="col-lg-4 mb-4">
+                                    <div class="card">
+                                        <img src="../../Resources/images/Crema de manos hidratante matcha.png"
+                                            class="card-img-top" alt="Producto 1">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Crema de manos hidratante matcha</h5>
+                                            <p class="card-text">Descripción de Crema de manos hidratante matcha</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tarjeta de producto 2 -->
+                                <div class="col-lg-4 mb-4">
+                                    <div class="card">
+                                        <img src="../../Resources/images/Loción hidratante de pepino.png"
+                                            class="card-img-top" alt="Producto 2">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Loción hidratante de pepino</h5>
+                                            <p class="card-text">Descripción de Loción hidratante de pepino</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tarjeta de producto 3 -->
+                                <div class="col-lg-4 mb-4">
+                                    <div class="card">
+                                        <img src="../../Resources/images/cremademanos.png" class="card-img-top"
+                                            alt="Producto 3">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Crema de manos</h5>
+                                            <p class="card-text">Descripción de Crema de manos</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tarjeta de producto 4 -->
+                                <div class="col-lg-4 mb-4">
+                                    <div class="card">
+                                        <img src="../../Resources/images/Escenciaplanta.png" class="card-img-top"
+                                            alt="Producto 4">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Esencia de planta té verde</h5>
+                                            <p class="card-text">Descripción de Esencia de planta té verde</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tarjeta de producto 5 -->
+                                <div class="col-lg-4 mb-4">
+                                    <div class="card <div class=" card">
+                                        <img src="../../Resources/images/Loción hidratante de pepino (1).png"
+                                            class="card-img-top" alt="Producto 5">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Loción hidratante de pepino</h5>
+                                            <p class="card-text">Descripción de Loción de pepino</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tarjeta de producto 6 -->
+                                <div class="col-lg-4 mb-4">
+                                    <div class="card">
+                                        <img src="../../Resources/images/Mascarilla de ácido hialurónico.png"
+                                            class="card-img-top" alt="Producto 6">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Mascarilla de ácido hialurónico</h5>
+                                            <p class="card-text">Descripción de Mascarilla de ácido hialurónico</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const priceRange = document.getElementById('price-range');
+            const priceValue = document.getElementById('price-value');
+
+            // Actualizar el valor del rango de precios al mover el slider
+            priceRange.addEventListener('input', () => {
+                priceValue.textContent = priceRange.value;
+            });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../../Controllers/admin/footer.js"></script>
+    <script src="../../Controllers/public/navbarP.js"></script>
+    <script src="../../Controllers/public/DetalleProducto.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+/*Fuentes*/
+
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
+
+* {
+    font-family: "ABeeZee", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.abeezee-regular {
+    font-family: "ABeeZee", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body::-webkit-scrollbar {
+    background-color: #F0F0F0;
+    width: 15px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 200, 221, .8);
+    border-radius: 10px;
+    border-right: 2px solid #F0F0F0;
+}
+
+.ui-range-values {
+    display: flex;
+    align-items: center;
+    margin-right: 10px; /* Ajusta el margen según sea necesario */
+}
+ 
+.ui-range-value-min,
+.ui-range-value-max {
+    display: flex;
+    align-items: center;
+    margin-right: 5px; /* Ajusta el margen según sea necesario */
+}
+ 
+.ui-range-value-max span {
+    margin-right: 3px; /* Ajusta el margen según sea necesario */
+}
+ 
+#price-value {
+    margin: 0; /* Elimina cualquier margen que pueda afectar la posición vertical del número */
+}
+
+/* CSS para mejorar la marginación de los container*/
+#jj {
+    margin-top: 200px;
+}
+ 
+ 
+/* CSS de catalogo público*/
+.filters {
+    margin-bottom: 30px;
+}
+ 
+#price-range {
+    width: 100%;
+}
+ 
+.container-box {
+    border-style: ridge;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
