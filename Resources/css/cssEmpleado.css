@@ -28,7 +28,6 @@ body::-webkit-scrollbar-thumb {
 
 
 .tablaContainer {
-    margin-top: 8rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -110,4 +109,169 @@ tbody tr th img {
         font-size: 12px;
     }
 
+}
+
+/**********************************************************************CSS de los modal**********************************************************************/
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; 
+}
+
+.closeServicios {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.contenidoModalSer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.camposServicios {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#inputFechaAproxFinS,
+#inputFechaFinS {
+    width: 250px;
+    height: 40px;
+    border-radius: 6px;
+    font-size: 15px;
+    padding: 0 15px;
+    border: solid 2px #000000;
+    background: transparent;
+    color: #000000;
+    outline: none;
+}
+
+#inputHoraAproxS,
+#inputHoraFinS {
+    width: 250px;
+    height: 40px;
+    border-radius: 6px;
+    font-size: 15px;
+    border: solid 2px #000000;
+    background: transparent;
+    color: #000000;
+    outline: none;
+}
+
+.form-select.pt-4.open-sans-regular {
+    width: 250px;
+    height: 40px;
+    border-radius: 6px;
+    font-size: 15px;
+    padding: 0 15px;
+    border: solid 2px #000000;
+    background: transparent;
+    color: #000000;
+    outline: none;
+}
+
+.botonesModalSer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+#btnAceptar {
+    border: none;
+    background-color: #E5383B;
+    width: 35%;
+    color: white;
+    height: 35px;
+    border-radius: 5px;
+}
+
+#btnCancelar {
+    border: none;
+    background-color: #161A1D;
+    width: 35%;
+    color: white;
+    height: 35px;
+    border-radius: 5px;
+}
+
+.bottomModalSer {
+    width: 100%;
+    height: 15px;
+    border-top: 4px solid #E5383B;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width: 530px) {
+    .btnModal {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .btnModal {
+        font-size: 10px;
+    }
+    .contenidoModal {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 328px) {
+    .btnModal {
+        font-size: 8px;
+    }
+    .contentModal h2 {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 730px) {
+    .modal-content {
+        margin-top: 110px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .input-fieldS {
+        margin-right: 0;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .input-fieldS input {
+        width: 200px;
+    }
+    .input-fieldS select {
+        width: 200px;
+    }
+}
+
+.agregarImagen img{
+    height: 250px;
+    width: 250px;
 }

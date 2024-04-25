@@ -12,22 +12,24 @@
 </head>
 
 <!--Etiqueta para aplicar plantilla de navbar-->
-<header class="header sticky-top">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar"></nav>
-</header>
 
 <body>
 
+    <header class="header sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar"></nav>
+    </header>
+
+
     <!--Contenedor de contenido-->
-    
+
     <br>
 
     <div class="tablaContainer">
-          <!--Contenedor de botones de accion de CRUD-->
-          <div class="containerBotones">
-            <button class="btn btn-primary" type="submit">Crear</button>
-            <button class="btn btn-primary" type="submit">Eliminar</button>
-            <button class="btn btn-primary" type="submit">Editar</button>
+        <!--Contenedor de botones de accion de CRUD-->
+        <div class="containerBotones">
+            <button class="btn btn-primary" type="submit" id="btnAgregarEmpleado">Crear</button>
+            <button class="btn btn-primary" type="submit" id="btnEliminarEmpleado">Eliminar</button>
+            <button class="btn btn-primary" type="submit" id="btnEditarEmpleado">Editar</button>
             <form class="d-flex" role="search" id="cosoBuscar">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
             </form>
@@ -45,7 +47,6 @@
                         <th scope="col">Foto</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Cargo</th>
-                        <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,31 +54,16 @@
                         <th scope="row"><img src="../../Resources/images/Perfil 1.png" alt=""></th>
                         <td>Emily Murillo</td>
                         <td>Super Admin</td>
-                        <td>
-                            <img src="../../Resources/images/btnListo.png" alt="" class="botonAccion">
-                            <img src="../../Resources/images/btnEliminar.png" alt="" class="botonAccion">
-                            <img src="../../Resources/images/btnRefresacar.png" alt="" class="botonAccion">
-                        </td>
                     </tr>
                     <tr>
                         <th scope="row"><img src="../../Resources/images/Perfil 2.png" alt=""></th>
                         <td>Axel Garcia</td>
                         <td>Administrador</td>
-                        <td>
-                            <img src="../../Resources/images/btnListo.png" alt="" class="botonAccion">
-                            <img src="../../Resources/images/btnEliminar.png" alt="" class="botonAccion">
-                            <img src="../../Resources/images/btnRefresacar.png" alt="" class="botonAccion">
-                        </td>
                     </tr>
                     <tr>
                         <th scope="row"><img src="../../Resources/images/Perfil 3.png" alt=""></th>
                         <td>Daniel Cortes</td>
                         <td>Supervisor</td>
-                        <td>
-                            <img src="../../Resources/images/btnListo.png" alt="" class="botonAccion">
-                            <img src="../../Resources/images/btnEliminar.png" alt="" class="botonAccion">
-                            <img src="../../Resources/images/btnRefresacar.png" alt="" class="botonAccion">
-                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -85,9 +71,72 @@
 
         </div>
 
-      
+
 
     </div>
+
+    <!--Modal para agregar empleados-->
+
+    <div id="modalAgregarEmpleado" class="modal">
+        <div class="modal-content">
+            <span class="closeAgregarEmpleado">&times;</span>
+            <div class="contenidoModalSer">
+                <div class="titulo">
+                    <h4>Agregar Usuarios</h4>
+                </div>
+
+                <div class="camposServicios">
+
+                    <div class="agregarImagen">
+                        <img src="../../Resources/images/mas.png" alt="">
+                    </div>
+
+                    <div class="camposAgregarEmpleado">
+                        <div class="form-floating mb-2 p-0">
+                            <input type="text" class="form-control" id="inputHoraAproxS" placeholder="...">
+                            <label for="inputHoraAproxS">Nombre de usuario</label>
+                        </div>
+
+
+                        <div class="form-floating mb-2 p-0">
+                            <input type="text" class="form-control" id="inputHoraFinS" placeholder="...">
+                            <label for="inputHoraFinS">Contraseña</label>
+                        </div>
+
+                        <div class="form-floating mb-2 p-0">
+                            <input type="text" class="form-control" id="inputHoraFinS" placeholder="...">
+                            <label for="inputHoraFinS">Correo Electronico</label>
+                        </div>
+
+                        <div class="form-floating mb-2 p-0">
+                            <input type="text" class="form-control" id="inputHoraFinS" placeholder="...">
+                            <label for="inputHoraFinS">Hora fin</label>
+                        </div>
+
+                        <div class="form-floating mb-2 p-0">
+                            <label class="form-label px-2 pt-0 p-0 m-0">Tipo de usuario</label>
+                            <select class="form-select pt-4 open-sans-regular" aria-label="Default select example">
+                                <option selected>Super Admin</option>
+                                <option value="1">Administrador</option>
+                                <option value="2">Supervisor</option>
+                                <option value="3">Empleado</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <hr class="bottomModalSer">
+
+                <div class="botonesModalSer">
+                    <button id="btnCancelar">Cancelar</button>
+                    <button id="btnAceptar">Aceptar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
     <!--Conenedor de footer para aplicar la plantilla-->
     <div id="footer"></div>
@@ -101,6 +150,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="../../controllers/admin/navbar.js"></script>
     <script src="../../controllers/admin/footer.js"></script>
+    <script src="../../Controllers/admin/empleadojs.js"></script>
 
 </body>
 
