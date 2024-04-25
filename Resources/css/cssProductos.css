@@ -1,5 +1,4 @@
 /*Fuentes*/
-
 @import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
 
@@ -34,12 +33,9 @@ body::-webkit-scrollbar-thumb {
 }
 
 .chart-container {
-    background-color: #E8D3DE;
-    /* Color de fondo rosado claro */
-    border-radius: 10px;
-    /* Bordes redondeados */
-    padding: 20px;
-    /* Espacio interno */
+    background-color: #E8D3DE; /* Color de fondo rosado claro */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 20px; /* Espacio interno */
 }
 
 .product-container {
@@ -55,12 +51,9 @@ body::-webkit-scrollbar-thumb {
 }
 
 .product-card-container {
-    background-color: #FADAE6;
-    /* Color de fondo rosa pastel */
-    padding: 20px;
-    /* Espacio interno */
-    border-radius: 10px;
-    /* Bordes redondeados */
+    background-color: #FADAE6; /* Color de fondo rosa pastel */
+    padding: 20px; /* Espacio interno */
+    border-radius: 10px; /* Bordes redondeados */
 }
 
 .add-button {
@@ -75,4 +68,22 @@ body::-webkit-scrollbar-thumb {
     margin-top: 20px;
 }
 
+/* Estilos para los botones */
+.rosado-btn {
+    background-color: pink;
+    color: white;
+}
 
+.rosado-btn:hover {
+    background-color: #ff69b4; /* Cambia el color al pasar el ratón sobre el botón */
+}
+
+.btn-danger {
+    background-color: #dc3545; /* Color de fondo del botón de eliminar */
+    border-color: #dc3545; /* Color del borde del botón de eliminar */
+}
+
+.btn-danger:hover {
+    background-color: #c82333; /* Cambia el color al pasar el ratón sobre el botón de eliminar */
+    border-color: #c82333;
+}
