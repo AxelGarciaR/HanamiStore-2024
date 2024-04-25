@@ -20,3 +20,36 @@ window.onclick = function (event) {
   }
 }
 
+
+//Javascript para el modal
+
+const openClose = async () => {
+  // Llamada a la función para mostrar un mensaje de confirmación
+  const confirmed = await Swal.fire({
+    icon: 'question',
+    title: '¿Seguro que quieres regresar?',
+    text: 'Los datos ingresados no serán almacenados',
+    showCancelButton: true,
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#dc3545',
+    confirmButtonText: 'Aceptar'
+  });
+
+  if (confirmed.isConfirmed) {
+    $('#modalAgregarEmpleado').modal('hide');
+  }
+}
+
+const openNoti = async () => {
+  // Muestra una notificación de éxito utilizando SweetAlert
+  Swal.fire({
+    icon: 'success',
+    title: '¡Éxito!',
+    text: 'Se ha guardado con éxito',
+    confirmButtonColor: '#dc3545',
+    confirmButtonText: 'Cerrar',
+    onAfterClose: () => {
+      $('#modalAgregarEmpleado').modal('hide');
+    }
+  });
+}
