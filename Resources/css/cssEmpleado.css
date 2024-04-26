@@ -308,3 +308,7 @@ tbody tr th img {
         width: 80%;
     }
 }
+
+.swal2-styled.swal2-confirm{
+    color: #161A1D;
+}

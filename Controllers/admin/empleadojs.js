@@ -29,11 +29,11 @@ const openClose = async () => {
   // Llamada a la función para mostrar un mensaje de confirmación
   const confirmed = await Swal.fire({
     icon: 'question',
-    title: '¿Seguro que quieres regresar?',
+    title: '¿Seguro que quieres cancelar?',
     text: 'Los datos ingresados no serán almacenados',
     showCancelButton: true,
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#dc3545',
+    confirmButtonColor: '#FFAFCC',
     confirmButtonText: 'Aceptar'
   });
 
@@ -49,7 +49,7 @@ const openNoti = async () => {
     icon: 'success',
     title: '¡Éxito!',
     text: 'Se ha guardado con éxito',
-    confirmButtonColor: '#dc3545',
+    confirmButtonColor: '#FFAFCC',
     confirmButtonText: 'Cerrar',
     onAfterClose: () => {
       $(modal2).modal('hide');
