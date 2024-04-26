@@ -1,27 +1,29 @@
 
-var modal = document.getElementById("modalAgregarEmpleado");
+var modal1 = document.getElementById("modalAgregarEmpleado");
 var btn = document.getElementById("btnAgregarEmpleado");
 var span = document.getElementsByClassName("closeAgregarEmpleado")[0];
 
 // Abrir el modal cuando se hace clic en el botón
 btn.onclick = function () {
-  modal.style.display = "block";
+  modal1.style.display = "block";
 }
 
 // Cerrar el modal cuando se hace clic en la "x"
 span.onclick = function () {
-  modal.style.display = "none";
+  modal1.style.display = "none";
 }
 
 // Cerrar el modal cuando se hace clic fuera del modal
 window.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
+  if (event.target == modal1) {
+    modal1.style.display = "none";
   }
 }
 
 
 //Javascript para el modal
+
+const modal2 = document.getElementById("modalAgregarEmpleado")
 
 const openClose = async () => {
   // Llamada a la función para mostrar un mensaje de confirmación
@@ -36,7 +38,8 @@ const openClose = async () => {
   });
 
   if (confirmed.isConfirmed) {
-    $('#modalAgregarEmpleado').modal('hide');
+    $(modal2).modal('hide');
+    modal2.style.display = "none";
   }
 }
 
@@ -49,7 +52,8 @@ const openNoti = async () => {
     confirmButtonColor: '#dc3545',
     confirmButtonText: 'Cerrar',
     onAfterClose: () => {
-      $('#modalAgregarEmpleado').modal('hide');
+      $(modal2).modal('hide');
+      modal2.style.display = "none";
     }
   });
 }
