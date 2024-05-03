@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="../../Resources/css/cssEmpleado.css">
 </head>
 
@@ -30,8 +30,6 @@
         <!--Contenedor de botones de accion de CRUD-->
         <div class="containerBotones">
             <button class="btnCrud btn btn-primary" type="submit" id="btnAgregarEmpleado">Crear</button>
-            <button class="btnCrud btn btn-primary" type="submit" id="btnEliminarEmpleado">Eliminar</button>
-            <button class="btnCrud btn btn-primary" type="submit" id="btnEditarEmpleado">Editar</button>
             <form class="d-flex" role="search" id="cosoBuscar">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
             </form>
@@ -41,14 +39,13 @@
 
         <!--Contenedor de tabla de CRUD-->
         <div class="containerT">
-
-            <!--Empiesa La tabla de CRUD-->
             <table class="table">
                 <thead>
                     <tr>
                         <th scope="col">Foto</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Cargo</th>
+                        <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,25 +53,32 @@
                         <th scope="row"><img src="../../Resources/images/Perfil 1.png" alt=""></th>
                         <td>Emily Murillo</td>
                         <td>Super Admin</td>
+                        <td>
+                            <button class="btnCrud btn btn-primary btnEditarEmpleado" id="btnEditarEmpleado" type="button">Editar</button>
+                            <button class="btnCrud btn btn-danger btnEliminarEmpleado" type="button">Eliminar</button>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row"><img src="../../Resources/images/Perfil 2.png" alt=""></th>
                         <td>Axel Garcia</td>
                         <td>Administrador</td>
+                        <td>
+                            <button class="btnCrud btn btn-primary btnEditarEmpleado" id="btnEditarEmpleado" type="button">Editar</button>
+                            <button class="btnCrud btn btn-danger btnEliminarEmpleado"  type="button">Eliminar</button>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row"><img src="../../Resources/images/Perfil 3.png" alt=""></th>
                         <td>Daniel Cortes</td>
                         <td>Supervisor</td>
+                        <td>
+                            <button class="btnCrud btn btn-primary btnEditarEmpleado" id="btnEditarEmpleado" type="button">Editar</button>
+                            <button class="btnCrud btn btn-danger btnEliminarEmpleado" type="button">Eliminar</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
-            <!--Termina la tabla de CRUD-->
-
         </div>
-
-
-
     </div>
 
     <!--Modal para agregar empleados-->

@@ -57,3 +57,36 @@ const openNoti = async () => {
     }
   });
 }
+
+// Obtener todos los botones "Eliminar"
+const btnEliminarEmpleado = document.querySelectorAll('.btnEliminarEmpleado');
+
+// Agregar un event listener a cada botón "Eliminar"
+btnEliminarEmpleado.forEach(btn => {
+  btn.addEventListener('click', function() {
+    // Mostrar una alerta de confirmación
+    Swal.fire({
+      icon: 'question',
+      title: '¿Estás seguro de querer eliminar este empleado?',
+      text: 'Esta acción no se puede deshacer',
+      showCancelButton: true,
+      confirmButtonColor: '#FFAFCC',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Si se confirma la eliminación, obtener la fila asociada al botón y eliminarla
+        const row = this.closest('tr');
+        row.remove();
+        // Mostrar una notificación de éxito
+        Swal.fire({
+          icon: 'success',
+          title: 'Empleado eliminado',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    });
+  });
+});
