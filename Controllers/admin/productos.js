@@ -1,37 +1,80 @@
 let contador = 0;
 
+// Función para agregar un producto
 function agregarProducto() {
-  contador++;
-  const container = document.querySelector('.product-card-container');
-
-  const card = document.createElement('div');
-  card.className = 'card selectable-card';
-  card.dataset.id = contador;
-  card.innerHTML = `
-    <img src="../../Resources/images/loreal.png" class="card-img-top" alt="Producto 1" width="100" height="200">
-    <div class="card-body">
-      <h5 class="card-title">Producto 1</h5>
-      <p class="card-text">Descripción del producto 1.</p>
-      <p class="card-text">precio 1.</p>
-      <p class="card-text">cantidad 1.</p>
-      <div class="card-actions">
-        <button class="btn btn-info rosado-btn" onclick="mostrarModal(1)">Editar</button>
-        <button class="btn btn-danger" onclick="confirmarEliminar(event)">Eliminar</button>
-      </div>
-    </div>
-  </div>`;
-
-  container.appendChild(card);
+  mostrarModalAgregarProducto();
 }
 
-function confirmarEliminar(event) {
-  const confirmed = confirm("¿Estás seguro que quieres eliminar este producto?");
-  if (confirmed) {
-    eliminarProducto(event);
-  }
-}
-
+// Función para eliminar un producto
 function eliminarProducto(event) {
   const card = event.target.closest('.selectable-card');
-  card.remove();
+  // Mostrar una alerta de confirmación antes de eliminar el producto
+  Swal.fire({
+    icon: 'question',
+    title: '¿Seguro que quieres eliminar este producto?',
+    text: 'Esta acción no se puede deshacer',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sí',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      card.remove();
+      // Mostrar notificación de éxito
+      Swal.fire({
+        icon: 'success',
+        title: '¡Éxito!',
+        text: 'El producto se ha eliminado exitosamente',
+        confirmButtonColor: '#FFAFCC',
+        confirmButtonText: 'Cerrar'
+      });
+    }
+  });
+}
+
+// Función para mostrar el modal de agregar producto
+function mostrarModalAgregarProducto() {
+  const modalAgregarProducto = document.getElementById("modalAgregarProducto");
+  modalAgregarProducto.style.display = "block";
+}
+
+// Función para cerrar el modal de agregar producto
+function cerrarModalAgregarProducto() {
+  const modalAgregarProducto = document.getElementById("modalAgregarProducto");
+  modalAgregarProducto.style.display = "none";
+}
+
+// Función para guardar un producto
+function guardarProducto() {
+  // Mostrar una alerta de confirmación antes de guardar el producto
+  Swal.fire({
+    icon: 'question',
+    title: '¿Seguro que quieres guardar este producto?',
+    text: 'Una vez guardado, no podrás deshacer esta acción',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Guardar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Aquí puedes agregar la lógica para guardar el producto en la base de datos
+      // Por ahora, solo cerramos el modal
+      cerrarModalAgregarProducto();
+
+      // Mostrar notificación de éxito
+      Swal.fire({
+        icon: 'success',
+        title: '¡Éxito!',
+        text: 'El producto se ha guardado exitosamente',
+        confirmButtonColor: '#FFAFCC',
+        confirmButtonText: 'Cerrar',
+        onClose: () => {
+          $(modalAgregarProducto).modal('hide');
+          modalAgregarProducto.style.display = "none";
+        }
+      });
+    }
+  });
 }
