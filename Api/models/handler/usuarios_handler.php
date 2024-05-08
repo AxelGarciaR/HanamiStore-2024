@@ -18,15 +18,15 @@ class UsuariosHandler
 
     public function checkUser($username, $password)
     {
-        $sql = 'SELECT id_administrador, alias_administrador, clave_administrador
-                FROM administrador
-                WHERE  alias_administrador = ?';
+        $sql = 'SELECT id_usuario, nombre_usuario, clave
+                FROM usuarios
+                WHERE  nombre_usuario = ?';
         $params = array($username);
         if (!($data = Database::getRow($sql, $params))) {
             return false;
-        } elseif (password_verify($password, $data['clave_administrador'])) {
+        } elseif (password_verify($password, $data['clave'])) {
             $_SESSION['idAdministrador'] = $data['id_administrador'];
-            $_SESSION['aliasAdministrador'] = $data['alias_administrador'];
+            $_SESSION['aliasAdministrador'] = $data['nombre_usuario'];
             return true;
         } else {
             return false;
@@ -35,13 +35,13 @@ class UsuariosHandler
 
     public function checkPassword($password)
     {
-        $sql = 'SELECT clave_administrador
-                FROM administrador
-                WHERE id_administrador = ?';
+        $sql = 'SELECT clave
+                FROM usuarios
+                WHERE id_usuario = ?';
         $params = array($_SESSION['idAdministrador']);
         $data = Database::getRow($sql, $params);
         // Se verifica si la contraseña coincide con el hash almacenado en la base de datos.
-        if (password_verify($password, $data['clave_administrador'])) {
+        if (password_verify($password, $data['clave'])) {
             return true;
         } else {
             return false;
@@ -50,28 +50,29 @@ class UsuariosHandler
 
     public function changePassword()
     {
-        $sql = 'UPDATE administrador
-                SET clave_administrador = ?
-                WHERE id_administrador = ?';
+        $sql = 'UPDATE usuarios
+                SET clave = ?
+                WHERE id_usuario = ?';
         $params = array($this->clave, $_SESSION['idadministrador']);
         return Database::executeRow($sql, $params);
     }
 
     public function readProfile()
     {
-        $sql = 'SELECT id_administrador, nombre_administrador, apellido_administrador, correo_administrador, alias_administrador
-                FROM administrador
-                WHERE id_administrador = ?';
+        $sql = 'SELECT id_usuario, nombre_usuario, correo
+                FROM usuarios
+                WHERE id_usuario = ?';
         $params = array($_SESSION['idAdministrador']);
         return Database::getRow($sql, $params);
     }
 
     public function editProfile()
     {
-        $sql = 'UPDATE administrador
-                SET nombre_administrador = ?, apellido_administrador = ?, correo_administrador = ?, alias_administrador = ?
-                WHERE id_administrador = ?';
-        $params = array($this->nombre, $this->$this->correo, $_SESSION['idAdministrador']);
+        $sql = 'UPDATE usuarios
+                SET nombre_usuario = ?, correo = ?,
+                imagen = ?
+                WHERE id_usuario = ?';
+        $params = array($this->nombre, $this->correo, $this->imagen, $_SESSION['idAdministrador']);
         return Database::executeRow($sql, $params);
     }
 
@@ -128,8 +129,8 @@ class UsuariosHandler
 
     public function deleteRow()
     {
-        $sql = 'DELETE FROM administrador
-                WHERE id_administrador = ?';
+        $sql = 'DELETE FROM usuarios
+                WHERE id_usuario = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
