@@ -135,4 +135,13 @@ class UsuariosHandler
         return Database::executeRow($sql, $params);
     }
 
+    public function checkDuplicate($value)
+    {
+        $sql = 'SELECT id_usuario
+                FROM usuarios
+                WHERE id_usuario = ? OR correo = ?';
+        $params = array($value, $value);
+        return Database::getRow($sql, $params);
+    }
+
 }
