@@ -1,0 +1,321 @@
+/*Fuentes*/
+
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
+
+* {
+    font-family: "ABeeZee", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.abeezee-regular {
+    font-family: "ABeeZee", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body::-webkit-scrollbar {
+    background-color: #F0F0F0;
+    width: 15px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 200, 221, .8);
+    border-radius: 10px;
+    border-right: 2px solid #F0F0F0;
+}
+
+
+.tablaContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 50px;
+    padding-left: 50px;
+    flex-direction: column;
+}
+
+tbody tr th img {
+    height: 75px;
+    width: 75px;
+}
+
+.botonAccion {
+    height: 50px;
+    width: 50px;
+    transition-duration: 0.2s;
+}
+
+.botonAccion:hover {
+    filter: brightness(1.1);
+}
+
+.containerT {
+    width: 100%;
+}
+
+.containerBotones {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+#btnEditarEmpleado{
+    width: 22%;
+    background-color: #F0F0F0;
+    color: black;
+    border-style: none;
+}
+
+.containerBotones button {
+    width: 22%;
+    background-color: #F0F0F0;
+    color: black;
+    border-style: none;
+}
+
+.containerBotones button:hover {
+    background-color: #FADAE6;
+    color: black;
+}
+
+
+#cosoBuscar {
+    width: 22%;
+    font-size: 12px;
+}
+
+
+.footer {
+    margin-top: 50%;
+}
+
+.containerT {
+    height: 550px;
+    padding: 15px;
+    border-radius: 5px;
+    border-color: #dee2e6;
+    border-style: solid;
+    border-width: thin;
+    margin-bottom: 50px;
+    align-items: center;
+}
+
+
+@media (max-width: 425px) {
+
+    .tablaContainer {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+
+    .containerBotones button {
+        font-size: 12px;
+    }
+
+    #cosoBuscar {
+        width: 25%;
+        font-size: 12px;
+    }
+
+    #cosoBuscar input::placeholder {
+        font-size: 12px; /* Ajusta el tamaño según tus necesidades */
+    }
+
+    #cosoBuscar input {
+        font-size: 12px; /* Ajusta el tamaño según tus necesidades */
+      }
+      
+}
+
+/**********************************************************************CSS de los modal**********************************************************************/
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%; 
+}
+
+.closeServicios {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.contenidoModalSer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.camposServicios {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#inputFechaAproxFinS,
+#inputFechaFinS {
+    width: 250px;
+    height: 40px;
+    border-radius: 6px;
+    font-size: 15px;
+    padding: 0 15px;
+    border: solid 2px #000000;
+    background: transparent;
+    color: #000000;
+    outline: none;
+}
+
+#inputHoraAproxS,
+#inputHoraFinS {
+    width: 250px;
+    height: 40px;
+    border-radius: 6px;
+    font-size: 15px;
+    border: solid 2px #000000;
+    background: transparent;
+    color: #000000;
+    outline: none;
+}
+
+.form-select.pt-4.open-sans-regular {
+    width: 250px;
+    height: 40px;
+    border-radius: 6px;
+    font-size: 15px;
+    padding: 0 15px;
+    border: solid 2px #000000;
+    background: transparent;
+    color: #000000;
+    outline: none;
+}
+
+.botonesModalSer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+#btnAceptar {
+    border: none;
+    background-color: #FFC8DD;
+    width: 35%;
+    color: black;
+    height: 35px;
+    border-radius: 5px;
+}
+
+#btnCancelar {
+    border: none;
+    background-color: #161A1D;
+    width: 35%;
+    color: white;
+    height: 35px;
+    border-radius: 5px;
+}
+
+.bottomModalSer {
+    width: 100%;
+    height: 15px;
+    border-top: 4px solid #FFAFCC;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width: 530px) {
+    .btnModal {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .btnModal {
+        font-size: 10px;
+    }
+    .contenidoModal {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 328px) {
+    .btnModal {
+        font-size: 8px;
+    }
+    .contentModal h2 {
+        font-size: 15px;
+    }
+}
+
+
+
+@media screen and (max-width: 730px) {
+    .modal-content {
+        margin-top: 110px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .input-fieldS {
+        margin-right: 0;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .input-fieldS input {
+        width: 200px;
+    }
+    .input-fieldS select {
+        width: 200px;
+    }
+}
+
+.agregarImagen img{
+    height: 225px;
+    width: 225px;
+}
+
+.agregarImagen{
+    margin-right: 25px;
+}
+
+@media screen and (max-width: 677px) {
+    .agregarImagen {
+        margin-right: 0px;
+        margin-bottom: 25px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .modal-content{
+        width: 80%;
+    }
+}
+
+.swal2-styled.swal2-confirm{
+    color: #161A1D;
+}
