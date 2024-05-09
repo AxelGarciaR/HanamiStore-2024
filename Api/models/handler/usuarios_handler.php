@@ -14,6 +14,9 @@ class UsuariosHandler
     protected $tipoUsuario = null;
     protected $imagen = null;
 
+    // Constante para establecer la ruta de las imagenes
+    const RUTA_IMAGEN = '../../images/productos/';
+
     /*Metodos para administrar las cuentas de Usuarios*/
 
     public function checkUser($username, $password)
@@ -108,6 +111,15 @@ class UsuariosHandler
     public function readOne()
     {
         $sql = 'SELECT id_usuario, nombre_usuario, id_tipousuario, imagen,
+                FROM usuarios
+                WHERE id_usuario = ?';
+        $params = array($this->id);
+        return Database::getRow($sql, $params);
+    }
+
+    public function readFilename()
+    {
+        $sql = 'SELECT imagen
                 FROM usuarios
                 WHERE id_usuario = ?';
         $params = array($this->id);

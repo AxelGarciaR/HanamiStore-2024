@@ -10,6 +10,7 @@ class UsuarioData extends UsuariosHandler{
 
     //Atributo Para el manejo de errores
     private $data_error = null;
+    private $filename = null;
 
     //Metodos para validar y establecer los datos
 
@@ -66,6 +67,45 @@ class UsuarioData extends UsuariosHandler{
         }
     }
 
+    public function setFilename()
+    {
+        if ($data = $this->readFilename()) {
+            $this->filename = $data['imagen_producto'];
+            return true;
+        } else {
+            $this->data_error = 'Producto inexistente';
+            return false;
+        }
+    }
+
+
     //Revisar si se puede hacer una validacion para el campo de imagen
+
+    public function setImagen($file, $filename = null)
+    {
+        if (Validator::validateImageFile($file, 1000)) {
+            $this->imagen = Validator::getFileName();
+            return true;
+        } elseif (Validator::getFileError()) {
+            $this->data_error = Validator::getFileError();
+            return false;
+        } elseif ($filename) {
+            $this->imagen = $filename;
+            return true;
+        } else {
+            $this->imagen = 'default.png';
+            return true;
+        }
+    }
+
+    public function getDataError()
+    {
+        return $this->data_error;
+    }
+
+    public function getFilename()
+    {
+        return $this->filename;
+    }
 
 }
