@@ -78,3 +78,33 @@ function guardarProducto() {
     }
   });
 }
+
+// Función para mostrar el modal de editar producto
+function mostrarModalEditarProducto() {
+  const modalEditarProducto = document.getElementById("modalAgregarProducto");
+  const tituloModal = modalEditarProducto.querySelector('.modal-title');
+  tituloModal.textContent = 'Editar Producto';
+  modalEditarProducto.style.display = "block";
+}
+
+// Función para cerrar el modal de editar producto
+function cerrarModalEditarProducto() {
+  const modalEditarProducto = document.getElementById("modalAgregarProducto");
+  modalEditarProducto.style.display = "none";
+}
+
+// Función para guardar la edición de un producto
+function guardarEdicionProducto() {
+  // Aquí puedes agregar la lógica para guardar los cambios del producto
+  // Por ahora, solo cerramos el modal
+  cerrarModalEditarProducto();
+
+  // Mostrar notificación de éxito
+  Swal.fire({
+    icon: 'success',
+    title: '¡Éxito!',
+    text: 'Los cambios se han guardado exitosamente',
+    confirmButtonColor: '#FFAFCC',
+    confirmButtonText: 'Cerrar'
+  });
+}

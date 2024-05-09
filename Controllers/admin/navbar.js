@@ -20,8 +20,14 @@ document.addEventListener('DOMContentLoaded', function () {
           <a class="nav-link" href="Empleado.html">Empleado</a>
         </li>
         <li class="nav-item">
+        <a class="nav-link" href="Clientes.html">Clientes</a>
+      </li>
+        <li class="nav-item">
           <a class="nav-link" href="Perfil.html">Perfil</a>
         </li>
+        <li class="nav-item">
+        <a class="nav-link" href="Index.html">Cerrar sesion</a>
+      </li>
       </ul>
     </div>
   `;

@@ -1,4 +1,4 @@
-/*Fuentes*/
+/* Fuentes */
 @import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
 
@@ -69,21 +69,14 @@ body::-webkit-scrollbar-thumb {
 }
 
 /* Estilos para los botones */
-.rosado-btn {
-    background-color: pink;
-    color: white;
+.rosado-btn,
+.btn {
+    background-color: #F0F0F0; /* Color de fondo gris para todos los botones */
+    color: black; /* Color de texto negro para todos los botones */
+    border: 1px solid #F0F0F0; /* Borde negro para todos los botones */
 }
 
-.rosado-btn:hover {
-    background-color: #ff69b4; /* Cambia el color al pasar el ratón sobre el botón */
-}
-
-.btn-danger {
-    background-color: #dc3545; /* Color de fondo del botón de eliminar */
-    border-color: #dc3545; /* Color del borde del botón de eliminar */
-}
-
-.btn-danger:hover {
-    background-color: #c82333; /* Cambia el color al pasar el ratón sobre el botón de eliminar */
-    border-color: #c82333;
+.rosado-btn:hover,
+.btn:hover {
+    background-color: #DCDCDC; /* Cambia el color al pasar el ratón sobre los botones */
 }

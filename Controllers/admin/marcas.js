@@ -31,15 +31,27 @@ function eliminarMarca(event) {
         confirmButtonText: 'Eliminar',
     }).then((result) => {
         if (result.isConfirmed) {
-            // Aquí puedes agregar la lógica para eliminar la marca
-            // Después de eliminar, puedes mostrar una alerta de éxito
-            Swal.fire({
-                icon: 'success',
-                title: 'Éxito',
-                text: 'La marca se ha eliminado correctamente.',
-                confirmButtonColor: '#FFAFCC',
-                confirmButtonText: 'Cerrar',
-            });
+            // Llamamos a la función para eliminar la marca pasando el evento actual
+            eliminarMarcaLogica(event);
         }
     });
 }
+
+// Función para eliminar la marca (simulada)
+function eliminarMarcaLogica(event) {
+    // Puedes agregar aquí la lógica real para eliminar la marca, como eliminarla de la base de datos o de una lista
+    // En este ejemplo, simplemente eliminamos la tarjeta de la marca del DOM
+    const card = event.target.closest('.card'); // Buscamos la tarjeta más cercana al botón "Eliminar"
+    if (card) {
+        card.remove(); // Eliminamos la tarjeta de la marca del DOM
+        // Mostramos una alerta de éxito
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: 'La marca se ha eliminado correctamente.',
+            confirmButtonColor: '#FFAFCC',
+            confirmButtonText: 'Cerrar',
+        });
+    }
+}
+

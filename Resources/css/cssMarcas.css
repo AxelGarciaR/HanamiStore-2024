@@ -1,5 +1,4 @@
-/*Fuentes*/
-
+/* Fuentes */
 @import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
 
@@ -26,8 +25,7 @@ body::-webkit-scrollbar-thumb {
     border-right: 2px solid #F0F0F0;
 }
 
-/*****Css de Marcas*****/
-
+/* CSS de Marcas */
 #coso1s {
     margin-top: 150px;
 }
@@ -43,79 +41,33 @@ body::-webkit-scrollbar-thumb {
     border-style: none;
 }
 
-
-/*Fuentes*/
-
-@import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
-
-* {
-    font-family: "ABeeZee", sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-.abeezee-regular {
-    font-family: "ABeeZee", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-body::-webkit-scrollbar {
+/* Color gris para todos los botones */
+.btn {
     background-color: #F0F0F0;
-    width: 15px;
+    border-color: #F0F0F0;
+    color: #000000; /* Color del texto de los botones */
 }
 
-body::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 200, 221, .8);
-    border-radius: 10px;
-    border-right: 2px solid #F0F0F0;
-}
-
-/*****Css de Marcas*****/
-
-#coso1s {
-    margin-top: 150px;
-}
-
-#contenedorBotones {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-}
-
-#contenedorBotones .row div a {
-    border-style: none;
-}
-
- /* Color rosado para los botones */
- .btn-primary {
-    background-color: #ff69b4;
-    border-color: #ff69b4;
-  }
-
-  /* Estilo para el contenedor de botones y buscador */
-  .containerBotones {
+/* Estilo para el contenedor de botones y buscador */
+.containerBotones {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px; /* Espacio entre botones y tarjetas */
-  }
+}
 
-  /* Estilo para el buscador */
-  #cosoBuscar {
+/* Estilo para el buscador */
+#cosoBuscar {
     flex: 1;
     margin-left: 20px; /* Espacio entre el buscador y los botones */
     width: 150px;
-    
-  }
+}
 
-  .card {
+.card {
     width: 200px; /* Ancho fijo para todas las tarjetas */
-  }
-  
-  /* Espacio entre las tarjetas */
-  .product-card-container .card {
+}
+
+/* Espacio entre las tarjetas */
+.product-card-container .card {
     margin-left: 30px; /* Espacio inferior entre las tarjetas */
-  }
+}

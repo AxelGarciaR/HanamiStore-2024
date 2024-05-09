@@ -53,8 +53,8 @@
               <p class="card-text">precio 1.</p>
               <p class="card-text">cantidad 1.</p>
               <div class="card-actions">
-                <button class="btn btn-info rosado-btn" onclick="mostrarModal(1)">Editar</button>
-                <button class="btn btn-danger" onclick="confirmarEliminar(event)">Eliminar</button>
+                <button class="btn btn-info rosado-btn" onclick="mostrarModalEditarProducto()">Editar</button>
+                <button class="btn btn-danger" onclick="eliminarProducto(event)">Eliminar</button>
               </div>
             </div>
           </div>
@@ -77,41 +77,40 @@
         </div>
         <div class="modal-body">
           <div class="form-floating mb-2 p-0">
-            <input type="text" class="form-control" id="nombreProducto" placeholder="Nombre del producto">
+            <input type="text" class="form-control" id="nombreProducto" placeholder="Nombre del producto" required maxlength="100">
             <label for="nombreProducto">Nombre del producto</label>
           </div>
-
+  
           <div class="form-floating mb-2 p-0">
-            <textarea class="form-control" id="descripcionProducto" placeholder="Descripción del producto"
-              style="height: 100px"></textarea>
+            <textarea class="form-control" id="descripcionProducto" placeholder="Descripción del producto" style="height: 100px" required maxlength="100"></textarea>
             <label for="descripcionProducto">Descripción del producto</label>
           </div>
-
+  
           <div class="form-floating mb-2 p-0">
-            <input type="text" class="form-control" id="precioProducto" placeholder="Precio del producto">
+            <input type="text" class="form-control" id="precioProducto" placeholder="Precio del producto" required pattern="\d+(\.\d{1,2})?" maxlength="13">
             <label for="precioProducto">Precio del producto</label>
           </div>
-
+  
           <div class="form-floating mb-2 p-0">
-            <input type="file" class="form-control" id="imagenProducto" placeholder="Imagen principal del producto">
+            <input type="file" class="form-control" id="imagenProducto" placeholder="Imagen principal del producto" required maxlength="100">
             <label for="imagenProducto">Imagen principal del producto</label>
           </div>
-
+  
           <div class="form-floating mb-2 p-0">
-            <input type="number" class="form-control" id="cantidadProducto" placeholder="Cantidad del producto">
+            <input type="number" class="form-control" id="cantidadProducto" placeholder="Cantidad del producto" required>
             <label for="cantidadProducto">Cantidad del producto</label>
           </div>
-
+  
           <div class="form-floating mb-2 p-0">
             <input type="text" class="form-control" id="subcategoriaProducto" placeholder="Subcategoría del producto">
             <label for="subcategoriaProducto">Subcategoría del producto</label>
           </div>
-
+  
           <div class="form-floating mb-2 p-0">
             <input type="number" class="form-control" id="descuentoProducto" placeholder="Descuento del producto">
             <label for="descuentoProducto">Descuento del producto</label>
           </div>
-
+  
           <div class="form-floating mb-2 p-0">
             <input type="text" class="form-control" id="marcaProducto" placeholder="Marca del producto">
             <label for="marcaProducto">Marca del producto</label>
@@ -124,6 +123,7 @@
       </div>
     </div>
   </div>
+  
 
   <br>
   <br>

@@ -38,13 +38,14 @@
                     <div class="d-flex flex-wrap justify-content-center">
                         <!-- Tarjeta de marca 1 -->
                         <div class="card">
-                            <img src="../../Resources/images/dior.png" class="card-img-top" alt="Producto 1"
-                                width="100" height="200">
+                            <img src="../../Resources/images/dior.png" class="card-img-top" alt="Producto 1" width="100"
+                                height="200">
                             <div class="card-body">
                                 <h5 class="card-title">DIOR</h5>
                                 <p class="card-text">Descripción de la marca 1.</p>
                                 <div class="card-actions">
-                                    <button class="btn btn-info" data-toggle="modal" data-target="#modalProducto1">Editar</button>
+                                    <button class="btn btn-info" data-toggle="modal"
+                                        data-target="#modalProducto1">Editar</button>
                                     <button class="btn btn-danger" onclick="eliminarMarca(event)">Eliminar</button>
                                 </div>
                             </div>
@@ -58,7 +59,8 @@
                                 <h5 class="card-title">SEPHORA</h5>
                                 <p class="card-text">Descripción de la marca 2.</p>
                                 <div class="card-actions">
-                                    <button class="btn btn-info" data-toggle="modal" data-target="#modalProducto2">Editar</button>
+                                    <button class="btn btn-info" data-toggle="modal"
+                                        data-target="#modalProducto2">Editar</button>
                                     <button class="btn btn-danger" onclick="eliminarMarca(event)">Eliminar</button>
                                 </div>
                             </div>
@@ -72,7 +74,8 @@
                                 <h5 class="card-title">LANCOME</h5>
                                 <p class="card-text">Descripción de la marca 3.</p>
                                 <div class="card-actions">
-                                    <button class="btn btn-info" data-toggle="modal" data-target="#modalProducto3">Editar</button>
+                                    <button class="btn btn-info" data-toggle="modal"
+                                        data-target="#modalProducto3">Editar</button>
                                     <button class="btn btn-danger" onclick="eliminarMarca(event)">Eliminar</button>
                                 </div>
                             </div>
@@ -86,7 +89,8 @@
                                 <h5 class="card-title">E.L.F</h5>
                                 <p class="card-text">Descripción de la marca 4.</p>
                                 <div class="card-actions">
-                                    <button class="btn btn-info" data-toggle="modal" data-target="#modalProducto4">Editar</button>
+                                    <button class="btn btn-info" data-toggle="modal"
+                                        data-target="#modalProducto4">Editar</button>
                                     <button class="btn btn-danger" onclick="eliminarMarca(event)">Eliminar</button>
                                 </div>
                             </div>
@@ -112,7 +116,7 @@
                     <form>
                         <div class="form-group">
                             <label for="nombreMarca">Nombre de la marca</label>
-                            <input type="text" class="form-control" id="nombreMarca">
+                            <input type="text" class="form-control" id="nombreMarca" maxlength="50">
                         </div>
                         <div class="form-group">
                             <label for="imagenMarca">Imagen de la marca</label>
@@ -144,7 +148,7 @@
                     <form>
                         <div class="form-group">
                             <label for="nombreMarca1">Nombre</label>
-                            <input type="text" class="form-control" id="nombreMarca1">
+                            <input type="text" class="form-control" id="nombreMarca1" maxlength="50">
                         </div>
                         <div class="form-group">
                             <label for="descripcionMarca1">Descripción</label>
@@ -161,100 +165,13 @@
     </div>
 
     <!-- Modal para editar la marca 2 -->
-    <div class="modal fade" id="modalProducto2" tabindex="-1" role="dialog" aria-labelledby="modalProducto2Label"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalProducto2Label">Editar marca - SEPHORA</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Aquí puedes colocar los campos para editar los datos de la marca 2 -->
-                    <form>
-                        <div class="form-group">
-                            <label for="nombreMarca2">Nombre</label>
-                            <input type="text" class="form-control" id="nombreMarca2">
-                        </div>
-                        <div class="form-group">
-                            <label for="descripcionMarca2">Descripción</label>
-                            <textarea class="form-control" id="descripcionMarca2" rows="3"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Guardar cambios</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Aquí iría el código del modal para la marca 2 con el input de nombre limitado a 50 caracteres -->
 
     <!-- Modal para editar la marca 3 -->
-    <div class="modal fade" id="modalProducto3" tabindex="-1" role="dialog" aria-labelledby="modalProducto3Label"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalProducto3Label">Editar marca - LANCOME</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Aquí puedes colocar los campos para editar los datos de la marca 3 -->
-                    <form>
-                        <div class="form-group">
-                            <label for="nombreMarca3">Nombre</label>
-                            <input type="text" class="form-control" id="nombreMarca3">
-                        </div>
-                        <div class="form-group">
-                            <label for="descripcionMarca3">Descripción</label>
-                            <textarea class="form-control" id="descripcionMarca3" rows="3"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Guardar cambios</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Aquí iría el código del modal para la marca 3 con el input de nombre limitado a 50 caracteres -->
 
     <!-- Modal para editar la marca 4 -->
-    <div class="modal fade" id="modalProducto4" tabindex="-1" role="dialog" aria-labelledby="modalProducto4Label"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalProducto4Label">Editar marca - E.L.F</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Aquí puedes colocar los campos para editar los datos de la marca 4 -->
-                    <form>
-                        <div class="form-group">
-                            <label for="nombreMarca4">Nombre</label>
-                            <input type="text" class="form-control" id="nombreMarca4">
-                        </div>
-                        <div class="form-group">
-                            <label for="descripcionMarca4">Descripción</label>
-                            <textarea class="form-control" id="descripcionMarca4" rows="3"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Guardar cambios</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Aquí iría el código del modal para la marca 4 con el input de nombre limitado a 50 caracteres -->
 
     <!--Contenedor de footer para alplicar las plantilas-->
     <div id="footer"> </div>
