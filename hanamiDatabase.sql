@@ -3,21 +3,13 @@ DROP DATABASE IF EXISTS hanamistore;
 CREATE DATABASE IF NOT EXISTS hanamistore;
 USE hanamistore;
 
--- Creación de la tabla tipos_usuarios
-CREATE TABLE IF NOT EXISTS tipos_usuarios (
-  id_tipousuario INT PRIMARY KEY AUTO_INCREMENT,
-  TipoUsuario VARCHAR(50)
-);
-
 -- Creación de la tabla usuarios
 CREATE TABLE IF NOT EXISTS usuarios (
   id_usuario INT PRIMARY KEY AUTO_INCREMENT,
   nombre_usuario VARCHAR(100),
   clave VARCHAR(100),
-  id_tipousuario INT,
   correo VARCHAR(100),
-  imagen VARCHAR(100),
-  FOREIGN KEY (id_tipousuario) REFERENCES tipos_usuarios (id_tipousuario)
+  imagen VARCHAR(100)
 );
 
 -- Creación de la tabla clientes
