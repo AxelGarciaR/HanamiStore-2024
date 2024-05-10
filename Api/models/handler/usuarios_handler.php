@@ -11,7 +11,6 @@ class UsuariosHandler
     protected $nombre = null;
     protected $clave = null;
     protected $correo = null;
-    protected $tipoUsuario = null;
     protected $imagen = null;
 
     // Constante para establecer la ruta de las imagenes
@@ -28,7 +27,7 @@ class UsuariosHandler
         if (!($data = Database::getRow($sql, $params))) {
             return false;
         } elseif (password_verify($password, $data['clave'])) {
-            $_SESSION['idAdministrador'] = $data['id_administrador'];
+            $_SESSION['idAdministrador'] = $data['id_usuario'];
             $_SESSION['aliasAdministrador'] = $data['nombre_usuario'];
             return true;
         } else {
@@ -84,7 +83,7 @@ class UsuariosHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_usuario, nombre_usuario, id_tipousuario, imagen,
+        $sql = 'SELECT id_usuario, nombre_usuario, id_tipousuario, imagen
                 FROM usuarios
                 WHERE nombre_usuario LIKE ? OR id_usuario LIKE ?
                 ORDER BY nombre_usuario';
@@ -94,15 +93,15 @@ class UsuariosHandler
 
     public function createRow()
     {
-        $sql = 'INSERT INTO usuarios (nombre_usuario, clave, id_tipousuario, correo, imagen)
-                VALUES(?, ?, ?, ?, ?)';
-        $params = array($this->nombre, $this->clave, $this->tipoUsuario, $this->correo, $this->imagen);
+        $sql = 'INSERT INTO usuarios (nombre_usuario, clave, correo, imagen)
+                VALUES(?, ?, ?, ?)';
+        $params = array($this->nombre, $this->clave, $this->correo, $this->imagen);
         return Database::executeRow($sql, $params);
     }
 
     public function readAll()
     {
-        $sql = 'SELECT id_usuario, nombre_usuario, id_tipousuario, imagen,
+        $sql = 'SELECT id_usuario, nombre_usuario, correo, imagen
                 FROM usuarios
                 ORDER BY nombre_usuario';
         return Database::getRows($sql);
@@ -110,7 +109,7 @@ class UsuariosHandler
 
     public function readOne()
     {
-        $sql = 'SELECT id_usuario, nombre_usuario, id_tipousuario, imagen,
+        $sql = 'SELECT id_usuario, nombre_usuario, correo, imagen,
                 FROM usuarios
                 WHERE id_usuario = ?';
         $params = array($this->id);
@@ -132,10 +131,9 @@ class UsuariosHandler
                 SET nombre_usuario = ?,
                 clave = ?, 
                 correo = ?,
-                id_tipousuario = ?,
-                imagen = ?,
+                imagen = ?
                 WHERE id_usuario = ?';
-        $params = array($this->nombre, $this->correo, $this->correo, $this->tipoUsuario, $this->imagen);
+        $params = array($this->nombre, $this->clave, $this->correo, $this->imagen);
         return Database::executeRow($sql, $params);
     }
 
