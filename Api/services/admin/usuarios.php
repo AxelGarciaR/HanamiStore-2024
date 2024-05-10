@@ -30,7 +30,7 @@ if (isset($_GET['action'])) {
                     !$usuario->setNombreUsuario($_POST['nombreUsuario']) or
                     !$usuario->setCorreo($_POST['correoUsuario']) or
                     !$usuario->setClave($_POST['claveUsuario']) or
-                    !$usuario->setImagen($_FILES['imagenUsuario'], $usuario->getFilename()) 
+                    !$usuario->setImagen($_FILES['imagenUsuario'], $usuario->getFilename())
                 ) {
                     $result['error'] = $usuario->getDataError();
                 } elseif ($usuario->createRow()) {
@@ -78,22 +78,108 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'deleteRow':
-                if (
-                    !$usuario->setId($_POST['idUsuario']) or
-                    !$usuario->setFilename()
-                ) {
-                    $result['error'] = $producto->getDataError();
+                if ($_POST['idAdministrador'] == $_SESSION['idAdministrador']) {
+                    $result['error'] = 'No se puede eliminar a sí mismo';
+                } elseif (!$usuario->setId($_POST['idAdministrador'])) {
+                    $result['error'] = $usuario->getDataError();
                 } elseif ($usuario->deleteRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Producto eliminado correctamente';
-                    // Se asigna el estado del archivo después de eliminar.
-                    $result['fileStatus'] = Validator::deleteFile($usuario::RUTA_IMAGEN, $usuario->getFilename());
+                    $result['message'] = 'Administrador eliminado correctamente';
                 } else {
-                    $result['error'] = 'Ocurrió un problema al eliminar el producto';
+                    $result['error'] = 'Ocurrió un problema al eliminar el administrador';
+                }
+                break;
+            case 'logOut':
+                if (session_destroy()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Sesión eliminada correctamente';
+                } else {
+                    $result['error'] = 'Ocurrió un problema al cerrar la sesión';
+                }
+                break;
+            case 'readProfile':
+                if ($result['dataset'] = $usuario->readProfile()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['error'] = 'Ocurrió un problema al leer el perfil';
+                }
+                break;
+            case 'editProfile':
+                $_POST = Validator::validateForm($_POST);
+                if (
+                    !$usuario->setNombreUsuario($_POST['nombreUsuario']) or
+                    !$usuario->setCorreo($_POST['correoUsuario']) or
+                    !$usuario->setClave($_POST['claveUsuario']) or
+                    !$usuario->setImagen($_FILES['imagenUsuario'], $usuario->getFilename())
+                ) {
+                    $result['error'] = $usuario->getDataError();
+                } elseif ($usuario->editProfile()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Perfil modificado correctamente';
+                    $_SESSION['aliasAdministrador'] = $_POST['aliasAdministrador'];
+                } else {
+                    $result['error'] = 'Ocurrió un problema al modificar el perfil';
+                }
+                break;
+            case 'changePassword':
+                $_POST = Validator::validateForm($_POST);
+                if (!$usuario->checkPassword($_POST['claveActual'])) {
+                    $result['error'] = 'Contraseña actual incorrecta';
+                } elseif ($_POST['claveNueva'] != $_POST['confirmarClave']) {
+                    $result['error'] = 'Confirmación de contraseña diferente';
+                } elseif (!$usuario->setClave($_POST['claveNueva'])) {
+                    $result['error'] = $usuario->getDataError();
+                } elseif ($usuario->changePassword()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Contraseña cambiada correctamente';
+                } else {
+                    $result['error'] = 'Ocurrió un problema al cambiar la contraseña';
                 }
                 break;
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';
+        }
+    } else {
+
+        // Se compara la acción a realizar cuando el administrador no ha iniciado sesión.
+        switch ($_GET['action']) {
+            case 'readUsers':
+                if ($usuario->readAll()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Debe autenticarse para ingresar';
+                } else {
+                    $result['error'] = 'Debe crear un administrador para comenzar';
+                }
+                break;
+            case 'signUp':
+                $_POST = Validator::validateForm($_POST);
+                if (
+                    !$usuario->setNombreUsuario($_POST['nombreUsuario']) or
+                    !$usuario->setCorreo($_POST['correoUsuario']) or
+                    !$usuario->setClave($_POST['claveUsuario']) or
+                    !$usuario->setImagen($_FILES['imagenUsuario'], $usuario->getFilename())
+                ) {
+                    $result['error'] = $usuario->getDataError();
+                } elseif ($_POST['claveUsuario'] != $_POST['confirmarClave']) {
+                    $result['error'] = 'Contraseñas diferentes';
+                } elseif ($usuario->createRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Administrador registrado correctamente';
+                } else {
+                    $result['error'] = 'Ocurrió un problema';
+                }
+                break;
+            case 'logIn':
+                $_POST = Validator::validateForm($_POST);
+                if ($usuario->checkUser($_POST['correo'], $_POST['clave'])) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Autenticación correcta';
+                } else {
+                    $result['error'] = 'Credenciales incorrectas';
+                }
+                break;
+            default:
+                $result['error'] = 'Acción no disponible fuera de la sesión';
         }
         // Se obtiene la excepción del servidor de base de datos por si ocurrió un problema.
         $result['exception'] = Database::getException();
@@ -101,8 +187,6 @@ if (isset($_GET['action'])) {
         header('Content-type: application/json; charset=utf-8');
         // Se imprime el resultado en formato JSON y se retorna al controlador.
         print(json_encode($result));
-    } else {
-        print(json_encode('Acceso denegado'));
     }
 } else {
     print(json_encode('Recurso no disponible'));
