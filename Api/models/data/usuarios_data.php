@@ -12,19 +12,21 @@ class UsuarioData extends UsuariosHandler{
     private $data_error = null;
     private $filename = null;
 
-    //Metodos para validar y establecer los datos
-
+    //Funciones para validar y establecer los datos
+    
+    //Funcion para validar el id
     public function setId($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id = $value;
             return true;
         } else {
-            $this->data_error = 'El identificador del cliente es incorrecto';
+            $this->data_error = 'El identificador del usuario es incorrecto';
             return false;
         }
     }
 
+    //Funcion para validar el el nombre de usuario
     public function setNombreUsuario($value, $min = 2, $max = 100)
     {
         if (!Validator::validateAlphabetic($value)) {
@@ -39,23 +41,19 @@ class UsuarioData extends UsuariosHandler{
         }
     }
 
-    public function setCorreo($value, $min = 8, $max = 100)
+    //Funcion para validar el correo
+    public function setCorreo($value)
     {
-        if (!Validator::validateEmail($value)) {
-            $this->data_error = 'El correo no es válido';
+        if(!Validator::validateEmail($value)){
+            $this->data_error = 'Ingrese un correo válido';
             return false;
-        } elseif (!Validator::validateLength($value, $min, $max)) {
-            $this->data_error = 'El correo debe tener una longitud entre ' . $min . ' y ' . $max;
-            return false;
-        } elseif($this->checkDuplicate($value)) {
-            $this->data_error = 'El correo ingresado ya existe';
-            return false;
-        } else {
+        } else{
             $this->correo = $value;
             return true;
         }
     }
     
+    //Funcion para validar la clave
     public function setClave($value)
     {
         if (Validator::validatePassword($value)) {
@@ -67,6 +65,7 @@ class UsuarioData extends UsuariosHandler{
         }
     }
 
+    //Funcion para validar validar el nombre del archivo
     public function setFilename()
     {
         if ($data = $this->readFilename()) {
@@ -78,9 +77,7 @@ class UsuarioData extends UsuariosHandler{
         }
     }
 
-
-    //Revisar si se puede hacer una validacion para el campo de imagen
-
+    //Funcion para validar el validar la imagen
     public function setImagen($file, $filename = null)
     {
         if (Validator::validateImageFile($file, 1000)) {
@@ -98,11 +95,13 @@ class UsuarioData extends UsuariosHandler{
         }
     }
 
+    //Funcion para obtener el error
     public function getDataError()
     {
         return $this->data_error;
     }
 
+    //Funcion para obtener el nombre del archivo
     public function getFilename()
     {
         return $this->filename;
