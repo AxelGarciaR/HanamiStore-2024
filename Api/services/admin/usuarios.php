@@ -38,7 +38,7 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'usuario creado correctamente';
                     // Se asigna el estado del archivo después de insertar.
-                    $result['fileStatus'] = Validator::saveFile($_FILES['imagenProducto'], $usuario::RUTA_IMAGEN);
+                    $result['fileStatus'] = Validator::saveFile($_FILES['imagenUsuario'], $usuario::RUTA_IMAGEN);
                 } else {
                     $result['error'] = 'Ocurrio un problema con ingresar un admin';
                 }
