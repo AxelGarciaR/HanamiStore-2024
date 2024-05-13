@@ -28,7 +28,8 @@
                 <button class="btn btn-primary" type="submit" onclick="mostrarModalCrearMarca()">Crear</button>
             </div>
             <form class="d-flex" role="search" id="cosoBuscar">
-                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                <input class="form-control me-2" type="search" id="searchInput" placeholder="Buscar" aria-label="Search" oninput="buscarMarcas()">
+
             </form>
         </div>
 
@@ -147,12 +148,12 @@
                     <!-- Aquí puedes colocar los campos para editar los datos de la marca 1 -->
                     <form>
                         <div class="form-group">
-                            <label for="nombreMarca1">Nombre</label>
-                            <input type="text" class="form-control" id="nombreMarca1" maxlength="50">
+                            <label for="nombreMarca">Nombre de la marca</label>
+                            <input type="text" class="form-control" id="nombreMarca" maxlength="50">
                         </div>
                         <div class="form-group">
-                            <label for="descripcionMarca1">Descripción</label>
-                            <textarea class="form-control" id="descripcionMarca1" rows="3"></textarea>
+                            <label for="imagenMarca">Imagen de la marca</label>
+                            <input type="file" class="form-control-file" id="imagenMarca">
                         </div>
                     </form>
                 </div>
