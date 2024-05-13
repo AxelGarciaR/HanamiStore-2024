@@ -105,6 +105,22 @@ tbody tr th img {
     align-items: center;
 }
 
+#btnEditarEmpleado,
+.btnEliminarEmpleado {
+    background-color: #F0F0F0; /* Color de fondo gris */
+    color: black; /* Color del texto */
+    border: none;
+    width: 35%;
+    height: 35px;
+    border-radius: 5px;
+}
+
+#btnEditarEmpleado:hover,
+.btnEliminarEmpleado:hover {
+    background-color: #FADAE6; /* Color gris oscuro al pasar el mouse */
+    color: white; /* Texto blanco */
+}
+
 
 @media (max-width: 425px) {
 

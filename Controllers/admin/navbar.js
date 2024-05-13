@@ -26,6 +26,12 @@ document.addEventListener('DOMContentLoaded', function () {
           <a class="nav-link" href="Perfil.html">Perfil</a>
         </li>
         <li class="nav-item">
+        <a class="nav-link" href="Ordenes.html">Ordenes</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="Valoraciones.html">Valoraciones</a>
+    </li>
+        <li class="nav-item">
         <a class="nav-link" href="Index.html">Cerrar sesion</a>
       </li>
       </ul>

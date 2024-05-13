@@ -1,0 +1,58 @@
+/* Estilos para las tarjetas de valoración */
+.card {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.5rem;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.03);
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+.card-title {
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+}
+
+.rating {
+    color: #ffc107;
+}
+
+.fa-star {
+    font-size: 1.25rem;
+}
+
+.checked {
+    color: orange;
+}
+
+.card-text {
+    margin-bottom: 1rem;
+}
+
+.btn-danger {
+    background-color: #ff69b4; /* Color rosado */
+    border-color: #ff69b4; /* Color del borde */
+}
+
+.btn-danger:hover {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+/* Estilos para hacer la página responsive */
+@media (max-width: 768px) {
+    .row-cols-md-2 {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 576px) {
+    .row-cols-1 {
+        flex-direction: column;
+    }
+}

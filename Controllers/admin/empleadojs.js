@@ -1,29 +1,44 @@
-
 var modal1 = document.getElementById("modalAgregarEmpleado");
-var btn = document.getElementById("btnAgregarEmpleado");
-var span = document.getElementsByClassName("closeAgregarEmpleado")[0];
+var modal2 = document.getElementById("modalEditarEmpleado"); // Nuevo modal para editar
+var btnAgregar = document.getElementById("btnAgregarEmpleado");
+var btnEditar = document.querySelectorAll(".btnEditarEmpleado"); // Botones de editar
 
-// Abrir el modal cuando se hace clic en el botón
-btn.onclick = function () {
+var span = document.getElementsByClassName("closeAgregarEmpleado")[0];
+var spanEditar = document.getElementsByClassName("closeEditarEmpleado")[0]; // Nuevo span para el modal de editar
+
+// Abrir el modal de crear empleado cuando se hace clic en el botón
+btnAgregar.onclick = function () {
   modal1.style.display = "block";
 }
 
-// Cerrar el modal cuando se hace clic en la "x"
+// Cerrar el modal de crear empleado cuando se hace clic en la "x"
 span.onclick = function () {
   modal1.style.display = "none";
 }
 
-// Cerrar el modal cuando se hace clic fuera del modal
+// Abrir el modal de editar empleado cuando se hace clic en el botón
+btnEditar.forEach(function(btn) {
+  btn.onclick = function () {
+    modal2.style.display = "block";
+  }
+});
+
+// Cerrar el modal de editar empleado cuando se hace clic en la "x"
+spanEditar.onclick = function () {
+  modal2.style.display = "none";
+}
+
+// Cerrar el modal de crear empleado cuando se hace clic fuera del modal
 window.onclick = function (event) {
   if (event.target == modal1) {
     modal1.style.display = "none";
   }
+  if (event.target == modal2) { // Cerrar el modal de editar empleado cuando se hace clic fuera del modal
+    modal2.style.display = "none";
+  }
 }
 
-
-//Javascript para el modal
-
-const modal2 = document.getElementById("modalAgregarEmpleado")
+//Javascript para el modal de crear empleado
 
 const openClose = async () => {
   // Llamada a la función para mostrar un mensaje de confirmación
@@ -38,8 +53,8 @@ const openClose = async () => {
   });
 
   if (confirmed.isConfirmed) {
-    $(modal2).modal('hide');
-    modal2.style.display = "none";
+    $(modal1).modal('hide');
+    modal1.style.display = "none";
   }
 }
 
@@ -52,8 +67,8 @@ const openNoti = async () => {
     confirmButtonColor: '#FFAFCC',
     confirmButtonText: 'Cerrar',
     onAfterClose: () => {
-      $(modal2).modal('hide');
-      modal2.style.display = "none";
+      $(modal1).modal('hide');
+      modal1.style.display = "none";
     }
   });
 }
@@ -89,4 +104,30 @@ btnEliminarEmpleado.forEach(btn => {
       }
     });
   });
+});
+
+// Restricciones para los inputs del modal de editar empleado
+const inputNombreEditar = document.getElementById('nombreUsuarioEditar');
+const inputContrasenaEditar = document.getElementById('contrasenaEditar');
+const inputCorreoEditar = document.getElementById('correoElectronicoEditar');
+
+// Restricción para el input de nombre de usuario
+inputNombreEditar.addEventListener('input', function() {
+  if (this.value.length > 100) {
+    this.value = this.value.slice(0, 100);
+  }
+});
+
+// Restricción para el input de contraseña
+inputContrasenaEditar.addEventListener('input', function() {
+  if (this.value.length > 100) {
+    this.value = this.value.slice(0, 100);
+  }
+});
+
+// Restricción para el input de correo electrónico
+inputCorreoEditar.addEventListener('input', function() {
+  if (this.value.length > 100) {
+    this.value = this.value.slice(0, 100);
+  }
 });

@@ -105,7 +105,47 @@ tbody tr th img {
     align-items: center;
 }
 
+#btnEditarEmpleado,
+.btnEliminarEmpleado {
+    width: 22%;
+    background-color: #F0F0F0; /* Cambiar el color de fondo al gris deseado */
+    color: black; /* Color del texto */
+    border-style: none;
+}
 
+#btnEditarEmpleado:hover,
+.btnEliminarEmpleado:hover {
+    background-color: #FADAE6; /* Cambiar el color de fondo al gris claro deseado al pasar el ratón */
+    color: black; /* Color del texto */
+}
+
+.btnEditarEmpleado,
+.btnEliminarEmpleado {
+    width: 22%;
+    background-color: #F0F0F0; /* Color de fondo gris */
+    color: black; /* Color del texto */
+    border-style: none;
+}
+
+.btnEditarEmpleado:hover,
+.btnEliminarEmpleado:hover {
+    background-color: #FADAE6; /* Color de fondo gris claro al pasar el ratón */
+    color: black; /* Color del texto */
+}
+
+#modalEditarCliente .btnEditarEmpleado {
+    background-color: #F0F0F0; /* Color de fondo gris */
+    color: black; /* Color del texto */
+    border: none;
+    width: 35%;
+    height: 35px;
+    border-radius: 5px;
+}
+
+#modalEditarCliente .btnEditarEmpleado:hover {
+    background-color: #FADAE6; /* Color de fondo gris claro al pasar el ratón */
+    color: black; /* Color del texto */
+}
 @media (max-width: 425px) {
 
     .tablaContainer {

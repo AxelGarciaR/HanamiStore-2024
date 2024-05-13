@@ -1,0 +1,60 @@
+/* Estilos adicionales */
+body {
+    background-color: #fce4ec; /* Rosa claro */
+}
+
+footer {
+    background-color: #f48fb1; /* Rosa */
+    padding: 20px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+h1, h2 {
+    color: #880e4f; /* Rosa oscuro */
+}
+
+/* Estilos para las tarjetas de órdenes */
+.card {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-title {
+    color: #f72c72;
+  }
+  
+  .card-text {
+    color: #6c757d;
+  }
+  
+  /* Estilos para la tabla de detalles de órdenes */
+  .table {
+    background-color: #fff;
+    border-radius: 10px;
+  }
+  
+  .table thead th {
+    background-color: #f8d7da;
+    border-top: 1px solid #dee2e6;
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f8d7da;
+  }
+  
+  .table-striped tbody tr:nth-of-type(even) {
+    background-color: #fff;
+  }
+  
+  .table-hover tbody tr:hover {
+    background-color: #f8d7da;
+  }
+  
