@@ -8,8 +8,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
   id_usuario INT PRIMARY KEY AUTO_INCREMENT,
   nombre_usuario VARCHAR(100),
   clave VARCHAR(100),
-  correo VARCHAR(100),
-  imagen VARCHAR(100)
+  correo VARCHAR(100)
 );
 
 -- Creación de la tabla clientes
