@@ -1,30 +1,34 @@
-<?php
-session_start();
-require_once('../../helpers/database.php');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+// Constante para establecer el formulario de inicio de sesión.
+const LOGIN_FORM = document.getElementById('loginForm');
 
-    // Consulta SQL para verificar las credenciales
-    $sql = 'SELECT id_usuario, nombre_usuario, clave FROM usuarios WHERE nombre_usuario = ?';
-    $params = array($username);
-    $user = Database::getRow($sql, $params);
-
-    if ($user && password_verify($password, $user['clave'])) {
-        // Inicio de sesión exitoso
-        $_SESSION['id_usuario'] = $user['id_usuario'];
-        $_SESSION['nombre_usuario'] = $user['nombre_usuario'];
-        header('Location: ../../Views/admin/Graficas.html');
-        exit();
+// Método del evento para cuando el documento ha cargado.
+document.addEventListener('DOMContentLoaded', async () => {
+    // Petición para consultar los usuarios registrados.
+    const DATA = await fetchData(USER_API, 'readProfile');
+    // Se comprueba si existe una sesión, de lo contrario se sigue con el flujo normal.
+    if (DATA.session) {
+        // Se direcciona a la página web de bienvenida.
+        location.href = 'dashboard.html';
+    } else if (DATA.status) {
     } else {
-        // Credenciales incorrectas
-        header('Location: login.php?error=1');
-        exit();
     }
-} else {
-    // Redireccionar si se accede directamente al script sin datos de formulario
-    header('Location: login.php');
-    exit();
-}
-?>
+});
+
+
+// Método del evento para cuando se envía el formulario de inicio de sesión.
+LOGIN_FORM.addEventListener('submit', async (event) => {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Constante tipo objeto con los datos del formulario.
+    const FORM = new FormData(LOGIN_FORM);
+    // Petición para iniciar sesión.
+    const DATA = await fetchData(USER_API, 'logIn', FORM);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    if (DATA.status) {
+        sweetAlert(1, DATA.message, true, 'Graficas.html');
+        console.log('peneeee');
+    } else {
+        sweetAlert(2, DATA.error, false);
+    }
+});

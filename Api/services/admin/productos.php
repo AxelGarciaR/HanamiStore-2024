@@ -31,7 +31,7 @@ if (isset($_GET['action'])) {
                     !$producto->setNombreProducto($_POST['nombreProducto']) or
                     !$producto->setDescripcionProducto($_POST['descripcionProducto']) or
                     !$producto->setPrecioProducto($_POST['precioProducto']) or
-                    !$producto->setImagen($_FILES['imagenProducto'], $producto->getFilename()) or
+                    !$producto->setImagen($_FILES['imagenPrincipal'], $producto->getFilename()) or
                     !$producto->setCantidadProducto($_POST['cantidadProducto']) or
                     !$producto->setidSubcategoria($_POST['subCategoriaProducto']) or
                     !$producto->setDescuento($_POST['descuentoProducto']) or
@@ -40,11 +40,11 @@ if (isset($_GET['action'])) {
                     $result['error'] = $producto->getDataError();
                 } elseif ($producto->createRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'usuario creado correctamente';
+                    $result['message'] = 'producto creado correctamente';
                     // Se asigna el estado del archivo después de insertar.
-                    $result['fileStatus'] = Validator::saveFile($_FILES['imagenProducto'], $producto::RUTA_IMAGEN);
+                    $result['fileStatus'] = Validator::saveFile($_FILES['imagenPrincipal'], $producto::RUTA_IMAGEN);
                 } else {
-                    $result['error'] = 'Ocurrio un problema con ingresar un admin';
+                    $result['error'] = 'Ocurrio un problema con ingresar un producto';
                 }
                 break;
             case 'readAll':
@@ -56,7 +56,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readOne':
-                if (!$producto->setId($_POST['idUsuario'])) {
+                if (!$producto->setIdProducto($_POST['idProducto'])) {
                     $result['error'] = $producto->getDataError();
                 } elseif ($result['dataset'] = $producto->readOne()) {
                     $result['status'] = 1;
@@ -70,7 +70,7 @@ if (isset($_GET['action'])) {
                     !$producto->setNombreProducto($_POST['nombreProducto']) or
                     !$producto->setDescripcionProducto($_POST['descripcionProducto']) or
                     !$producto->setPrecioProducto($_POST['precioProducto']) or
-                    !$producto->setImagen($_FILES['imagenProducto'], $producto->getFilename()) or
+                    !$producto->setImagen($_FILES['imagenPrincipal'], $producto->getFilename()) or
                     !$producto->setCantidadProducto($_POST['cantidadProducto']) or
                     !$producto->setidSubcategoria($_POST['subCategoriaProducto']) or
                     !$producto->setDescuento($_POST['descuentoProducto']) or
@@ -81,19 +81,19 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Producto actualizado';
                     // Se asigna el estado del archivo después de actualizar.
-                    $result['fileStatus'] = Validator::changeFile($_FILES['imagenUsuario'], $producto::RUTA_IMAGEN, $usuario->getFilename());
+                    $result['fileStatus'] = Validator::changeFile($_FILES['imagenPrincipal'], $producto::RUTA_IMAGEN, $usuario->getFilename());
                 } else {
                     $result['error'] = 'Ocurrió un problema al modificar el producto';
                 }
                 break;
             case 'deleteRow':
-                if (!$producto->setId($_POST['idProducto'])) {
+                if (!$producto->setIdProducto($_POST['idProducto'])) {
                     $result['error'] = $producto->getDataError();
                 } elseif ($producto->deleteRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Administrador eliminado correctamente';
+                    $result['message'] = 'Producto eliminado correctamente';
                 } else {
-                    $result['error'] = 'Ocurrió un problema al eliminar el administrador';
+                    $result['error'] = 'Ocurrió un problema al eliminar el producto';
                 }
                 break;
             default:

@@ -38,7 +38,7 @@ class UsuariosHandler
     }
 
     //Esta funcion valida que la contraseña del usuario coincida con la de la base de datos
-    public function checkPassword($password)
+    public function checkPassword($password)    
     {
         $sql = 'SELECT clave
                 FROM usuarios

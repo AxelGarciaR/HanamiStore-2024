@@ -12,7 +12,7 @@ class ProductosData extends ProductosHandler
     private $filename = null;
 
     //Funcion para validar el id
-    public function setId($value)
+    public function setIdProducto($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id = $value;
@@ -66,7 +66,7 @@ class ProductosData extends ProductosHandler
     public function setFilename()
     {
         if ($data = $this->readFilename()) {
-            $this->filename = $data['imagen_producto'];
+            $this->filename = $data['imagenPrincipal'];
             return true;
         } else {
             $this->data_error = 'Producto inexistente';
