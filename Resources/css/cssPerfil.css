@@ -42,11 +42,11 @@ body::-webkit-scrollbar-thumb {
 }
 
 #jj {
-    margin-top: 125px;
+    margin-top: 20px;
 }
 
 #jj1 {
-    margin-top: 125px;
+    margin-top: 125pxpx;
 }
 
 #jj2 {
@@ -121,4 +121,13 @@ body::-webkit-scrollbar-thumb {
 
 .submit-button:hover {
     background-color: hotpink;
+}
+
+.image-container h2 {
+    color: black;
+}
+
+.image-container img {
+    width: 150px; /* Modifica el ancho de la imagen según sea necesario */
+    height: auto; /* Para mantener la proporción de la imagen */
 }
