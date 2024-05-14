@@ -36,7 +36,7 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Marca creada correctamente';
                     // Se asigna el estado del archivo después de insertar.
-                    $result['fileStatus'] = Validator::saveFile($_FILES['logoMarca'], $marca::RUTA_LOGO);
+                    $result['fileStatus'] = Validator::saveFile($_FILES['logoMarca'], $marca::RUTA_IMAGEN);
                 } else {
                     $result['error'] = 'Ocurrió un problema al ingresar la marca';
                 }
@@ -69,7 +69,7 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Marca actualizada';
                     // Se asigna el estado del archivo después de actualizar.
-                    $result['fileStatus'] = Validator::changeFile($_FILES['logoMarca'], $marca::RUTA_LOGO, $marca->getFilename());
+                    $result['fileStatus'] = Validator::changeFile($_FILES['logoMarca'], $marca::RUTA_IMAGEN, $marca->getFilename());
                 } else {
                     $result['error'] = 'Ocurrió un problema al modificar la marca';
                 }
