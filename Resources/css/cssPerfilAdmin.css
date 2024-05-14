@@ -131,3 +131,7 @@ body::-webkit-scrollbar-thumb {
     width: 150px; /* Modifica el ancho de la imagen según sea necesario */
     height: auto; /* Para mantener la proporción de la imagen */
 }
+
+.editar-activo {
+    background-color: #f8f9fa; /* Cambia el color de fondo cuando el botón está activo */
+}

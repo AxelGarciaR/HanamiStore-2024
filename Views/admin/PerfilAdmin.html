@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../Resources/css/cssPerfil.css">
+    <link rel="stylesheet" href="../../Resources/css/cssPerfilAdmin.css">
 </head>
 
 <body>
@@ -24,34 +24,71 @@
 
         <div class="container">
             <div class="image-container">
-                <img src="../../Resources/images/usuario.png" alt="Imagen">
-                <h2>Axel Garcia</h2>
+                <img src="../../Resources/images/userhanamipro.png" alt="Imagen">
+                <h2>Daniel Quintanilla</h2>
             </div>
 
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" class="form-control pink-input" value="Daniel Alejandro">
+                <div class="input-group">
+                    <input type="text" readonly id="nombre" class="form-control pink-input" value="Daniel Alejandro">
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <img src="../../Resources/images/editarhanami.png" alt="Editar" width="20" height="20">
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="apellidos">Apellidos:</label>
-                <input type="text" id="apellidos" class="form-control pink-input" value="Cortez Quintanilla">
+                <div class="input-group">
+                    <input type="text" readonly id="apellidos" class="form-control pink-input"
+                        value="Cortez Quintanilla">
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <img src="../../Resources/images/editarhanami.png" alt="Editar" width="20" height="20">
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="correo">Correo Electrónico:</label>
-                <input type="text" id="correo" class="form-control pink-input" value="prueba@ricadone.edu.sv">
+                <div class="input-group">
+                    <input type="text" readonly id="correo" class="form-control pink-input"
+                        value="prueba@ricadone.edu.sv">
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <img src="../../Resources/images/editarhanami.png" alt="Editar" width="20" height="20">
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="direccion">Dirección:</label>
-                <input type="text" id="direccion" class="form-control pink-input"
-                    value="El Salvador, San Salvador, Mejicanos">
+                <div class="input-group">
+                    <input type="text" readonly id="direccion" class="form-control pink-input"
+                        value="El Salvador, San Salvador, Mejicanos">
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <img src="../../Resources/images/editarhanami.png" alt="Editar" width="20" height="20">
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="rol">Rol:</label>
-                <input type="text" id="rol" class="form-control pink-input" value="Administrador">
+                <div class="input-group">
+                    <input type="text" readonly id="rol" class="form-control pink-input" value="Administrador">
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <img src="../../Resources/images/editarhanami.png" alt="Editar" width="20" height="20">
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <!-- Agregamos un ID al botón "Guardar cambios" -->
@@ -74,6 +111,6 @@
 <script src="../../Controllers/admin/footer.js"></script>
 <script src="../../controllers/admin/navbar.js"></script>
 <!-- Agregamos un nuevo script para manejar la alerta -->
-<script src="../../Controllers/admin/perfil.js"></script>
+<script src="../../Controllers/admin/perfiladmin.js"></script>
 
 </html>
