@@ -5,26 +5,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hanami</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="../../Resources/css/cssEmpleado.css">
 </head>
 
-<!-- Etiqueta para aplicar plantilla de navbar -->
 <body>
 
     <header class="header sticky-top">
         <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar"></nav>
     </header>
 
-    <!-- Contenedor de contenido -->
-    <br>
-
     <div class="tablaContainer">
-        <!-- Contenedor de botones de accion de CRUD -->
         <div class="containerBotones">
             <button class="btnCrud btn btn-primary" type="submit" id="btnAgregarEmpleado">Crear</button>
             <form class="d-flex" role="search" id="cosoBuscar">
@@ -34,42 +27,37 @@
 
         <br>
 
-        <!-- Contenedor de tabla de CRUD -->
         <div class="containerT">
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Foto</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Cargo</th>
+                        <th scope="col">Correo</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope="row"><img src="../../Resources/images/Perfil 1.png" alt=""></th>
                         <td>Emily Murillo</td>
-                        <td>Super Admin</td>
+                        <td>emilymmurillo@gmail.com</td>
                         <td>
-                            <button class="btnCrud btn btn-primary btnEditarEmpleado" id="btnEditarEmpleado" type="button">Editar</button>
+                            <button class="btnCrud btn btn-primary btnEditarEmpleado" type="button">Editar</button>
                             <button class="btnCrud btn btn-danger btnEliminarEmpleado" type="button">Eliminar</button>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><img src="../../Resources/images/Perfil 2.png" alt=""></th>
                         <td>Axel Garcia</td>
                         <td>Administrador</td>
                         <td>
-                            <button class="btnCrud btn btn-primary btnEditarEmpleado" id="btnEditarEmpleado" type="button">Editar</button>
+                            <button class="btnCrud btn btn-primary btnEditarEmpleado" type="button">Editar</button>
                             <button class="btnCrud btn btn-danger btnEliminarEmpleado"  type="button">Eliminar</button>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><img src="../../Resources/images/Perfil 3.png" alt=""></th>
                         <td>Daniel Cortez</td>
                         <td>Supervisor</td>
                         <td>
-                            <button class="btnCrud btn btn-primary btnEditarEmpleado" id="btnEditarEmpleado" type="button">Editar</button>
+                            <button class="btnCrud btn btn-primary btnEditarEmpleado" type="button">Editar</button>
                             <button class="btnCrud btn btn-danger btnEliminarEmpleado" type="button">Eliminar</button>
                         </td>
                     </tr>
@@ -78,7 +66,6 @@
         </div>
     </div>
 
-    <!-- Modal para agregar empleados -->
     <div id="modalAgregarEmpleado" class="modal">
         <div class="modal-content">
             <span class="closeAgregarEmpleado">&times;</span>
@@ -88,9 +75,7 @@
                 </div>
 
                 <div class="camposServicios">
-                    <div class="agregarImagen">
-                        <img src="../../Resources/images/mas.png" alt="">
-                    </div>
+                   
                     <div class="camposAgregarEmpleado">
                         <div class="form-floating mb-2 p-0">
                             <input type="text" class="form-control" id="nombreUsuario" placeholder="..." maxlength="100">
@@ -105,7 +90,6 @@
                             <label for="correoElectronico">Correo Electrónico</label>
                         </div>
                     </div>
-                    
                 </div>
                 <hr class="bottomModalSer">
                 <div class="botonesModalSer">
@@ -116,7 +100,6 @@
         </div>
     </div>
 
-    <!-- Modal para editar empleados -->
     <div id="modalEditarEmpleado" class="modal">
         <div class="modal-content">
             <span class="closeEditarEmpleado">&times;</span>
@@ -125,9 +108,7 @@
                     <h4>Editar Usuarios</h4>
                 </div>
                 <div class="camposServicios">
-                    <div class="agregarImagen">
-                        <img src="../../Resources/images/mas.png" alt="">
-                    </div>
+                    
                     <div class="camposAgregarEmpleado">
                         <div class="form-floating mb-2 p-0">
                             <input type="text" class="form-control" id="nombreUsuario" placeholder="..." maxlength="100">
@@ -142,7 +123,6 @@
                             <label for="correoElectronico">Correo Electrónico</label>
                         </div>
                     </div>
-                    
                 </div>
                 <hr class="bottomModalSer">
                 <div class="botonesModalSer">
@@ -153,24 +133,17 @@
         </div>
     </div>
 
-    <!-- Contenedor de footer para aplicar la plantilla -->
     <div id="footer"></div>
 
-    <!-- Scripts necesarios para que funcionen las páginas -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="../../controllers/admin/navbar.js"></script>
     <script src="../../controllers/admin/footer.js"></script>
     <script src="../../Controllers/admin/empleadojs.js"></script>
     <script>
-        // Aquí va el JavaScript adicional necesario para los modales
+        // JavaScript adicional aquí
     </script>
 </body>
 
