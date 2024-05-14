@@ -11,10 +11,6 @@ class UsuariosHandler
     protected $nombre = null;
     protected $clave = null;
     protected $correo = null;
-    protected $imagen = null;
-
-    // Constante para establecer la ruta de las imagenes
-    const RUTA_IMAGEN = '../../images/productos/';
 
     /*Metodos para administrar las cuentas de Usuarios*/
 
@@ -66,7 +62,7 @@ class UsuariosHandler
     //Esta funcion muestra los datos del usuario
     public function readProfile()
     {
-        $sql = 'SELECT id_usuario, nombre_usuario, correo, clave, imagen
+        $sql = 'SELECT id_usuario, nombre_usuario, correo, clave
                 FROM usuarios
                 WHERE id_usuario = ?';
         $params = array($_SESSION['idAdministrador']);
@@ -77,22 +73,12 @@ class UsuariosHandler
     public function editProfile()
     {
         $sql = 'UPDATE usuarios
-                SET nombre_usuario = ?, correo = ?,
-                imagen = ?
+                SET nombre_usuario = ?, correo = ?
                 WHERE id_usuario = ?';
-        $params = array($this->nombre, $this->correo, $this->imagen, $_SESSION['idAdministrador']);
+        $params = array($this->nombre, $this->correo, $_SESSION['idAdministrador']);
         return Database::executeRow($sql, $params);
     }
 
-    //Esta funcion lee un archivo en este caso una imagen
-    public function readFilename()
-    {
-        $sql = 'SELECT imagen
-                FROM usuarios
-                WHERE id_usuario = ?';
-        $params = array($this->id);
-        return Database::getRow($sql, $params);
-    }
 
     //Esta funcion verifica los datos duplicados
     public function checkDuplicate($value)
@@ -110,7 +96,7 @@ class UsuariosHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_usuario, nombre_usuario, id_tipousuario, imagen
+        $sql = 'SELECT id_usuario, nombre_usuario, id_tipousuario
                 FROM usuarios
                 WHERE nombre_usuario LIKE ? OR id_usuario LIKE ?
                 ORDER BY nombre_usuario';
@@ -121,16 +107,16 @@ class UsuariosHandler
     //Create
     public function createRow()
     {
-        $sql = 'INSERT INTO usuarios (nombre_usuario, clave, correo, imagen)
-                VALUES(?, ?, ?, ?)';
-        $params = array($this->nombre, $this->clave, $this->correo, $this->imagen);
+        $sql = 'INSERT INTO usuarios (nombre_usuario, clave, correo)
+                VALUES(?, ?, ?,)';
+        $params = array($this->nombre, $this->clave, $this->correo);
         return Database::executeRow($sql, $params);
     }
 
     //ReadAll
     public function readAll()
     {
-        $sql = 'SELECT id_usuario, nombre_usuario, correo, imagen
+        $sql = 'SELECT id_usuario, nombre_usuario, correo
                 FROM usuarios
                 ORDER BY nombre_usuario';
         return Database::getRows($sql);
@@ -139,7 +125,7 @@ class UsuariosHandler
     //ReadOne
     public function readOne()
     {
-        $sql = 'SELECT id_usuario, nombre_usuario, correo, imagen,
+        $sql = 'SELECT id_usuario, nombre_usuario, correo,
                 FROM usuarios
                 WHERE id_usuario = ?';
         $params = array($this->id);
@@ -152,10 +138,9 @@ class UsuariosHandler
         $sql = 'UPDATE usuarios
                 SET nombre_usuario = ?,
                 clave = ?, 
-                correo = ?,
-                imagen = ?
+                correo = ?
                 WHERE id_usuario = ?';
-        $params = array($this->nombre, $this->clave, $this->correo, $this->imagen);
+        $params = array($this->nombre, $this->clave, $this->correo);
         return Database::executeRow($sql, $params);
     }
 

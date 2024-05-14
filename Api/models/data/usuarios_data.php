@@ -65,46 +65,11 @@ class UsuarioData extends UsuariosHandler{
         }
     }
 
-    //Funcion para validar validar el nombre del archivo
-    public function setFilename()
-    {
-        if ($data = $this->readFilename()) {
-            $this->filename = $data['imagen_producto'];
-            return true;
-        } else {
-            $this->data_error = 'Producto inexistente';
-            return false;
-        }
-    }
-
-    //Funcion para validar el validar la imagen
-    public function setImagen($file, $filename = null)
-    {
-        if (Validator::validateImageFile($file, 1000)) {
-            $this->imagen = Validator::getFileName();
-            return true;
-        } elseif (Validator::getFileError()) {
-            $this->data_error = Validator::getFileError();
-            return false;
-        } elseif ($filename) {
-            $this->imagen = $filename;
-            return true;
-        } else {
-            $this->imagen = 'default.png';
-            return true;
-        }
-    }
-
     //Funcion para obtener el error
     public function getDataError()
     {
         return $this->data_error;
     }
 
-    //Funcion para obtener el nombre del archivo
-    public function getFilename()
-    {
-        return $this->filename;
-    }
 
 }

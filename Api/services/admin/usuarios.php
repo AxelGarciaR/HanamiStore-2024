@@ -30,15 +30,12 @@ if (isset($_GET['action'])) {
                 if (
                     !$usuario->setNombreUsuario($_POST['nombreUsuario']) or
                     !$usuario->setCorreo($_POST['correoUsuario']) or
-                    !$usuario->setClave($_POST['claveUsuario']) or
-                    !$usuario->setImagen($_FILES['imagenUsuario'], $usuario->getFilename())
+                    !$usuario->setClave($_POST['claveUsuario'])
                 ) {
                     $result['error'] = $usuario->getDataError();
                 } elseif ($usuario->createRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'usuario creado correctamente';
-                    // Se asigna el estado del archivo después de insertar.
-                    $result['fileStatus'] = Validator::saveFile($_FILES['imagenProducto'], $usuario::RUTA_IMAGEN);
                 } else {
                     $result['error'] = 'Ocurrio un problema con ingresar un admin';
                 }
@@ -65,15 +62,13 @@ if (isset($_GET['action'])) {
                 if (
                     !$usuario->setNombreUsuario($_POST['nombreUsuario']) or
                     !$usuario->setCorreo($_POST['correoUsuario']) or
-                    !$usuario->setClave($_POST['claveUsuario']) or
-                    !$usuario->setImagen($_FILES['imagenUsuario'], $usuario->getFilename())
+                    !$usuario->setClave($_POST['claveUsuario'])
                 ) {
                     $result['error'] = $usuario->getDataError();
                 } elseif ($usuario->updateRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Administrador actualizado';
-                    // Se asigna el estado del archivo después de actualizar.
-                    $result['fileStatus'] = Validator::changeFile($_FILES['imagenUsuario'], $usuario::RUTA_IMAGEN, $usuario->getFilename());
+
                 } else {
                     $result['error'] = 'Ocurrió un problema al modificar un admin';
                 }
@@ -118,8 +113,7 @@ if (isset($_GET['action'])) {
                 if (
                     !$usuario->setNombreUsuario($_POST['nombreUsuario']) or
                     !$usuario->setCorreo($_POST['correoUsuario']) or
-                    !$usuario->setClave($_POST['claveUsuario']) or
-                    !$usuario->setImagen($_FILES['imagenUsuario'], $usuario->getFilename())
+                    !$usuario->setClave($_POST['claveUsuario'])
                 ) {
                     $result['error'] = $usuario->getDataError();
                 } elseif ($usuario->editProfile()) {
@@ -165,8 +159,7 @@ if (isset($_GET['action'])) {
                 if (
                     !$usuario->setNombreUsuario($_POST['nombreUsuario']) or
                     !$usuario->setCorreo($_POST['correoUsuario']) or
-                    !$usuario->setClave($_POST['claveUsuario']) or
-                    !$usuario->setImagen($_FILES['imagenUsuario'], $usuario->getFilename())
+                    !$usuario->setClave($_POST['claveUsuario'])
                 ) {
                     $result['error'] = $usuario->getDataError();
                 } elseif ($_POST['claveUsuario'] != $_POST['confirmarClave']) {
