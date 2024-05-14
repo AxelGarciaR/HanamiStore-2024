@@ -5,7 +5,6 @@
     <title>Productos</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="../../Resources/css/cssMarcas.css">
@@ -29,7 +28,6 @@
             </div>
             <form class="d-flex" role="search" id="cosoBuscar">
                 <input class="form-control me-2" type="search" id="searchInput" placeholder="Buscar" aria-label="Search" oninput="buscarMarcas()">
-
             </form>
         </div>
 
@@ -45,9 +43,8 @@
                                 <h5 class="card-title">DIOR</h5>
                                 <p class="card-text">Descripción de la marca 1.</p>
                                 <div class="card-actions">
-                                    <button class="btn btn-info" data-toggle="modal"
-                                        data-target="#modalProducto1">Editar</button>
-                                    <button class="btn btn-danger" onclick="eliminarMarca(event)">Eliminar</button>
+                                    <button class="btn btn-info" onclick="mostrarModalEditarMarca('1')">Editar</button>
+                                    <button class="btn btn-danger" onclick="eliminarMarca('1')">Eliminar</button>
                                 </div>
                             </div>
                         </div>
@@ -114,6 +111,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <!-- Contenido del modal de crear marca -->
                     <form>
                         <div class="form-group">
                             <label for="nombreMarca">Nombre de la marca</label>
@@ -133,60 +131,48 @@
         </div>
     </div>
 
-    <!-- Modal para editar la marca 1 -->
-    <div class="modal fade" id="modalProducto1" tabindex="-1" role="dialog" aria-labelledby="modalProducto1Label"
+    <!-- Modal para editar la marca -->
+    <div class="modal fade" id="modalEditarMarca" tabindex="-1" role="dialog" aria-labelledby="modalEditarMarcaLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalProducto1Label">Editar marca - DIOR</h5>
+                    <h5 class="modal-title" id="modalEditarMarcaLabel">Editar marca</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <!-- Aquí puedes colocar los campos para editar los datos de la marca 1 -->
-                    <form>
-                        <div class="form-group">
-                            <label for="nombreMarca">Nombre de la marca</label>
-                            <input type="text" class="form-control" id="nombreMarca" maxlength="50">
-                        </div>
-                        <div class="form-group">
-                            <label for="imagenMarca">Imagen de la marca</label>
-                            <input type="file" class="form-control-file" id="imagenMarca">
-                        </div>
-                    </form>
+                    <!-- Contenido del modal de editar marca -->
+                    <input type="hidden" id="idMarcaEditar">
+                    <div class="form-group">
+                        <label for="nombreMarcaEditar">Nombre de la marca</label>
+                        <input type="text" class="form-control" id="nombreMarcaEditar" maxlength="50">
+                    </div>
+                    <div class="form-group">
+                        <label for="imagenMarcaEditar">Imagen de la marca</label>
+                        <input type="file" class="form-control-file" id="imagenMarcaEditar">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Guardar cambios</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarMarcaEditada()">Guardar cambios</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal para editar la marca 2 -->
-    <!-- Aquí iría el código del modal para la marca 2 con el input de nombre limitado a 50 caracteres -->
-
-    <!-- Modal para editar la marca 3 -->
-    <!-- Aquí iría el código del modal para la marca 3 con el input de nombre limitado a 50 caracteres -->
-
-    <!-- Modal para editar la marca 4 -->
-    <!-- Aquí iría el código del modal para la marca 4 con el input de nombre limitado a 50 caracteres -->
-
-    <!--Contenedor de footer para alplicar las plantilas-->
-    <div id="footer"> </div>
-
-    <!--Scripts necesarios-->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- Footer -->
+    <div id="footer"></div>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../../Controllers/admin/footer.js"></script>
     <script src="../../Controllers/admin/navbar.js"></script>
     <script src="../../Controllers/admin/marcas.js"></script>
-
 </body>
 
 </html>
