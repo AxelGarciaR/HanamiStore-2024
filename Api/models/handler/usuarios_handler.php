@@ -108,7 +108,7 @@ class UsuariosHandler
     public function createRow()
     {
         $sql = 'INSERT INTO usuarios (nombre_usuario, clave, correo)
-                VALUES(?, ?, ?,)';
+                VALUES(?, ?, ?)';
         $params = array($this->nombre, $this->clave, $this->correo);
         return Database::executeRow($sql, $params);
     }
@@ -140,7 +140,7 @@ class UsuariosHandler
                 clave = ?, 
                 correo = ?
                 WHERE id_usuario = ?';
-        $params = array($this->nombre, $this->clave, $this->correo);
+        $params = array($this->nombre, $this->clave, $this->correo, $this->id);
         return Database::executeRow($sql, $params);
     }
 
