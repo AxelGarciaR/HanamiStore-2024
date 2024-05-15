@@ -313,4 +313,3 @@ VALUES (2, 2, 2, 'El producto no cumplió mis expectativas, estoy algo decepcion
 
 INSERT INTO valoraciones (id_producto, id_usuario, puntuacion, comentario)
 VALUES (3, 3, 5, '¡Excelente producto! Lo recomendaría sin dudarlo.');
-
