@@ -1,5 +1,5 @@
 // Constante para completar la ruta de la API.
-const CATEGORIA_API = 'Api/services/admin/categoria.php';
+const CATEGORIA_API = '../../Api/services/admin/categoria.php';
 // Constante para establecer el formulario de buscar.
 const SEARCH_FORM = document.getElementById('searchForm');
 // Constantes para establecer los elementos de la tabla.
@@ -64,18 +64,20 @@ const fillTable = async (formData = null) => {
     // Se inicializa el contenido de la tabla.
     ROWS_FOUND.textContent = '';
     TABLE_BODY.innerHTML = '';
-    // Se verifica la acción a realizar.
-    const action = formData ? 'searchRows' : 'readAll';
-    // Petición para obtener los registros disponibles.
-    const responseData = await fetchData(CATEGORIA_API, action, formData);
-    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-    if (responseData.status) {
-        // Se recorre el conjunto de registros fila por fila.
-        responseData.dataset.forEach(row => {
-            // Se crean y concatenan las filas de la tabla con los datos de cada registro.
-            TABLE_BODY.innerHTML += `
+
+    try {
+        // Se verifica si hay un objeto formData y se establece la acción en consecuencia.
+        const action = formData ? 'searchRows' : 'readAll';
+        // Petición para obtener los registros disponibles.
+        const responseData = await fetchData(CATEGORIA_API, action, formData);
+        
+        // Verificar si el objeto responseData está definido y tiene la propiedad 'status'.
+        if (responseData && responseData.status) {
+            // Se recorre el conjunto de registros fila por fila.
+            responseData.dataset.forEach(row => {
+                // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+                TABLE_BODY.innerHTML += `
                 <tr>
-                    <td><img src="${SERVER_URL}images/categorias/${row.imagenCategoria}" height="50"></td>
                     <td>${row.nombreCategoria}</td>
                     <td>${row.descripcionCategoria}</td>
                     <td>
@@ -88,11 +90,18 @@ const fillTable = async (formData = null) => {
                     </td>
                 </tr>
             `;
-        });
-        // Se muestra un mensaje de acuerdo con el resultado.
-        ROWS_FOUND.textContent = responseData.message;
-    } else {
-        sweetAlert(4, responseData.error, true);
+            
+            });
+            // Se muestra un mensaje de acuerdo con el resultado.
+            ROWS_FOUND.textContent = responseData.message;
+        } else {
+            // Si el objeto responseData no está definido o no tiene la propiedad 'status', muestra un mensaje de error.
+            throw new Error('No se pudo obtener los datos correctamente.');
+        }
+    } catch (error) {
+        // Captura cualquier error y muestra un mensaje en la consola.
+        console.error('Error al llenar la tabla:', error);
+        // También puedes manejar el error mostrando un mensaje al usuario si lo deseas.
     }
 }
 
@@ -163,3 +172,4 @@ const openDelete = async (id) => {
         }
     }
 }
+
