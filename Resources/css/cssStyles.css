@@ -1,0 +1,44 @@
+
+.form-container .btn-primary {
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #FFC8DD 50%, #FFFFFF 50%);
+}
+
+.form-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    /* Añadimos la sombra con mayor desplazamiento horizontal y difuminación */
+    box-shadow: 10px 0px 20px 0px rgba(0, 0, 0, 0.3);
+}
+
+.form-container label {
+    font-weight: bold;
+}
+
+.form-container .form-control {
+    margin-bottom: 15px;
+}
+
+/* Estilo personalizado para el botón de enviar */
+.custom-btn {
+    background-color: #FFC8DD;
+    border: none;
+}
+
+.custom-btn:hover {
+    background-color: #FFA5C8; /* Cambiar el color al pasar el ratón */
+}
+
+.custom-btn:focus {
+    box-shadow: none; /* Eliminar el efecto de enfoque */
+}
