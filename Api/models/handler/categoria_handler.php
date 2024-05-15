@@ -57,13 +57,13 @@ class CategoriaHandler
         $sql = 'UPDATE categorias
                 SET Nombre_Categoria = ?
                 WHERE id_Categoria = ?';
-        $params = array($this->nombreCategoria);
+        $params = array($this->nombreCategoria, $this->id);
         return Database::executeRow($sql, $params);
     }
 
     public function deleteRow()
     {
-        $sql = 'DELETE FROM categorias
+        $sql = 'DELETE * FROM categorias
                 WHERE id_Categoria = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
