@@ -62,6 +62,18 @@ class ProductosData extends ProductosHandler
         }
     }
 
+    // Función para validar el nombre del archivo
+    public function setImagen($value, $min = 2, $max = 100)
+    {
+        if (Validator::validateLength($value, $min, $max)) {
+            $this->imagenPrincipal = $value;
+            return true;
+        } else {
+            $this->data_error = 'El nombre del archivo del logo de la marca debe tener una longitud entre ' . $min . ' y ' . $max;
+            return false;
+        }
+    }
+
     //Funcion para validar validar el nombre del archivo
     public function setFilename()
     {
@@ -75,7 +87,7 @@ class ProductosData extends ProductosHandler
     }
 
     //Funcion para validar el validar la imagen
-    public function setImagen($file, $filename = null)
+    public function setImagenFile($file, $filename = null)
     {
         if (Validator::validateImageFile($file, 1000)) {
             $this->imagenPrincipal = Validator::getFileName();

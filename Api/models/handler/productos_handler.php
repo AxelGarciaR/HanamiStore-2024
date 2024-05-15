@@ -75,7 +75,7 @@ class ProductosHandler
                 descuento = ?,
                 id_Marca = ?
                 WHERE id_Producto = ?';
-        $params = array($this->nombreProducto, $this->descripcionProducto, $this->precioProducto, $this->imagenPrincipal, $this->cantidadProducto, $this->idSubcategoria,$this->descuento, $this->marca);
+        $params = array($this->nombreProducto, $this->descripcionProducto, $this->precioProducto, $this->imagenPrincipal, $this->cantidadProducto, $this->idSubcategoria,$this->descuento, $this->marca, $this->id);
         return Database::executeRow($sql, $params);
     }
 
