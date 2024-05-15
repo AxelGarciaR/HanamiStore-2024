@@ -57,6 +57,7 @@ if (isset($_GET['action'])) {
             case 'updateRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
+                    !$categoria->setId($_POST['idCategoria']) or
                     !$categoria->setNombreCategoria($_POST['nombreCategoria'])
                 ) {
                     $result['error'] = $categoria->getDataError();

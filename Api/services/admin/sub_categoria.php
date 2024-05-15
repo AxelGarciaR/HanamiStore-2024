@@ -27,8 +27,8 @@ if (isset($_GET['action'])) {
             case 'createRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
-                    !$subCategoria->setNombreSubCategoria($_POST['nombreCategoria']) or
-                    !$subCategoria->setIdCategoria($_POST['nombreCategoria'])
+                    !$subCategoria->setNombreSubCategoria($_POST['nombreSubCategoria']) or
+                    !$subCategoria->setIdCategoria($_POST['idCategoria'])
                 ) {
                     $result['error'] = $subCategoria->getDataError();
                 } elseif ($subCategoria->createRow()) {
@@ -58,8 +58,9 @@ if (isset($_GET['action'])) {
             case 'updateRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
+                    !$subCategoria->setId($_POST['idSubCategoria']) or
                     !$subCategoria->setNombreSubCategoria($_POST['nombreSubCategoria']) or
-                    !$subCategoria->setIdCategoria($_POST['nombreSubCategoria'])
+                    !$subCategoria->setIdCategoria($_POST['idCategoria'])
                 ) {
                     $result['error'] = $subCategoria->getDataError();
                 } elseif ($subCategoria->updateRow()) {

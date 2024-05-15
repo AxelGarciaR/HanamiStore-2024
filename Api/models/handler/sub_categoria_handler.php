@@ -57,8 +57,8 @@ class SubCategoriaHandler
     {
         $sql = 'UPDATE sub_categorias 
                 SET nombre  = ?, id_Categoria = ?
-                WHERE id_Categoria = ?';
-        $params = array($this->nombreSubCategoria);
+                WHERE id_SubCategoria = ?';
+        $params = array($this->nombreSubCategoria, $this->idCategoria,$this->id);
         return Database::executeRow($sql, $params);
     }
 

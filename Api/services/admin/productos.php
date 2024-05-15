@@ -81,7 +81,7 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Producto actualizado';
                     // Se asigna el estado del archivo después de actualizar.
-                    $result['fileStatus'] = Validator::changeFile($_FILES['imagenPrincipal'], $producto::RUTA_IMAGEN, $usuario->getFilename());
+                    $result['fileStatus'] = Validator::changeFile($_FILES['imagenPrincipal'], $producto::RUTA_IMAGEN, $producto->getFilename());
                 } else {
                     $result['error'] = 'Ocurrió un problema al modificar el producto';
                 }

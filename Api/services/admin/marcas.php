@@ -29,7 +29,7 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (
                     !$marca->setNombreMarca($_POST['nombreMarca']) or
-                    !$marca->setLogoMarca($_FILES['logoMarca'], $marca->getFilename())
+                    !$marca->setLogoMarca($_POST['logoMarca'], $marca->getFilename())
                 ) {
                     $result['error'] = $marca->getDataError();
                 } elseif ($marca->createRow()) {
@@ -61,8 +61,9 @@ if (isset($_GET['action'])) {
             case 'updateRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
+                    !$marca->setIdMarca($_POST['idMarca']) or
                     !$marca->setNombreMarca($_POST['nombreMarca']) or
-                    !$marca->setLogoMarca($_FILES['logoMarca'], $marca->getFilename())
+                    !$marca->setLogoMarca($_POST['logoMarca'], $marca->getFilename())
                 ) {
                     $result['error'] = $marca->getDataError();
                 } elseif ($marca->updateRow()) {
