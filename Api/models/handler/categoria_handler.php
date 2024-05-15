@@ -63,7 +63,7 @@ class CategoriaHandler
 
     public function deleteRow()
     {
-        $sql = 'DELETE * FROM categorias
+        $sql = 'DELETE FROM categorias
                 WHERE id_Categoria = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
