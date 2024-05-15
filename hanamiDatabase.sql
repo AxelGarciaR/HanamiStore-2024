@@ -237,7 +237,6 @@ END //
 DELIMITER ;*/
 
 
---Insert de ejemplos clientes
 INSERT INTO clientes (nombre_cliente, apellido_cliente, nombre_perfil, clave, CorreoE, Direccion)
 VALUES ('Nombre1', 'Apellido1', 'Perfil1', 'Clave1', 'correo1@example.com', 'Dirección1');
 
@@ -256,7 +255,6 @@ VALUES ('Usuario2', '$2y$10$HLNvFDTxzgbqdoLBMSQOMOglgewxVe2.Uvw7pe37qKQ/N.6JwDUP
 INSERT INTO usuarios (nombre_usuario, clave, correo)
 VALUES ('Usuario3', '$2y$10$HLNvFDTxzgbqdoLBMSQOMOglgewxVe2.Uvw7pe37qKQ/N.6JwDUPu', 'correo2@example.com');
 
---Insert de ejemplos ordenes
 INSERT INTO ordenes (id_Cliente, Fecha_Orden, Estado_Orden)
 VALUES (1, '2024-05-15', 1);
 
@@ -266,7 +264,6 @@ VALUES (2, '2024-05-14', 0);
 INSERT INTO ordenes (id_Cliente, Fecha_Orden, Estado_Orden)
 VALUES (3, '2024-05-13', 1);
 
---Insert de ejemplos categorias
 INSERT INTO categorias (Nombre_Categoria)
 VALUES ('Categoría1');
 
@@ -276,7 +273,6 @@ VALUES ('Categoría2');
 INSERT INTO categorias (Nombre_Categoria)
 VALUES ('Categoría3');
 
---Insert de subCategorias
 INSERT INTO sub_categorias (nombre, id_Categoria)
 VALUES ('Subcategoría1', 1);
 
@@ -286,7 +282,6 @@ VALUES ('Subcategoría2', 2);
 INSERT INTO sub_categorias (nombre, id_Categoria)
 VALUES ('Subcategoría3', 3);
 
---Insert de ejemplos marcas
 INSERT INTO marcas (Nombre_Marca, Logo_Marca)
 VALUES ('Marca1', 'Logo1');
 
@@ -296,7 +291,6 @@ VALUES ('Marca2', 'Logo2');
 INSERT INTO marcas (Nombre_Marca, Logo_Marca)
 VALUES ('Marca3', 'Logo3');
 
---Insert de ejemplos productos
 INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
 VALUES ('Producto1', 'Descripción1', 10.99, 'Imagen1', 100, 1, 0, 1);
 
@@ -306,11 +300,20 @@ VALUES ('Producto2', 'Descripción2', 19.99, 'Imagen2', 50, 2, 5, 2);
 INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
 VALUES ('Producto3', 'Descripción3', 5.99, 'Imagen3', 200, 3, 0, 3);
 
-INSERT INTO valoraciones (id_producto, id_usuario, puntuacion, comentario)
-VALUES (1, 1, 4, '¡Muy buen producto! Estoy satisfecho con mi compra.');
+INSERT INTO detalleOrdenes (id_orden, id_producto, cantidad, precio_unitario)
+VALUES (1, 1, 1, 2.50);
 
-INSERT INTO valoraciones (id_producto, id_usuario, puntuacion, comentario)
-VALUES (2, 2, 2, 'El producto no cumplió mis expectativas, estoy algo decepcionado.');
+INSERT INTO valoraciones (Valoracion , id_detalle, comentario, fecha_comentario, estado_comentario)
+VALUES (1, 1, '¡Muy buen producto! Estoy satisfecho con mi compra.', '2024-03-11', 1);
 
-INSERT INTO valoraciones (id_producto, id_usuario, puntuacion, comentario)
-VALUES (3, 3, 5, '¡Excelente producto! Lo recomendaría sin dudarlo.');
+INSERT INTO valoraciones (Valoracion , id_detalle, comentario, fecha_comentario, estado_comentario)
+VALUES (1, 1, '¡Muy buen producto! Estoy satisfecho con mi compra.', '2024-03-11', 1);
+
+INSERT INTO valoraciones (Valoracion , id_detalle, comentario, fecha_comentario, estado_comentario )
+VALUES (2, 1, 'El producto no cumplió mis expectativas, estoy algo decepcionado.', '2024-03-11', 1);
+
+INSERT INTO valoraciones (Valoracion , id_detalle, comentario, fecha_comentario, estado_comentario )
+VALUES (3, 1, '¡Excelente producto! Lo recomendaría sin dudarlo.', '2024-03-11', 1);
+
+INSERT INTO valoraciones (Valoracion , id_detalle, comentario, fecha_comentario, estado_comentario )
+VALUES (3, 1, '¡Excelente producto! Lo recomendaría sin dudarlo.', '2024-03-11', 1);
