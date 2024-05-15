@@ -78,18 +78,19 @@ const fillTable = async (formData = null) => {
                 // Se crean y concatenan las filas de la tabla con los datos de cada registro.
                 TABLE_BODY.innerHTML += `
                 <tr>
-                    <td>${row.nombreCategoria}</td>
-                    <td>${row.descripcionCategoria}</td>
+                    <td>${row.id_Categoria}</td>
+                    <td>${row.Nombre_Categoria}</td>
                     <td>
-                        <button type="button" class="btn btn-info" onclick="openUpdate(${row.idCategoria})">
-                            <i class="bi bi-pencil-fill"></i>
+                        <button type="button" class="btn btn-info" onclick="openUpdate(${row.id_Categoria})">
+                            <i>Editar</i>
                         </button>
-                        <button type="button" class="btn btn-danger" onclick="openDelete(${row.idCategoria})">
-                            <i class="bi bi-trash-fill"></i>
+                        <button type="button" class="btn btn-danger" onclick="openDelete(${row.id_Categoria})">
+                            <i>Eliminar</i>
                         </button>
                     </td>
                 </tr>
-            `;
+                `;
+                
             
             });
             // Se muestra un mensaje de acuerdo con el resultado.
@@ -123,6 +124,11 @@ const openCreate = () => {
 *   Parámetros: id (identificador del registro seleccionado).
 *   Retorno: ninguno.
 */
+/*
+*   Función asíncrona para preparar el formulario al momento de actualizar un registro.
+*   Parámetros: id (identificador del registro seleccionado).
+*   Retorno: ninguno.
+*/
 const openUpdate = async (id) => {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const formData = new FormData();
@@ -138,8 +144,8 @@ const openUpdate = async (id) => {
         SAVE_FORM.reset();
         // Se inicializan los campos con los datos.
         const row = responseData.dataset;
-        ID_CATEGORIA.value = row.idCategoria;
-        NOMBRE_CATEGORIA.value = row.nombreCategoria;
+        ID_CATEGORIA.value = row.id_Categoria;
+        NOMBRE_CATEGORIA.value = row.Nombre_Categoria; // Asegúrate de que la propiedad sea Nombre_Categoria en lugar de nombreCategoria
         DESCRIPCION_CATEGORIA.value = row.descripcionCategoria;
     } else {
         sweetAlert(2, responseData.error, false);
@@ -172,4 +178,5 @@ const openDelete = async (id) => {
         }
     }
 }
+
 
