@@ -113,6 +113,7 @@ ALTER TABLE sub_categorias
 ALTER TABLE marcas
   ADD CONSTRAINT u_nombre_marca UNIQUE (Nombre_Marca);
 
+/*
 
 -- procedimiento insertar clientes --
 DELIMITER //
@@ -212,9 +213,10 @@ BEGIN
     VALUES (p_nombre_marca, p_logo_marca);
 END //
 
-DELIMITER ;
--- insertar producto--
 
+DELIMITER ;
+
+-- insertar producto--
 DELIMITER //
 
 CREATE PROCEDURE InsertarProducto(
@@ -232,24 +234,83 @@ BEGIN
     VALUES (p_nombre_producto, p_descripcion_producto, p_precio_producto, p_imagen_principal, p_cantidad, p_id_subcategoria, p_descuento, p_id_marca);
 END //
 
-DELIMITER ;
+DELIMITER ;*/
 
-DELIMITER //
-CREATE TRIGGER check_password_expiry
-BEFORE INSERT ON usuarios
-FOR EACH ROW
-BEGIN
-    DECLARE last_password_change_date DATE;
-    DECLARE current_date DATE;
-    
-    SELECT clave INTO last_password_change_date FROM usuarios WHERE id_usuario = NEW.id_usuario;
-    SET current_date = CURDATE();
-    
-    IF DATEDIFF(current_date, last_password_change_date) > 90 THEN
-        -- Aquí puedes agregar la acción que desees realizar cuando la contraseña ha expirado
-        -- Por ejemplo, puedes imprimir un mensaje de advertencia o lanzar una excepción.
-        -- En este ejemplo, solo se imprime un mensaje de advertencia.
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = '¡Advertencia! Han pasado más de 90 días desde que cambió su contraseña. Por favor, cambie su contraseña ahora.';
-    END IF;
-END //
-DELIMITER ;
+
+--Insert de ejemplos clientes
+INSERT INTO clientes (nombre_cliente, apellido_cliente, nombre_perfil, clave, CorreoE, Direccion)
+VALUES ('Nombre1', 'Apellido1', 'Perfil1', 'Clave1', 'correo1@example.com', 'Dirección1');
+
+INSERT INTO clientes (nombre_cliente, apellido_cliente, nombre_perfil, clave, CorreoE, Direccion)
+VALUES ('Nombre2', 'Apellido2', 'Perfil2', 'Clave2', 'correo2@example.com', 'Dirección2');
+
+INSERT INTO clientes (nombre_cliente, apellido_cliente, nombre_perfil, clave, CorreoE, Direccion)
+VALUES ('Nombre3', 'Apellido3', 'Perfil3', 'Clave3', 'correo3@example.com', 'Dirección3');
+
+INSERT INTO usuarios (nombre_usuario, clave, correo)
+VALUES ('Usuario1', 'Clave1', 'correo1@example.com');
+
+INSERT INTO usuarios (nombre_usuario, clave, correo)
+VALUES ('Usuario2', 'Clave2', 'correo2@example.com');
+
+INSERT INTO usuarios (nombre_usuario, clave, correo)
+VALUES ('Usuario3', 'Clave3', 'correo2@example.com');
+
+--Insert de ejemplos ordenes
+INSERT INTO ordenes (id_Cliente, Fecha_Orden, Estado_Orden)
+VALUES (1, '2024-05-15', 1);
+
+INSERT INTO ordenes (id_Cliente, Fecha_Orden, Estado_Orden)
+VALUES (2, '2024-05-14', 0);
+
+INSERT INTO ordenes (id_Cliente, Fecha_Orden, Estado_Orden)
+VALUES (3, '2024-05-13', 1);
+
+--Insert de ejemplos categorias
+INSERT INTO categorias (Nombre_Categoria)
+VALUES ('Categoría1');
+
+INSERT INTO categorias (Nombre_Categoria)
+VALUES ('Categoría2');
+
+INSERT INTO categorias (Nombre_Categoria)
+VALUES ('Categoría3');
+
+INSERT INTO sub_categorias (nombre, id_Categoria)
+VALUES ('Subcategoría1', 1);
+
+INSERT INTO sub_categorias (nombre, id_Categoria)
+VALUES ('Subcategoría2', 2);
+
+INSERT INTO sub_categorias (nombre, id_Categoria)
+VALUES ('Subcategoría3', 3);
+
+--Insert de ejemplos marcas
+INSERT INTO marcas (Nombre_Marca, Logo_Marca)
+VALUES ('Marca1', 'Logo1');
+
+INSERT INTO marcas (Nombre_Marca, Logo_Marca)
+VALUES ('Marca2', 'Logo2');
+
+INSERT INTO marcas (Nombre_Marca, Logo_Marca)
+VALUES ('Marca3', 'Logo3');
+
+--Insert de ejemplos productos
+INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
+VALUES ('Producto1', 'Descripción1', 10.99, 'Imagen1', 100, 1, 0, 1);
+
+INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
+VALUES ('Producto2', 'Descripción2', 19.99, 'Imagen2', 50, 2, 5, 2);
+
+INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
+VALUES ('Producto3', 'Descripción3', 5.99, 'Imagen3', 200, 3, 0, 3);
+
+INSERT INTO valoraciones (id_producto, id_usuario, puntuacion, comentario)
+VALUES (1, 1, 4, '¡Muy buen producto! Estoy satisfecho con mi compra.');
+
+INSERT INTO valoraciones (id_producto, id_usuario, puntuacion, comentario)
+VALUES (2, 2, 2, 'El producto no cumplió mis expectativas, estoy algo decepcionado.');
+
+INSERT INTO valoraciones (id_producto, id_usuario, puntuacion, comentario)
+VALUES (3, 3, 5, '¡Excelente producto! Lo recomendaría sin dudarlo.');
+
