@@ -14,6 +14,12 @@ document.addEventListener('DOMContentLoaded', function () {
           <a class="nav-link" href="Productos.html">Productos</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="Sub_categoria.html">Sub Categorias</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="Categorias.html">Categorias</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="graficas.html">Graficas</a>
         </li>
         <li class="nav-item">
@@ -21,16 +27,16 @@ document.addEventListener('DOMContentLoaded', function () {
         </li>
         <li class="nav-item">
         <a class="nav-link" href="Clientes.html">Clientes</a>
-      </li>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="Perfil.html">Perfil</a>
         </li>
         <li class="nav-item">
         <a class="nav-link" href="Ordenes.html">Ordenes</a>
-      </li>
+        </li>
       <li class="nav-item">
       <a class="nav-link" href="Valoraciones.html">Valoraciones</a>
-    </li>
+      </li>
         <li class="nav-item">
         <a class="nav-link" href="Index.html">Cerrar sesion</a>
       </li>
