@@ -11,7 +11,7 @@ class ValoracionesData extends ValoracionesHandler
     private $data_error = null;
 
     //Funcion para validar el id
-    public function setIdProducto($value)
+    public function setIdValoracion($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id = $value;
