@@ -248,13 +248,13 @@ INSERT INTO clientes (nombre_cliente, apellido_cliente, nombre_perfil, clave, Co
 VALUES ('Nombre3', 'Apellido3', 'Perfil3', 'Clave3', 'correo3@example.com', 'Dirección3');
 
 INSERT INTO usuarios (nombre_usuario, clave, correo)
-VALUES ('Usuario1', 'Clave1', 'correo1@example.com');
+VALUES ('Usuario1', '$2y$10$HLNvFDTxzgbqdoLBMSQOMOglgewxVe2.Uvw7pe37qKQ/N.6JwDUPu', 'correo1@example.com');
 
 INSERT INTO usuarios (nombre_usuario, clave, correo)
-VALUES ('Usuario2', 'Clave2', 'correo2@example.com');
+VALUES ('Usuario2', '$2y$10$HLNvFDTxzgbqdoLBMSQOMOglgewxVe2.Uvw7pe37qKQ/N.6JwDUPu', 'correo2@example.com');
 
 INSERT INTO usuarios (nombre_usuario, clave, correo)
-VALUES ('Usuario3', 'Clave3', 'correo2@example.com');
+VALUES ('Usuario3', '$2y$10$HLNvFDTxzgbqdoLBMSQOMOglgewxVe2.Uvw7pe37qKQ/N.6JwDUPu', 'correo2@example.com');
 
 --Insert de ejemplos ordenes
 INSERT INTO ordenes (id_Cliente, Fecha_Orden, Estado_Orden)
@@ -276,6 +276,7 @@ VALUES ('Categoría2');
 INSERT INTO categorias (Nombre_Categoria)
 VALUES ('Categoría3');
 
+--Insert de subCategorias
 INSERT INTO sub_categorias (nombre, id_Categoria)
 VALUES ('Subcategoría1', 1);
 
