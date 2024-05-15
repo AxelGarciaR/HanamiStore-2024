@@ -1,54 +1,77 @@
 <!DOCTYPE html>
-<!-- Declaración del idioma para el documento -->
 <html lang="es">
 
 <head>
     <!-- Título del documento -->
     <title></title>
-    <!-- Metadatos de la página web -->
+    <!-- Codificación del documento -->
     <meta charset="utf-8">
+    <!-- Autor del documento -->
     <meta name="author" content="hanami autor">
+    <!-- Escalabilidad del sitio -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- IMPORTACIÓN DE RECURSOS EXTERNOS -->
-    <!-- Llamada al icono de la página web -->
+    <!-- Icono de la página web -->
     <link type="image/png" rel="icon" href="../../Resources/images/HanamiLogo.png">
-    <!-- Llamada a las hojas de estilos del framework e iconos -->
+    <!-- Estilos del framework Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/css/cssStyles.css">
 </head>
 
 <body>
-    <!-- Contenido principal del documento -->
     <main>
-        <!-- Título del contenido principal -->
-        <h3 id="mainTitle"></h3>
-        <img src="../../resources/img/user.png" class="mx-auto d-block" width="200">
-        <!-- Formulario para iniciar sesión -->
-        <form class="d-none" id="loginForm">
-            <div class="row g-3">
-                <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-                    <label for="correoLogin" class="form-label">Correo</label>
-                    <input id="correoLogin" type="text" name="correoLogin" class="form-control" required>
-                </div>
-                <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-                    <label for="claveLogin" class="form-label">clave</label>
-                    <input id="claveLogin" type="password" name="claveLogin" class="form-control" required>
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i> Enviar</button>
+        <!-- Nueva fila para la imagen en la esquina superior izquierda -->
+        <div class="row">
+            <!-- Columna para la imagen -->
+            <div class="col-12">
+                <!-- Imagen en la esquina superior izquierda -->
+                <img src="../../Resources/images/hanamilogonuevo.png" class="img-fluid" alt="Logo Hanami" width="150">
+            </div>
+        </div>
+
+        <!-- Contenedor de la fila con la imagen y el formulario -->
+        <div class="row">
+            <!-- Columna para el formulario -->
+            <div class="col-md-6 offset-md-3">
+                <!-- Contenedor del formulario -->
+                <div class="form-container">
+                    <!-- Título del formulario -->
+                    <h3 id="mainTitle" class="text-center">Iniciar Sesión</h3>
+                    <!-- Formulario de inicio de sesión -->
+                    <form id="loginForm">
+                        <div class="row g-3">
+                            <!-- Campo de correo -->
+                            <div class="col-sm-12">
+                                <label for="correoLogin" class="form-label">Correo</label>
+                                <input id="correoLogin" type="text" name="correoLogin" class="form-control" required>
+                            </div>
+                            <!-- Campo de clave -->
+                            <div class="col-sm-12">
+                                <label for="claveLogin" class="form-label">Clave</label>
+                                <input id="claveLogin" type="password" name="claveLogin" class="form-control" required>
+                            </div>
+                            <!-- Botón de enviar -->
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-primary custom-btn"><i class="bi bi-send"></i>
+                                    Enviar</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
+            <!-- Columna para la imagen -->
+            <div class="col-md-3 mt-8"> <!-- Añade la clase "mt-5" para agregar margen superior -->
+                <!-- Imagen de usuario -->
+                <img src="../../Resources/images/inicioimg.png" class="mx-auto d-block mb-4 img-fluid" alt="Imagen de inicio" width="700">
+            </div>
+        </div>
     </main>
-    <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
-    <!-- Llamada al framework y librería de mensajes -->
+    <!-- Scripts -->
     <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
-    <!-- Llamada al controlador general de la aplicación -->
     <script type="text/javascript" src="../../controllers/utils/components.js"></script>
-    <!-- Llamada al controlador del sitio privado -->
     <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
-    <!-- Llamada al controlador de la página web -->
     <script type="text/javascript" src="../../controllers/admin/index.js"></script>
 </body>
 
