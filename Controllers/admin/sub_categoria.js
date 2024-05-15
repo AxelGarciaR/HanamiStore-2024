@@ -26,12 +26,10 @@ $(document).ready(function () {
             method: 'GET',
             success: function(response) {
                 if(response.status === 1) {
-                    // Limpiar la tabla antes de agregar los nuevos datos
-                    $('#tablaSubCategorias').empty();
-                    // Construir las filas de la tabla con los datos recibidos del servidor
+                    $('#tablaSubCategorias').empty(); // Limpiar la tabla antes de agregar las nuevas filas
                     response.dataset.forEach(function(subCategoria) {
                         var fila = `
-                            <tr>
+                            <tr data-id="${subCategoria.id}">
                                 <td class="id-subcategoria">${subCategoria.id}</td>
                                 <td class="nombre">${subCategoria.nombre}</td>
                                 <td class="id-categoria">${subCategoria.idCategoria}</td>
@@ -56,16 +54,11 @@ $(document).ready(function () {
     // Llamar a la función para cargar y mostrar la tabla de subcategorías al cargar la página
     cargarTablaSubCategorias();
 
-    // Escuchar el evento de clic en el botón "Crear Subcategoría"
-    $('#btnCrear').click(function() {
-        // Aquí podrías mostrar el modal para crear una nueva subcategoría si lo deseas
-        // y luego procesar el formulario de creación con una petición AJAX similar a las demás acciones.
-        // No proporcionaste el código del modal de creación, así que no puedo agregarlo aquí.
-    });
-
     // Escuchar el evento de clic en el botón "Eliminar"
     $(document).on('click', '.btn-eliminar', function() {
-        var idSubCategoria = $(this).closest('tr').find('.id-subcategoria').text();
+        var fila = $(this).closest('tr');
+        var idSubCategoria = fila.data('id');
+
         mostrarAlertaConfirmacion('¿Estás seguro de que quieres eliminar esta subcategoría?', function() {
             $.ajax({
                 url: 'sub_categoria_data.php?action=deleteRow',
@@ -73,7 +66,7 @@ $(document).ready(function () {
                 data: { idSubCategoria: idSubCategoria },
                 success: function(response) {
                     if(response.status === 1) {
-                        cargarTablaSubCategorias();
+                        fila.remove(); // Eliminar la fila de la tabla
                         mostrarAlertaExito(response.message);
                     } else {
                         mostrarAlertaError(response.error);
@@ -86,5 +79,17 @@ $(document).ready(function () {
         });
     });
 
-    // Aquí podrías agregar más funciones para manejar la edición, creación, etc.
+    // Escuchar el evento de clic en el botón "Editar"
+    $(document).on('click', '.btn-editar', function() {
+        var fila = $(this).closest('tr');
+        var idSubCategoria = fila.data('id');
+        var nombre = fila.find('.nombre').text();
+        var idCategoria = fila.find('.id-categoria').text();
+
+        // Aquí puedes abrir un modal para editar la subcategoría con los datos obtenidos
+        // y luego realizar una solicitud AJAX similar a la de eliminar para actualizar los datos en la base de datos.
+        // No proporcionaste el código del modal de edición, así que no puedo agregarlo aquí.
+    });
+
+    // Aquí podrías agregar más funciones para manejar la creación, edición, etc.
 });

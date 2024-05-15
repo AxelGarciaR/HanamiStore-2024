@@ -34,25 +34,7 @@
                 </tr>
             </thead>
             <tbody id="tablaSubCategorias">
-                <!-- Subcategorías de ejemplo -->
-                <tr>
-                    <td class="id-subcategoria">1</td>
-                    <td class="nombre">Subcategoría 1</td>
-                    <td class="id-categoria">1</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-editar">Editar</button>
-                        <button type="button" class="btn btn-danger btn-eliminar">Eliminar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="id-subcategoria">2</td>
-                    <td class="nombre">Subcategoría 2</td>
-                    <td class="id-categoria">2</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-editar">Editar</button>
-                        <button type="button" class="btn btn-danger btn-eliminar">Eliminar</button>
-                    </td>
-                </tr>
+                <!-- Aquí se cargarán las subcategorías desde la base de datos -->
             </tbody>
         </table>
     </div>
@@ -96,9 +78,7 @@
                         <div class="mb-3">
                             <label for="idCategoria" class="form-label">ID Categoría</label>
                             <select class="form-select" id="idCategoria" required>
-                                <!-- Opciones de ejemplo -->
-                                <option value="1">Categoría 1</option>
-                                <option value="2">Categoría 2</option>
+                                <!-- Opciones de categorías se cargarán dinámicamente desde la base de datos -->
                             </select>
                         </div>
                     </form>
@@ -120,8 +100,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="../../controllers/admin/navbar.js"></script>
     <script src="../../controllers/admin/footer.js"></script>
-    <script src="../../Controllers/admin/sub_categoria.js"></script>
+    <script src="../../controllers/admin/sub_categoria.js"></script>
 </body>
 
 </html>
-
