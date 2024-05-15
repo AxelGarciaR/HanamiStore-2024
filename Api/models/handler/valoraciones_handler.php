@@ -64,7 +64,7 @@ class ValoracionesHandler
                 fecha_comentario  = ?,
                 estado_comentario  = ?
                 WHERE id_valoracion  = ?';
-        $params = array($this->valoracion, $this->idDetalle, $this->comentario, $this->fechaComentario, $this->estadoComentario);
+        $params = array($this->valoracion, $this->idDetalle, $this->comentario, $this->fechaComentario, $this->estadoComentario, $this->id);
         return Database::executeRow($sql, $params);
     }
 
