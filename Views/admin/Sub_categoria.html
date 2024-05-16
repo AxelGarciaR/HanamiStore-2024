@@ -1,106 +1,120 @@
 <!DOCTYPE html>
-<html>
+<!-- Declaración del idioma para el documento -->
+<html lang="es">
 
 <head>
+    <!-- Título del documento -->
     <title>Subcategorías</title>
+    <!-- Metadatos de la página web -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta name="author" content="hanami authors">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- IMPORTACIÓN DE RECURSOS EXTERNOS -->
+    <!-- Llamada al icono de la página web -->
+    <link type="image/png" rel="icon" href="../../Resources/images/HanamiLogo.png">
+    <!-- Llamada a las hojas de estilos del framework e iconos -->
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
 </head>
 
 <body>
-
-    <header class="header sticky-top">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar"></nav>
-    </header>
-
-    <div class="container">
-        <h1 class="text-center">Subcategorías</h1>
-        <div class="d-flex justify-content-between mb-3">
-            <div class="input-group w-50">
-                <input type="text" class="form-control" placeholder="Buscar subcategoría" id="inputBuscar">
-                <button class="btn btn-outline-secondary" type="button" id="btnBuscar">Buscar</button>
+  
+<header class="header sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar"></nav>
+</header>
+    <!-- Contenido principal del documento -->
+    <main>
+        <!-- Título del contenido principal -->
+        <h3 id="mainTitle">Subcategorías</h3>
+        <div class="row">
+            <!-- Formulario de búsqueda -->
+            <form class="col-sm-12 col-md-6" id="searchForm">
+                <div class="row">
+                    <div class="col-6">
+                        <input type="search" class="form-control" name="search" placeholder="Buscar" required>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-success">
+                            <i >Buscar</i>
+                        </button>
+                        <button type="reset" class="btn btn-secondary" onclick="fillTable()">
+                            <i >Recargar tabla</i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div class="col-sm-12 col-md-6 text-end">
+                <!-- Botón para abrir una caja de diálogo al momento de crear un nuevo registro -->
+                <button type="button" class="btn btn-primary" onclick="openCreate()">
+                    <i> Agregar</i>
+                </button>
             </div>
-            <button class="btn btn-primary" id="btnCrear" data-bs-toggle="modal" data-bs-target="#crearSubcategoriaModal">Crear Subcategoría</button>
         </div>
-        <table class="table">
+
+        <!-- Tabla para mostrar los registros existentes -->
+        <table class="table table-hover">
+            <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
             <thead>
+                <tr>
+                    <td colspan="3" id="rowsFound"></td>
+                </tr>
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
-                    <th>ID Categoría</th>
+                    <th>ID de Categoría</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody id="tablaSubCategorias">
-                <!-- Aquí se cargarán las subcategorías desde la base de datos -->
-            </tbody>
+            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
+            <tbody id="tableBody"></tbody>
         </table>
-    </div>
 
-    <!-- Modal para editar fila -->
-    <div class="modal fade" id="editarFilaModal" tabindex="-1" aria-labelledby="editarFilaModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editarFilaModalLabel">Editar Subcategoría</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editarFilaForm">
-                        <!-- Aquí se insertarán los campos del formulario dinámicamente -->
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" form="editarFilaForm" class="btn btn-primary">Guardar cambios</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal para crear subcategoría -->
-    <div class="modal fade" id="crearSubcategoriaModal" tabindex="-1" aria-labelledby="crearSubcategoriaModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="crearSubcategoriaModalLabel">Crear Subcategoría</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="crearSubcategoriaForm">
-                        <div class="mb-3">
-                            <label for="nombreSubcategoria" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="nombreSubcategoria" required>
+        <!-- Componente Modal para guardar un registro -->
+        <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- Formulario para guardar un registro -->
+                    <form id="saveForm">
+                        <div class="modal-body row g-3">
+                            <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                            <input type="number" class="d-none" id="idSubCategoria" name="idSubCategoria">
+                            <div class="col-sm-12 col-md-6">
+                                <label for="nombreSubCategoria" class="form-label">Nombre</label>
+                                <input id="nombreSubCategoria" type="text" name="nombreSubCategoria" class="form-control"
+                                    required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="idCategoria" class="form-label">ID de Categoría</label>
+                                <input id="idCategoria" type="number" name="idCategoria" class="form-control"
+                                    required>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="idCategoria" class="form-label">ID Categoría</label>
-                            <select class="form-select" id="idCategoria" required>
-                                <!-- Opciones de categorías se cargarán dinámicamente desde la base de datos -->
-                            </select>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" form="crearSubcategoriaForm" class="btn btn-primary">Crear</button>
-                </div>
             </div>
         </div>
-    </div>
-
+    </main>
     <div id="footer"></div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
+    <!-- Llamada al framework y librería de mensajes -->
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    <!-- Llamada al controlador general de la aplicación -->
+    <script type="text/javascript" src="../../controllers/utils/components.js"></script>
+    <!-- Llamada al controlador del sitio privado -->
+    <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
+    <!-- Llamada al controlador de la página web -->
+    <script type="text/javascript" src="../../controllers/admin/sub_categoria.js"></script>
     <script src="../../controllers/admin/navbar.js"></script>
     <script src="../../controllers/admin/footer.js"></script>
-    <script src="../../controllers/admin/sub_categoria.js"></script>
 </body>
 
 </html>
