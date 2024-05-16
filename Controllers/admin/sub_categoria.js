@@ -1,95 +1,172 @@
-$(document).ready(function () {
-    // Función para mostrar una alerta de éxito
-    function mostrarAlertaExito(mensaje) {
-        Swal.fire({
-            icon: 'success',
-            title: 'Éxito',
-            text: mensaje,
-            showConfirmButton: false,
-            timer: 1500
-        });
-    }
+// Constante para completar la ruta de la API de subcategorías.
+const SUBCATEGORIA_API = 'services/admin/sub_categoria.php';
+// Constante para establecer los elementos de la tabla.
+const TABLE_BODY = document.getElementById('tableBody'),
+    ROWS_FOUND = document.getElementById('rowsFound');
+// Constantes para establecer los elementos del componente Modal.
+const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
+    MODAL_TITLE = document.getElementById('modalTitle');
+// Constantes para establecer los elementos del formulario de guardar.
+const SAVE_FORM = document.getElementById('saveForm'),
+    ID_SUBCATEGORIA = document.getElementById('idSubCategoria'),
+    NOMBRE_SUBCATEGORIA = document.getElementById('nombreSubCategoria'),
+    ID_CATEGORIA = document.getElementById('idCategoria');
 
-    // Función para mostrar una alerta de error
-    function mostrarAlertaError(mensaje) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: mensaje
-        });
-    }
-
-    // Función para cargar y mostrar la tabla de subcategorías
-    function cargarTablaSubCategorias() {
-        $.ajax({
-            url: 'sub_categoria_data.php?action=readAll', // URL para obtener todas las subcategorías
-            method: 'GET',
-            success: function(response) {
-                if(response.status === 1) {
-                    $('#tablaSubCategorias').empty(); // Limpiar la tabla antes de agregar las nuevas filas
-                    response.dataset.forEach(function(subCategoria) {
-                        var fila = `
-                            <tr data-id="${subCategoria.id}">
-                                <td class="id-subcategoria">${subCategoria.id}</td>
-                                <td class="nombre">${subCategoria.nombre}</td>
-                                <td class="id-categoria">${subCategoria.idCategoria}</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-editar">Editar</button>
-                                    <button type="button" class="btn btn-danger btn-eliminar">Eliminar</button>
-                                </td>
-                            </tr>
-                        `;
-                        $('#tablaSubCategorias').append(fila);
-                    });
-                } else {
-                    mostrarAlertaError(response.error);
-                }
-            },
-            error: function() {
-                mostrarAlertaError('Error al cargar las subcategorías.');
-            }
-        });
-    }
-
-    // Llamar a la función para cargar y mostrar la tabla de subcategorías al cargar la página
-    cargarTablaSubCategorias();
-
-    // Escuchar el evento de clic en el botón "Eliminar"
-    $(document).on('click', '.btn-eliminar', function() {
-        var fila = $(this).closest('tr');
-        var idSubCategoria = fila.data('id');
-
-        mostrarAlertaConfirmacion('¿Estás seguro de que quieres eliminar esta subcategoría?', function() {
-            $.ajax({
-                url: 'sub_categoria_data.php?action=deleteRow',
-                method: 'POST',
-                data: { idSubCategoria: idSubCategoria },
-                success: function(response) {
-                    if(response.status === 1) {
-                        fila.remove(); // Eliminar la fila de la tabla
-                        mostrarAlertaExito(response.message);
-                    } else {
-                        mostrarAlertaError(response.error);
-                    }
-                },
-                error: function() {
-                    mostrarAlertaError('Error al eliminar la subcategoría.');
-                }
-            });
-        });
-    });
-
-    // Escuchar el evento de clic en el botón "Editar"
-    $(document).on('click', '.btn-editar', function() {
-        var fila = $(this).closest('tr');
-        var idSubCategoria = fila.data('id');
-        var nombre = fila.find('.nombre').text();
-        var idCategoria = fila.find('.id-categoria').text();
-
-        // Aquí puedes abrir un modal para editar la subcategoría con los datos obtenidos
-        // y luego realizar una solicitud AJAX similar a la de eliminar para actualizar los datos en la base de datos.
-        // No proporcionaste el código del modal de edición, así que no puedo agregarlo aquí.
-    });
-
-    // Aquí podrías agregar más funciones para manejar la creación, edición, etc.
+// Método del evento para cuando el documento ha cargado.
+document.addEventListener('DOMContentLoaded', () => {
+    // Se establece el título del contenido principal.
+    document.getElementById('mainTitle').textContent = 'Gestionar Subcategorías';
+    // Llamada a la función para llenar la tabla con los registros existentes.
+    fillTable();
 });
+
+// Método del evento para cuando se envía el formulario de buscar.
+document.getElementById('searchForm').addEventListener('submit', async (event) => {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Constante tipo objeto con los datos del formulario.
+    const formData = new FormData(document.getElementById('searchForm'));
+    // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
+    fillTable(formData);
+});
+
+// Método del evento para cuando se envía el formulario de guardar.
+SAVE_FORM.addEventListener('submit', async (event) => {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Se verifica la acción a realizar.
+    const action = ID_SUBCATEGORIA.value ? 'updateRow' : 'createRow';
+    // Constante tipo objeto con los datos del formulario.
+    const formData = new FormData(SAVE_FORM);
+    // Petición para guardar los datos del formulario.
+    const responseData = await fetchData(SUBCATEGORIA_API, action, formData);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    if (responseData.status) {
+        // Se cierra la caja de diálogo.
+        SAVE_MODAL.hide();
+        // Se muestra un mensaje de éxito.
+        sweetAlert(1, responseData.message, true);
+        // Se carga nuevamente la tabla para visualizar los cambios.
+        fillTable();
+    } else {
+        sweetAlert(2, responseData.error, false);
+    }
+});
+
+/*
+*   Función asíncrona para llenar la tabla con los registros disponibles.
+*   Parámetros: formData (objeto opcional con los datos de búsqueda).
+*   Retorno: ninguno.
+*/
+const fillTable = async (formData = null) => {
+    // Se inicializa el contenido de la tabla.
+    ROWS_FOUND.textContent = '';
+    TABLE_BODY.innerHTML = '';
+
+    try {
+        // Se verifica si hay un objeto formData y se establece la acción en consecuencia.
+        const action = formData ? 'searchRows' : 'readAll';
+        // Petición para obtener los registros disponibles.
+        const responseData = await fetchData(SUBCATEGORIA_API, action, formData);
+        
+        // Verificar si el objeto responseData está definido y tiene la propiedad 'status'.
+        if (responseData && responseData.status) {
+            // Se recorre el conjunto de registros fila por fila.
+            responseData.dataset.forEach(row => {
+                // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+                TABLE_BODY.innerHTML += `
+                <tr>
+                    <td>${row.id_SubCategoria}</td>
+                    <td>${row.nombre}</td>
+                    <td>${row.id_Categoria}</td>
+                    <td>
+                        <button type="button" class="btn btn-info" onclick="openUpdate(${row.id_SubCategoria})">
+                            <i>Editar</i>
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="openDelete(${row.id_SubCategoria})">
+                            <i>Eliminar</i>
+                        </button>
+                    </td>
+                </tr>
+                `;
+            });
+            // Se muestra un mensaje de acuerdo con el resultado.
+            ROWS_FOUND.textContent = responseData.message;
+        } else {
+            // Si el objeto responseData no está definido o no tiene la propiedad 'status', muestra un mensaje de error.
+            throw new Error('No se pudo obtener los datos correctamente.');
+        }
+    } catch (error) {
+        // Captura cualquier error y muestra un mensaje en la consola.
+        console.error('Error al llenar la tabla:', error);
+        // También puedes manejar el error mostrando un mensaje al usuario si lo deseas.
+    }
+}
+
+/*
+*   Función para preparar el formulario al momento de insertar un registro.
+*   Parámetros: ninguno.
+*   Retorno: ninguno.
+*/
+const openCreate = () => {
+    // Se muestra la caja de diálogo con su título.
+    SAVE_MODAL.show();
+    MODAL_TITLE.textContent = 'Crear Subcategoría';
+    // Se prepara el formulario.
+    SAVE_FORM.reset();
+}
+
+/*
+*   Función asíncrona para preparar el formulario al momento de actualizar un registro.
+*   Parámetros: id (identificador del registro seleccionado).
+*   Retorno: ninguno.
+*/
+const openUpdate = async (id) => {
+    // Se define una constante tipo objeto con los datos del registro seleccionado.
+    const formData = new FormData();
+    formData.append('idSubCategoria', id);
+    // Petición para obtener los datos del registro solicitado.
+    const responseData = await fetchData(SUBCATEGORIA_API, 'readOne', formData);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    if (responseData.status) {
+        // Se muestra la caja de diálogo con su título.
+        SAVE_MODAL.show();
+        MODAL_TITLE.textContent = 'Actualizar Subcategoría';
+        // Se prepara el formulario.
+        SAVE_FORM.reset();
+        // Se inicializan los campos con los datos.
+        const row = responseData.dataset;
+        ID_SUBCATEGORIA.value = row.id_SubCategoria;
+        NOMBRE_SUBCATEGORIA.value = row.nombre;
+        ID_CATEGORIA.value = row.id_Categoria;
+    } else {
+        sweetAlert(2, responseData.error, false);
+    }
+}
+
+/*
+*   Función asíncrona para eliminar un registro.
+*   Parámetros: id (identificador del registro seleccionado).
+*   Retorno: ninguno.
+*/
+const openDelete = async (id) => {
+    // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
+    const response = await confirmAction('¿Desea eliminar la subcategoría de forma permanente?');
+    // Se verifica la respuesta del mensaje.
+    if (response) {
+        // Se define una constante tipo objeto con los datos del registro seleccionado.
+        const formData = new FormData();
+        formData.append('idSubCategoria', id);
+        // Petición para eliminar el registro seleccionado.
+        const responseData = await fetchData(SUBCATEGORIA_API, 'deleteRow', formData);
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+        if (responseData.status) {
+            // Se muestra un mensaje de éxito.
+            await sweetAlert(1, responseData.message, true);
+            // Se carga nuevamente la tabla para visualizar los cambios.
+            fillTable();
+        } else {
+            sweetAlert(2, responseData.error, false);
+        }
+    }
+}
