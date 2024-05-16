@@ -10,7 +10,6 @@ class UsuarioData extends UsuariosHandler{
 
     //Atributo Para el manejo de errores
     private $data_error = null;
-    private $filename = null;
 
     //Funciones para validar y establecer los datos
     
@@ -18,7 +17,7 @@ class UsuarioData extends UsuariosHandler{
     public function setId($value)
     {
         if (Validator::validateNaturalNumber($value)) {
-            $this->id = $value;
+            $this->idUsuario = $value;
             return true;
         } else {
             $this->data_error = 'El identificador del usuario es incorrecto';
@@ -33,7 +32,7 @@ class UsuarioData extends UsuariosHandler{
             $this->data_error = 'El nombre debe ser un valor alfabético';
             return false;
         } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->nombre = $value;
+            $this->nombreUsuario = $value;
             return true;
         } else {
             $this->data_error = 'El nombre debe tener una longitud entre ' . $min . ' y ' . $max;
@@ -48,7 +47,7 @@ class UsuarioData extends UsuariosHandler{
             $this->data_error = 'Ingrese un correo válido';
             return false;
         } else{
-            $this->correo = $value;
+            $this->correoUsuario = $value;
             return true;
         }
     }
@@ -57,7 +56,7 @@ class UsuarioData extends UsuariosHandler{
     public function setClave($value)
     {
         if (Validator::validatePassword($value)) {
-            $this->clave = password_hash($value, PASSWORD_DEFAULT);
+            $this->claveUsuario = password_hash($value, PASSWORD_DEFAULT);
             return true;
         } else {
             $this->data_error = Validator::getPasswordError();

@@ -7,10 +7,10 @@ require_once ('../../helpers/database.php');
 class UsuariosHandler
 {
     //Declaracion de atributos para el manejo de los datos de la tabla en la base de datos
-    protected $id = null;
-    protected $nombre = null;
-    protected $clave = null;
-    protected $correo = null;
+    protected $idUsuario = null;
+    protected $nombreUsuario = null;
+    protected $claveUsuario = null;
+    protected $correoUsuario = null;
 
     /*Metodos para administrar las cuentas de Usuarios*/
 
@@ -55,7 +55,7 @@ class UsuariosHandler
         $sql = 'UPDATE usuarios
                 SET clave = ?
                 WHERE id_usuario = ?';
-        $params = array($this->clave, $_SESSION['idadministrador']);
+        $params = array($this->claveUsuario, $_SESSION['idAdministrador']);
         return Database::executeRow($sql, $params);
     }
 
@@ -75,7 +75,7 @@ class UsuariosHandler
         $sql = 'UPDATE usuarios
                 SET nombre_usuario = ?, correo = ?
                 WHERE id_usuario = ?';
-        $params = array($this->nombre, $this->correo, $_SESSION['idAdministrador']);
+        $params = array($this->nombreUsuario, $this->correoUsuario, $_SESSION['idAdministrador']);
         return Database::executeRow($sql, $params);
     }
 
@@ -109,7 +109,7 @@ class UsuariosHandler
     {
         $sql = 'INSERT INTO usuarios (nombre_usuario, clave, correo)
                 VALUES(?, ?, ?)';
-        $params = array($this->nombre, $this->clave, $this->correo);
+        $params = array($this->nombreUsuario, $this->claveUsuario, $this->correoUsuario);
         return Database::executeRow($sql, $params);
     }
 
@@ -128,7 +128,7 @@ class UsuariosHandler
         $sql = 'SELECT id_usuario, nombre_usuario, correo
                 FROM usuarios
                 WHERE id_usuario = ?';
-        $params = array($this->id);
+        $params = array($this->idUsuario);
         return Database::getRow($sql, $params);
     }
 
@@ -140,7 +140,7 @@ class UsuariosHandler
                 clave = ?, 
                 correo = ?
                 WHERE id_usuario = ?';
-        $params = array($this->nombre, $this->clave, $this->correo, $this->id);
+        $params = array($this->nombreUsuario, $this->claveUsuario, $this->correoUsuario, $this->idUsuario);
         return Database::executeRow($sql, $params);
     }
 
@@ -149,7 +149,7 @@ class UsuariosHandler
     {
         $sql = 'DELETE FROM usuarios
                 WHERE id_usuario = ?';
-        $params = array($this->id);
+        $params = array($this->idUsuario);
         return Database::executeRow($sql, $params);
     }
 
