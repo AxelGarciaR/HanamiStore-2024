@@ -2,13 +2,18 @@
 <html lang="es">
 
 <head>
+    <!-- Título del documento -->
+    <title>Empleado</title>
+    <!-- Metadatos de la página web -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hanami</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="../../Resources/css/cssEmpleado.css">
+    <meta name="author" content="hanami authors">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- IMPORTACIÓN DE RECURSOS EXTERNOS -->
+    <!-- Llamada al icono de la página web -->
+    <link type="image/png" rel="icon" href="../../Resources/images/HanamiLogo.png">
+    <!-- Llamada a las hojas de estilos del framework e iconos -->
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
 </head>
 
 <body>
@@ -17,134 +22,103 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar"></nav>
     </header>
 
-    <div class="tablaContainer">
-        <div class="containerBotones">
-            <button class="btnCrud btn btn-primary" type="submit" id="btnAgregarEmpleado">Crear</button>
-            <form class="d-flex" role="search" id="cosoBuscar">
-                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+    <main>
+        <!-- Título del contenido principal -->
+        <h3 id="mainTitle">Empleado</h3>
+        <div class="row">
+            <!-- Formulario de búsqueda -->
+            <form class="col-sm-12 col-md-6" id="searchForm">
+                <div class="row">
+                    <div class="col-6">
+                        <input type="search" class="form-control" name="search" placeholder="Buscar" required>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-success">
+                            <i>Buscar</i>
+                        </button>
+                        <button type="reset" class="btn btn-secondary" onclick="fillTable()">
+                            <i>Recargar tabla</i>
+                        </button>
+                    </div>
+                </div>
             </form>
+            <div class="col-sm-12 col-md-6 text-end">
+                <!-- Botón para abrir una caja de diálogo al momento de crear un nuevo registro -->
+                <button type="button" class="btn btn-primary" onclick="openCreate()">
+                    <i>Agregar</i>
+                </button>
+            </div>
         </div>
 
-        <br>
+        <!-- Tabla para mostrar los registros existentes -->
+        <table class="table table-hover">
+            <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
+            <thead>
+                <tr>
+                    <td colspan="3" id="rowsFound"></td>
+                </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
+            <tbody id="tableBody"></tbody>
+        </table>
 
-        <div class="containerT">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Correo</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Emily Murillo</td>
-                        <td>emilymmurillo@gmail.com</td>
-                        <td>
-                            <button class="btnCrud btn btn-primary btnEditarEmpleado" type="button">Editar</button>
-                            <button class="btnCrud btn btn-danger btnEliminarEmpleado" type="button">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Axel Garcia</td>
-                        <td>Administrador</td>
-                        <td>
-                            <button class="btnCrud btn btn-primary btnEditarEmpleado" type="button">Editar</button>
-                            <button class="btnCrud btn btn-danger btnEliminarEmpleado"  type="button">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Daniel Cortez</td>
-                        <td>Supervisor</td>
-                        <td>
-                            <button class="btnCrud btn btn-primary btnEditarEmpleado" type="button">Editar</button>
-                            <button class="btnCrud btn btn-danger btnEliminarEmpleado" type="button">Eliminar</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div id="modalAgregarEmpleado" class="modal">
-        <div class="modal-content">
-            <span class="closeAgregarEmpleado">&times;</span>
-            <div class="contenidoModalSer">
-                <div class="titulo">
-                    <h4>Agregar Usuarios</h4>
-                </div>
-
-                <div class="camposServicios">
-                   
-                    <div class="camposAgregarEmpleado">
-                        <div class="form-floating mb-2 p-0">
-                            <input type="text" class="form-control" id="nombreUsuario" placeholder="..." maxlength="100">
-                            <label for="nombreUsuario">Nombre de usuario</label>
-                        </div>
-                        <div class="form-floating mb-2 p-0">
-                            <input type="password" class="form-control" id="contrasena" placeholder="..." maxlength="100">
-                            <label for="contrasena">Contraseña</label>
-                        </div>
-                        <div class="form-floating mb-2 p-0">
-                            <input type="text" class="form-control" id="correoElectronico" placeholder="..." maxlength="100">
-                            <label for="correoElectronico">Correo Electrónico</label>
-                        </div>
+        <!-- Componente Modal para guardar un registro -->
+        <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                </div>
-                <hr class="bottomModalSer">
-                <div class="botonesModalSer">
-                    <button type="button" class="btn btn-dark" id="cancelarModalButton" onclick="openClose()">Cancelar</button>
-                    <button type="button" class="btn btn-danger" onclick="openNoti()">Aceptar</button>
+                    <!-- Formulario para guardar un registro -->
+                    <form id="saveForm">
+                        <div class="modal-body row g-3">
+                            <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                            <input type="number" class="d-none" id="idAdministrador" name="idAdministrador">
+                            <div class="col-sm-12 col-md-6">
+                                <label for="nombreUsuario" class="form-label">Nombre</label>
+                                <input id="nombreUsuario" type="text" name="nombreUsuario" class="form-control"
+                                    required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="clave" class="form-label">Clave</label>
+                                <input id="clave" type="password" name="clave" class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="correo" class="form-label">Correo</label>
+                                <input id="correo" type="email" name="username" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div id="modalEditarEmpleado" class="modal">
-        <div class="modal-content">
-            <span class="closeEditarEmpleado">&times;</span>
-            <div class="contenidoModalSer">
-                <div class="titulo">
-                    <h4>Editar Usuarios</h4>
-                </div>
-                <div class="camposServicios">
-                    
-                    <div class="camposAgregarEmpleado">
-                        <div class="form-floating mb-2 p-0">
-                            <input type="text" class="form-control" id="nombreUsuario" placeholder="..." maxlength="100">
-                            <label for="nombreUsuario">Nombre de usuario</label>
-                        </div>
-                        <div class="form-floating mb-2 p-0">
-                            <input type="password" class="form-control" id="contrasena" placeholder="..." maxlength="100">
-                            <label for="contrasena">Contraseña</label>
-                        </div>
-                        <div class="form-floating mb-2 p-0">
-                            <input type="text" class="form-control" id="correoElectronico" placeholder="..." maxlength="100">
-                            <label for="correoElectronico">Correo Electrónico</label>
-                        </div>
-                    </div>
-                </div>
-                <hr class="bottomModalSer">
-                <div class="botonesModalSer">
-                    <button type="button" class="btn btn-dark" id="cancelarModalEditarButton" onclick="openCloseEditar()">Cancelar</button>
-                    <button type="button" class="btn btn-danger" onclick="openNotiEditar()">Aceptar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    </main>
 
     <div id="footer"></div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
+    <!-- Llamada al framework y librería de mensajes -->
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    <!-- Llamada al controlador general de la aplicación -->
+    <script type="text/javascript" src="../../controllers/utils/components.js"></script>
+    <!-- Llamada al controlador del sitio privado -->
+    <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
+    <!-- Llamada al controlador de la página web -->
     <script src="../../controllers/admin/navbar.js"></script>
     <script src="../../controllers/admin/footer.js"></script>
-    <script src="../../Controllers/admin/empleadojs.js"></script>
-    <script>
-        // JavaScript adicional aquí
-    </script>
+    <script type="text/javascript" src="../../controllers/admin/empleado.js"></script>
 </body>
 
 </html>

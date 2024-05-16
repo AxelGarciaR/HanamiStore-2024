@@ -96,7 +96,7 @@ class UsuariosHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_usuario, nombre_usuario, id_tipousuario
+        $sql = 'SELECT id_usuario, nombre_usuario, correo
                 FROM usuarios
                 WHERE nombre_usuario LIKE ? OR id_usuario LIKE ?
                 ORDER BY nombre_usuario';
@@ -125,7 +125,7 @@ class UsuariosHandler
     //ReadOne
     public function readOne()
     {
-        $sql = 'SELECT id_usuario, nombre_usuario, correo,
+        $sql = 'SELECT id_usuario, nombre_usuario, correo
                 FROM usuarios
                 WHERE id_usuario = ?';
         $params = array($this->id);

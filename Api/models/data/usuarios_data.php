@@ -29,7 +29,7 @@ class UsuarioData extends UsuariosHandler{
     //Funcion para validar el el nombre de usuario
     public function setNombreUsuario($value, $min = 2, $max = 100)
     {
-        if (!Validator::validateAlphabetic($value)) {
+        if (!Validator::validateAlphanumeric($value)) {
             $this->data_error = 'El nombre debe ser un valor alfabético';
             return false;
         } elseif (Validator::validateLength($value, $min, $max)) {
@@ -40,7 +40,7 @@ class UsuarioData extends UsuariosHandler{
             return false;
         }
     }
-
+    
     //Funcion para validar el correo
     public function setCorreo($value)
     {
