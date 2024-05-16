@@ -10,7 +10,7 @@ const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
     MODAL_TITLE = document.getElementById('modalTitle');
 // Constantes para establecer los elementos del formulario de guardar.
 const SAVE_FORM = document.getElementById('saveForm'),
-    ID_USUARIO = document.getElementById('idAdministrador'),
+    ID_USUARIO = document.getElementById('idUsuario'),
     NOMBRE_USUARIO = document.getElementById('nombreUsuario'),
     CORREO_USUARIO = document.getElementById('correoUsuario'),
     CLAVE_USUARIO = document.getElementById('nombreCategoria');
