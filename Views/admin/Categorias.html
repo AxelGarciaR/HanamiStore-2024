@@ -4,14 +4,14 @@
 
 <head>
     <!-- Título del documento -->
-    <title>Subcategorías</title>
+    <title>Categorías</title>
     <!-- Metadatos de la página web -->
     <meta charset="utf-8">
     <meta name="author" content="hanami authors">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- IMPORTACIÓN DE RECURSOS EXTERNOS -->
     <!-- Llamada al icono de la página web -->
-    <link type="image/png" rel="icon" href="../../Resources/images/HanamiLogo.png">
+    <link type="image/png" rel="icon" href="../../resources/img/icon.png">
     <!-- Llamada a las hojas de estilos del framework e iconos -->
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
@@ -19,13 +19,13 @@
 
 <body>
   
-<header class="header sticky-top">
+  <header class="header sticky-top">
     <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar"></nav>
 </header>
     <!-- Contenido principal del documento -->
     <main>
         <!-- Título del contenido principal -->
-        <h3 id="mainTitle">Subcategorías</h3>
+        <h3 id="mainTitle">Categorías</h3>
         <div class="row">
             <!-- Formulario de búsqueda -->
             <form class="col-sm-12 col-md-6" id="searchForm">
@@ -35,10 +35,10 @@
                     </div>
                     <div class="col-6">
                         <button type="submit" class="btn btn-success">
-                            <i >Buscar</i>
+                            <i class="bi bi-search"></i>
                         </button>
                         <button type="reset" class="btn btn-secondary" onclick="fillTable()">
-                            <i >Recargar tabla</i>
+                            <i class="bi bi-x-square-fill"></i>
                         </button>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
             <div class="col-sm-12 col-md-6 text-end">
                 <!-- Botón para abrir una caja de diálogo al momento de crear un nuevo registro -->
                 <button type="button" class="btn btn-primary" onclick="openCreate()">
-                    <i> Agregar</i>
+                    <i class="bi bi-plus-square-fill"></i>
                 </button>
             </div>
         </div>
@@ -61,7 +61,6 @@
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
-                    <th>ID de Categoría</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -82,15 +81,10 @@
                     <form id="saveForm">
                         <div class="modal-body row g-3">
                             <!-- Campo oculto para asignar el id del registro al momento de modificar -->
-                            <input type="number" class="d-none" id="idSubCategoria" name="idSubCategoria">
+                            <input type="number" class="d-none" id="idCategoria" name="idCategoria">
                             <div class="col-sm-12 col-md-6">
-                                <label for="nombreSubCategoria" class="form-label">Nombre</label>
-                                <input id="nombreSubCategoria" type="text" name="nombreSubCategoria" class="form-control"
-                                    required>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <label for="idCategoria" class="form-label">ID de Categoría</label>
-                                <input id="idCategoria" type="number" name="idCategoria" class="form-control"
+                                <label for="nombreCategoria" class="form-label">Nombre</label>
+                                <input id="nombreCategoria" type="text" name="nombreCategoria" class="form-control"
                                     required>
                             </div>
                         </div>
@@ -112,7 +106,7 @@
     <!-- Llamada al controlador del sitio privado -->
     <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
     <!-- Llamada al controlador de la página web -->
-    <script type="text/javascript" src="../../controllers/admin/sub_categoria.js"></script>
+    <script type="text/javascript" src="../../controllers/admin/categorias.js"></script>
     <script src="../../controllers/admin/navbar.js"></script>
     <script src="../../controllers/admin/footer.js"></script>
 </body>
