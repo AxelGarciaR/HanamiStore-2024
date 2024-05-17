@@ -1,5 +1,7 @@
 <?php
-// Se incluye la clase de entrada
+// Se incluye la clase para validar los datos de entrada.
+require_once('../../helpers/validator.php');
+// Se incluye la clase correspondiente para manejar los datos de la tabla Marcas.
 require_once('../../models/data/marcas_data.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
@@ -28,15 +30,12 @@ if (isset($_GET['action'])) {
             case 'createRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
-                    !$marca->setNombreMarca($_POST['nombreMarca']) or
-                    !$marca->setLogoMarca($_POST['logoMarca'], $marca->getFilename())
+                    !$marca->setNombreMarca($_POST['nombreMarca'])
                 ) {
                     $result['error'] = $marca->getDataError();
                 } elseif ($marca->createRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Marca creada correctamente';
-                    // Se asigna el estado del archivo después de insertar.
-                    $result['fileStatus'] = Validator::saveFile($_FILES['logoMarca'], $marca::RUTA_IMAGEN);
                 } else {
                     $result['error'] = 'Ocurrió un problema al ingresar la marca';
                 }
@@ -62,15 +61,12 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (
                     !$marca->setIdMarca($_POST['idMarca']) or
-                    !$marca->setNombreMarca($_POST['nombreMarca']) or
-                    !$marca->setLogoMarca($_POST['logoMarca'], $marca->getFilename())
+                    !$marca->setNombreMarca($_POST['nombreMarca'])
                 ) {
                     $result['error'] = $marca->getDataError();
                 } elseif ($marca->updateRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Marca actualizada';
-                    // Se asigna el estado del archivo después de actualizar.
-                    $result['fileStatus'] = Validator::changeFile($_FILES['logoMarca'], $marca::RUTA_IMAGEN, $marca->getFilename());
                 } else {
                     $result['error'] = 'Ocurrió un problema al modificar la marca';
                 }
@@ -100,3 +96,4 @@ if (isset($_GET['action'])) {
 header('Content-type: application/json; charset=utf-8');
 // Se imprime el resultado en formato JSON y se retorna al controlador.
 print(json_encode($result));
+?>

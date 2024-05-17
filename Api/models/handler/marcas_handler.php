@@ -19,7 +19,7 @@ class MarcasHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_Marca, Nombre_Marca, Logo_Marca
+        $sql = 'SELECT id_Marca, Nombre_Marca
                 FROM Marcas
                 WHERE Nombre_Marca LIKE ? OR id_Marca LIKE ?
                 ORDER BY Nombre_Marca';
@@ -30,16 +30,16 @@ class MarcasHandler
     // Función para crear una nueva marca
     public function createRow()
     {
-        $sql = 'INSERT INTO Marcas (Nombre_Marca, Logo_Marca)
-                VALUES(?, ?)';
-        $params = array($this->nombreMarca, $this->logoMarca);
+        $sql = 'INSERT INTO Marcas (Nombre_Marca)
+                VALUES(?)';
+        $params = array($this->nombreMarca);
         return Database::executeRow($sql, $params);
     }
 
     // Función para leer todas las marcas
     public function readAll()
     {
-        $sql = 'SELECT id_Marca, Nombre_Marca, Logo_Marca
+        $sql = 'SELECT id_Marca, Nombre_Marca
                 FROM Marcas
                 ORDER BY Nombre_Marca';
         return Database::getRows($sql);
@@ -48,7 +48,7 @@ class MarcasHandler
     // Función para leer una marca específica
     public function readOne()
     {
-        $sql = 'SELECT id_Marca, Nombre_Marca, Logo_Marca
+        $sql = 'SELECT id_Marca, Nombre_Marca
                 FROM Marcas
                 WHERE id_Marca = ?';
         $params = array($this->idMarca);
@@ -59,10 +59,9 @@ class MarcasHandler
     public function updateRow()
     {
         $sql = 'UPDATE Marcas
-                SET Nombre_Marca = ?,
-                Logo_Marca = ?
+                SET Nombre_Marca = ?
                 WHERE id_Marca = ?';
-        $params = array($this->nombreMarca, $this->logoMarca, $this->idMarca);
+        $params = array($this->nombreMarca, $this->idMarca);
         return Database::executeRow($sql, $params);
     }
 
@@ -74,14 +73,5 @@ class MarcasHandler
         $params = array($this->idMarca);
         return Database::executeRow($sql, $params);
     }
-
-    // Función para obtener el nombre del archivo de la marca
-    public function readFilename()
-    {
-        $sql = 'SELECT Logo_Marca
-                FROM Marcas
-                WHERE id_Marca = ?';
-        $params = array($this->idMarca);
-        return Database::getRow($sql, $params);
-    }
 }
+?>

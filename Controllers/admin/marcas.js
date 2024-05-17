@@ -1,141 +1,209 @@
-// Función para mostrar el modal de crear marca
-function mostrarModalCrearMarca() {
-    $('#modalCrearMarca').modal('show');
-}
+// Constante para completar la ruta de la API de marcas.
+const MARCA_API = 'services/admin/marcas.php';
+// Constante para establecer los elementos de la tabla.
+const TABLE_BODY = document.getElementById('tableBody'),
+    ROWS_FOUND = document.getElementById('rowsFound');
+// Constantes para establecer los elementos del componente Modal.
+const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
+    MODAL_TITLE = document.getElementById('modalTitle');
+// Constantes para establecer los elementos del formulario de guardar.
+const SAVE_FORM = document.getElementById('saveForm'),
+    ID_MARCA = document.getElementById('idMarca'),
+    NOMBRE_MARCA = document.getElementById('nombreMarca');
 
-// Función para mostrar el modal de editar marca
-function mostrarModalEditarMarca(idMarca, nombreMarca, descripcionMarca) {
-    $('#idMarcaEditar').val(idMarca);
-    $('#nombreMarcaEditar').val(nombreMarca);
-    $('#descripcionMarcaEditar').val(descripcionMarca);
-    $('#modalEditarMarca').modal('show');
-}
+// Método del evento para cuando el documento ha cargado.
+document.addEventListener('DOMContentLoaded', () => {
+    // Se establece el título del contenido principal.
+    document.getElementById('mainTitle').textContent = 'Gestionar Marcas';
+    // Llamada a la función para llenar la tabla con los registros existentes.
+    fillTable();
+});
 
-// Función para guardar la marca
-function guardarMarca() {
-    var nombreMarca = $('#nombreMarca').val();
-    var descripcionMarca = $('#descripcionMarca').val();
-    var idMarca = $('#idMarca').val();
+// Método del evento para cuando se envía el formulario de buscar.
+document.getElementById('searchForm').addEventListener('submit', async (event) => {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Constante tipo objeto con los datos del formulario.
+    const formData = new FormData(document.getElementById('searchForm'));
+    // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
+    fillTable(formData);
+});
 
-    // Simulación de respuesta
-    var response = {
-        status: 1,
-        message: "Marca guardada correctamente."
-    };
-
-    if (response.status === 1) {
-        // Agregamos lógica para agregar una nueva tarjeta de marca en la página después de guardarla
-        var nuevaTarjeta =
-            `<div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">${nombreMarca}</h5>
-                    <p class="card-text">${descripcionMarca}</p>
-                    <div class="card-actions">
-                        <button class="btn btn-info" data-toggle="modal" data-target="#modalEditarMarca"
-                            onclick="mostrarModalEditarMarca('${idMarca}', '${nombreMarca}', '${descripcionMarca}')">Editar</button>
-                        <button class="btn btn-danger" onclick="eliminarMarca('${idMarca}')">Eliminar</button>
-                    </div>
-                </div>
-            </div>`;
-
-        $('.product-card-container').append(nuevaTarjeta); // Agregamos la nueva tarjeta al contenedor de tarjetas
-
-        Swal.fire({
-            icon: 'success',
-            title: 'Éxito',
-            text: response.message,
-            confirmButtonColor: '#FFAFCC',
-            confirmButtonText: 'Cerrar',
-            onClose: () => {
-                $('#modalCrearMarca').modal('hide'); // Cerrar modal de crear marca
-            }
-        });
+// Método del evento para cuando se envía el formulario de guardar.
+SAVE_FORM.addEventListener('submit', async (event) => {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Se verifica la acción a realizar.
+    const action = ID_MARCA.value ? 'updateRow' : 'createRow';
+    // Constante tipo objeto con los datos del formulario.
+    const formData = new FormData(SAVE_FORM);
+    // Petición para guardar los datos del formulario.
+    const responseData = await fetchData(MARCA_API, action, formData);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    if (responseData.status) {
+        // Se cierra la caja de diálogo.
+        SAVE_MODAL.hide();
+        // Se muestra un mensaje de éxito.
+        sweetAlert(1, responseData.message, true);
+        // Se carga nuevamente la tabla para visualizar los cambios.
+        fillTable();
     } else {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: response.error,
-            confirmButtonColor: '#FFAFCC',
-            confirmButtonText: 'Cerrar'
-        });
+        sweetAlert(2, responseData.error, false);
+    }
+});
+
+/*
+*   Función asíncrona para llenar la tabla con los registros disponibles.
+*   Parámetros: formData (objeto opcional con los datos de búsqueda).
+*   Retorno: ninguno.
+*/
+const fillTable = async (formData = null) => {
+    // Se inicializa el contenido de la tabla.
+    ROWS_FOUND.textContent = '';
+    TABLE_BODY.innerHTML = '';
+
+    try {
+        // Se verifica si hay un objeto formData y se establece la acción en consecuencia.
+        const action = formData ? 'searchRows' : 'readAll';
+        // Petición para obtener los registros disponibles.
+        const responseData = await fetchData(MARCA_API, action, formData);
+        
+        // Verificar si el objeto responseData está definido y tiene la propiedad 'status'.
+        if (responseData && responseData.status) {
+            // Se recorre el conjunto de registros fila por fila.
+            responseData.dataset.forEach(row => {
+                // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+                TABLE_BODY.innerHTML += `
+                <tr>
+                    <td>${row.id_Marca}</td>
+                    <td>${row.Nombre_Marca}</td>
+                    <td>
+                        <button type="button" class="btn btn-info" onclick="openUpdate(${row.id_Marca})">
+                            <i>Editar</i>
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="openDelete(${row.id_Marca})">
+                            <i>Eliminar</i>
+                        </button>
+                    </td>
+                </tr>
+                `;
+            });
+            // Se muestra un mensaje de acuerdo con el resultado.
+            ROWS_FOUND.textContent = responseData.message;
+        } else {
+            // Si el objeto responseData no está definido o no tiene la propiedad 'status', muestra un mensaje de error.
+            throw new Error('No se pudo obtener los datos correctamente.');
+        }
+    } catch (error) {
+        // Captura cualquier error y muestra un mensaje en la consola.
+        console.error('Error al llenar la tabla:', error);
+        // También puedes manejar el error mostrando un mensaje al usuario si lo deseas.
     }
 }
 
-// Función para eliminar una marca
-function eliminarMarca(idMarca) {
-    Swal.fire({
-        icon: 'question',
-        title: '¿Estás seguro de eliminar esta marca?',
-        text: 'Esta acción no se puede deshacer.',
-        showCancelButton: true,
-        cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#FFAFCC',
-        confirmButtonText: 'Eliminar',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Simulación de respuesta
-            var response = {
-                status: 1,
-                message: "Marca eliminada correctamente."
-            };
-
-            if (response.status === 1) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Éxito',
-                    text: response.message,
-                    confirmButtonColor: '#FFAFCC',
-                    confirmButtonText: 'Cerrar',
-                    onClose: () => {
-                        location.reload(); // Recargar la página después de eliminar la marca
-                    }
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: response.error,
-                    confirmButtonColor: '#FFAFCC',
-                    confirmButtonText: 'Cerrar'
-                });
-            }
-        }
-    });
+/*
+*   Función para preparar el formulario al momento de insertar un registro.
+*   Parámetros: ninguno.
+*   Retorno: ninguno.
+*/
+const openCreate = () => {
+    // Se muestra la caja de diálogo con su título.
+    SAVE_MODAL.show();
+    MODAL_TITLE.textContent = 'Crear Marca';
+    // Se prepara el formulario.
+    SAVE_FORM.reset();
 }
 
-// Función para guardar la marca editada
-function guardarMarcaEditada() {
-    var idMarca = $('#idMarcaEditar').val();
-    var nombreMarca = $('#nombreMarcaEditar').val();
-    var descripcionMarca = $('#descripcionMarcaEditar').val();
-
-    // Aquí podrías realizar alguna operación para guardar la marca editada, como enviar una solicitud AJAX al servidor.
-    // Por ahora, simplemente mostraremos un mensaje de confirmación.
-    Swal.fire({
-        icon: 'success',
-        title: 'Éxito',
-        text: 'Marca editada correctamente.',
-        confirmButtonColor: '#FFAFCC',
-        confirmButtonText: 'Cerrar',
-        onClose: () => {
-            $('#modalEditarMarca').modal('hide'); // Cerrar modal de editar marca
-        }
-    });
+/*
+*   Función asíncrona para preparar el formulario al momento de actualizar un registro.
+*   Parámetros: id (identificador del registro seleccionado).
+*   Retorno: ninguno.
+*/
+const openUpdate = async (id) => {
+    // Se define una constante tipo objeto con los datos del registro seleccionado.
+    const formData = new FormData();
+    formData.append('idMarca', id);
+    // Petición para obtener los datos del registro solicitado.
+    const responseData = await fetchData(MARCA_API, 'readOne', formData);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    if (responseData.status) {
+        // Se muestra la caja de diálogo con su título.
+        SAVE_MODAL.show();
+        MODAL_TITLE.textContent = 'Actualizar Marca';
+        // Se prepara el formulario.
+        SAVE_FORM.reset();
+        // Se inicializan los campos con los datos.
+        const row = responseData.dataset;
+        ID_MARCA.value = row.id_Marca;
+        NOMBRE_MARCA.value = row.Nombre_Marca;
+    } else {
+        sweetAlert(2, responseData.error, false);
+    }
 }
 
-// Función para buscar marcas
-function buscarMarcas() {
-    var query = $('#searchInput').val();
+/*
+*   Función asíncrona para eliminar un registro.
+*   Parámetros: id (identificador del registro seleccionado).
+*   Retorno: ninguno.
+*/
+const openDelete = async (id) => {
+    // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
+    const response = await confirmAction('¿Desea eliminar la marca de forma permanente?');
+    // Se verifica la respuesta del mensaje.
+    if (response) {
+        // Se define una constante tipo objeto con los datos del registro seleccionado.
+        const formData = new FormData();
+        formData.append('idMarca', id);
+        // Petición para eliminar el registro seleccionado.
+        const responseData = await fetchData(MARCA_API, 'deleteRow', formData);
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+        if (responseData.status) {
+            // Se muestra un mensaje de éxito.
+            await sweetAlert(1, responseData.message, true);
+            // Se carga nuevamente la tabla para visualizar los cambios.
+            fillTable();
+        } else {
+            sweetAlert(2, responseData.error, false);
+        }
+    }
+}
 
-    // Aquí deberías realizar una solicitud AJAX al servidor para buscar marcas según la consulta.
-    // Por ahora, simplemente simularemos una búsqueda y mostraremos los resultados.
-    // En lugar de esta simulación, puedes realizar la solicitud AJAX real como lo hiciste en el código original.
-    var resultadosSimulados = `<div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Marca Encontrada</h5>
-                                        <p class="card-text">Descripción de la marca encontrada.</p>
-                                    </div>
-                                </div>`;
-    
-    $('#resultadosBusqueda').html(resultadosSimulados); // Mostrar resultados simulados
+/*
+*   Función asíncrona para realizar una petición a la API.
+*   Parámetros: apiUrl (ruta de la API), action (acción a realizar), formData (datos del formulario).
+*   Retorno: objeto con los datos de respuesta de la API.
+*/
+const fetchData = async (apiUrl, action, formData) => {
+    try {
+        // Petición a la API.
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            body: new URLSearchParams({ action, ...Object.fromEntries(formData) })
+        });
+        // Conversión de la respuesta a formato JSON.
+        return await response.json();
+    } catch (error) {
+        console.error('Error en la petición a la API:', error);
+        return { status: false, error: 'Error de conexión con la API.' };
+    }
+}
+
+/*
+*   Función para mostrar un mensaje de confirmación.
+*   Parámetros: message (mensaje a mostrar).
+*   Retorno: promesa con la respuesta del usuario.
+*/
+const confirmAction = (message) => {
+    return new Promise((resolve) => {
+        // Mostrar mensaje de confirmación utilizando SweetAlert.
+        sweetAlert({
+            title: 'Confirmación',
+            text: message,
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            resolve(willDelete);
+        });
+    });
 }

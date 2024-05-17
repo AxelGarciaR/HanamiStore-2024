@@ -1,178 +1,115 @@
 <!DOCTYPE html>
+<!-- Declaración del idioma para el documento -->
 <html lang="es">
 
 <head>
-    <title>Productos</title>
+    <!-- Título del documento -->
+    <title>Marcas</title>
+    <!-- Metadatos de la página web -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../Resources/css/cssMarcas.css">
+    <meta name="author" content="hanami authors">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- IMPORTACIÓN DE RECURSOS EXTERNOS -->
+    <!-- Llamada al icono de la página web -->
+    <link type="image/png" rel="icon" href="../../Resources/images/HanamiLogo.png">
+    <!-- Llamada a las hojas de estilos del framework e iconos -->
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
 </head>
 
 <body>
-    <header class="header sticky-top">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar"></nav>
-    </header>
-
-    <div class="container-fluid flexi" id="coso1s">
-        <div class="row flex-column align-items-center">
-            <div class="col-lg-10 welcome">
-                <h1 class="text-center">Marcas</h1>
-            </div>
-        </div>
-
-        <div class="containerBotones">
-            <div>
-                <button class="btn btn-primary" type="submit" onclick="mostrarModalCrearMarca()">Crear</button>
-            </div>
-            <form class="d-flex" role="search" id="cosoBuscar">
-                <input class="form-control me-2" type="search" id="searchInput" placeholder="Buscar" aria-label="Search" oninput="buscarMarcas()">
-            </form>
-        </div>
-
-        <div class="container product-container">
-            <div class="row">
-                <div class="col-12 product-card-container">
-                    <div class="d-flex flex-wrap justify-content-center">
-                        <!-- Tarjeta de marca 1 -->
-                        <div class="card">
-                            <img src="../../Resources/images/dior.png" class="card-img-top" alt="Producto 1" width="100"
-                                height="200">
-                            <div class="card-body">
-                                <h5 class="card-title">DIOR</h5>
-                                <p class="card-text">Descripción de la marca 1.</p>
-                                <div class="card-actions">
-                                    <button class="btn btn-info" onclick="mostrarModalEditarMarca('1')">Editar</button>
-                                    <button class="btn btn-danger" onclick="eliminarMarca('1')">Eliminar</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Tarjeta de marca 2 -->
-                        <div class="card">
-                            <img src="../../Resources/images/sephora.jpg" class="card-img-top" alt="Producto 2"
-                                width="100" height="200">
-                            <div class="card-body">
-                                <h5 class="card-title">SEPHORA</h5>
-                                <p class="card-text">Descripción de la marca 2.</p>
-                                <div class="card-actions">
-                                    <button class="btn btn-info" data-toggle="modal"
-                                        data-target="#modalProducto2">Editar</button>
-                                    <button class="btn btn-danger" onclick="eliminarMarca(event)">Eliminar</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Tarjeta de marca 3 -->
-                        <div class="card">
-                            <img src="../../Resources/images/lancome.png" class="card-img-top" alt="Producto 3"
-                                width="100" height="200">
-                            <div class="card-body">
-                                <h5 class="card-title">LANCOME</h5>
-                                <p class="card-text">Descripción de la marca 3.</p>
-                                <div class="card-actions">
-                                    <button class="btn btn-info" data-toggle="modal"
-                                        data-target="#modalProducto3">Editar</button>
-                                    <button class="btn btn-danger" onclick="eliminarMarca(event)">Eliminar</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Tarjeta de marca 4 -->
-                        <div class="card">
-                            <img src="../../Resources/images/elf-logo.jpg" class="card-img-top" alt="Producto 4"
-                                width="100" height="200">
-                            <div class="card-body">
-                                <h5 class="card-title">E.L.F</h5>
-                                <p class="card-text">Descripción de la marca 4.</p>
-                                <div class="card-actions">
-                                    <button class="btn btn-info" data-toggle="modal"
-                                        data-target="#modalProducto4">Editar</button>
-                                    <button class="btn btn-danger" onclick="eliminarMarca(event)">Eliminar</button>
-                                </div>
-                            </div>
-                        </div>
+  
+<header class="header sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar"></nav>
+</header>
+    <!-- Contenido principal del documento -->
+    <main>
+        <!-- Título del contenido principal -->
+        <h3 id="mainTitle">Marcas</h3>
+        <div class="row">
+            <!-- Formulario de búsqueda -->
+            <form class="col-sm-12 col-md-6" id="searchForm">
+                <div class="row">
+                    <div class="col-6">
+                        <input type="search" class="form-control" name="search" placeholder="Buscar" required>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-success">
+                            <i >Buscar</i>
+                        </button>
+                        <button type="reset" class="btn btn-secondary" onclick="fillTable()">
+                            <i >Recargar tabla</i>
+                        </button>
                     </div>
                 </div>
+            </form>
+            <div class="col-sm-12 col-md-6 text-end">
+                <!-- Botón para abrir una caja de diálogo al momento de crear un nuevo registro -->
+                <button type="button" class="btn btn-primary" onclick="openCreate()">
+                    <i> Agregar</i>
+                </button>
             </div>
         </div>
-    </div>
 
-    <!-- Modal para crear una nueva marca -->
-    <div class="modal fade" id="modalCrearMarca" tabindex="-1" role="dialog" aria-labelledby="modalCrearMarcaLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalCrearMarcaLabel">Crear nueva marca</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Contenido del modal de crear marca -->
-                    <form>
-                        <div class="form-group">
-                            <label for="nombreMarca">Nombre de la marca</label>
-                            <input type="text" class="form-control" id="nombreMarca" maxlength="50">
+        <!-- Tabla para mostrar los registros existentes -->
+        <table class="table table-hover">
+            <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
+            <thead>
+                <tr>
+                    <td colspan="3" id="rowsFound"></td>
+                </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
+            <tbody id="tableBody"></tbody>
+        </table>
+
+        <!-- Componente Modal para guardar un registro -->
+        <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- Formulario para guardar un registro -->
+                    <form id="saveForm">
+                        <div class="modal-body row g-3">
+                            <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                            <input type="number" class="d-none" id="idMarca" name="idMarca">
+                            <div class="col-sm-12 col-md-6">
+                                <label for="nombreMarca" class="form-label">Nombre</label>
+                                <input id="nombreMarca" type="text" name="nombreMarca" class="form-control"
+                                    required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="imagenMarca">Imagen de la marca</label>
-                            <input type="file" class="form-control-file" id="imagenMarca">
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="guardarMarca()">Guardar</button>
-                </div>
             </div>
         </div>
-    </div>
-
-    <!-- Modal para editar la marca -->
-    <div class="modal fade" id="modalEditarMarca" tabindex="-1" role="dialog" aria-labelledby="modalEditarMarcaLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalEditarMarcaLabel">Editar marca</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Contenido del modal de editar marca -->
-                    <input type="hidden" id="idMarcaEditar">
-                    <div class="form-group">
-                        <label for="nombreMarcaEditar">Nombre de la marca</label>
-                        <input type="text" class="form-control" id="nombreMarcaEditar" maxlength="50">
-                    </div>
-                    <div class="form-group">
-                        <label for="imagenMarcaEditar">Imagen de la marca</label>
-                        <input type="file" class="form-control-file" id="imagenMarcaEditar">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="guardarMarcaEditada()">Guardar cambios</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
+    </main>
     <div id="footer"></div>
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="../../Controllers/admin/footer.js"></script>
-    <script src="../../Controllers/admin/navbar.js"></script>
-    <script src="../../Controllers/admin/marcas.js"></script>
+    <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
+    <!-- Llamada al framework y librería de mensajes -->
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    <!-- Llamada al controlador general de la aplicación -->
+    <script type="text/javascript" src="../../controllers/utils/components.js"></script>
+    <!-- Llamada al controlador del sitio privado -->
+    <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
+    <!-- Llamada al controlador de la página web -->
+    <script type="text/javascript" src="../../controllers/admin/marcas.js"></script>
+    <script src="../../controllers/admin/navbar.js"></script>
+    <script src="../../controllers/admin/footer.js"></script>
 </body>
 
 </html>
+
