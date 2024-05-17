@@ -73,9 +73,9 @@ class UsuariosHandler
     public function editProfile()
     {
         $sql = 'UPDATE usuarios
-                SET nombre_usuario = ?, correo = ?
+                SET nombre_usuario = ?, correo = ?, clave = ?
                 WHERE id_usuario = ?';
-        $params = array($this->nombreUsuario, $this->correoUsuario, $_SESSION['idAdministrador']);
+        $params = array($this->nombreUsuario, $this->correoUsuario, $this->claveUsuario, $_SESSION['idAdministrador']);
         return Database::executeRow($sql, $params);
     }
 
