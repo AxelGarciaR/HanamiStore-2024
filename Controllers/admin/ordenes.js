@@ -1,141 +1,70 @@
-// Función para mostrar el modal de crear orden
-function mostrarModalCrearOrdenes() {
-    $('#modalCrearOrdenes').modal('show');
-}
+// Constante para completar la ruta de la API.
+const ORDENES_API = 'services/admin/ordenes.php';
+// Constante para establecer el formulario de buscar.
+const SEARCH_FORM = document.getElementById('searchForm');
+// Constantes para establecer los elementos de la tabla.
+const TABLE_BODY = document.getElementById('tableBody'),
+    ROWS_FOUND = document.getElementById('rowsFound');
 
-// Función para mostrar el modal de editar orden
-function mostrarModalEditarOrdenes(idCliente, fechaOrden, estadoOrden) {
-    $('#idClienteEditar').val(idCliente);
-    $('#fechaOrdenEditar').val(fechaOrden);
-    $('#estadoOrdenEditar').val(estadoOrden);
-    $('#modalEditarOrdenes').modal('show');
-}
+// Método del evento para cuando el documento ha cargado.
+document.addEventListener('DOMContentLoaded', () => {
+    // Se establece el título del contenido principal.
+    document.getElementById('mainTitle').textContent = 'Ver Ordenes';
+    // Llamada a la función para llenar la tabla con los registros existentes.
+    fillTable();
+});
 
-// Función para guardar la orden
-function guardarOrdenes() {
-    var fechaOrden = $('#fechaOrden').val();
-    var estadoOrden = $('#estadoOrden').val();
-    var idCliente = $('#idCliente').val();
+// Método del evento para cuando se envía el formulario de buscar.
+SEARCH_FORM.addEventListener('submit', async (event) => {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Constante tipo objeto con los datos del formulario.
+    const formData = new FormData(SEARCH_FORM);
+    // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
+    fillTable(formData);
+});
 
-    // Simulación de respuesta
-    var response = {
-        status: 1,
-        message: "Ordenes guardada correctamente."
-    };
+/*
+*   Función asíncrona para llenar la tabla con los registros disponibles.
+*   Parámetros: formData (objeto opcional con los datos de búsqueda).
+*   Retorno: ninguno.
+*/
+const fillTable = async (formData = null) => {
+    // Se inicializa el contenido de la tabla.
+    ROWS_FOUND.textContent = '';
+    TABLE_BODY.innerHTML = '';
 
-    if (response.status === 1) {
-        // Agregamos lógica para agregar una nueva tarjeta de orden en la página después de guardarla
-        var nuevaTarjeta =
-            `<div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">${fechaOrden}</h5>
-                    <p class="card-text">${estadoOrden}</p>
-                    <div class="card-actions">
-                        <button class="btn btn-info" data-toggle="modal" data-target="#modalEditarOrdenes"
-                            onclick="mostrarModalEditarOrdenes('${idCliente}', '${fechaOrden}', '${estadoOrden}')">Editar</button>
-                        <button class="btn btn-danger" onclick="eliminarOrdenes('${idCliente}')">Eliminar</button>
-                    </div>
-                </div>
-            </div>`;
-
-        $('.product-card-container').append(nuevaTarjeta); // Agregamos la nueva tarjeta al contenedor de tarjetas
-
-        Swal.fire({
-            icon: 'success',
-            title: 'Éxito',
-            text: response.message,
-            confirmButtonColor: '#FFAFCC',
-            confirmButtonText: 'Cerrar',
-            onClose: () => {
-                $('#modalCrearOrdenes').modal('hide'); // Cerrar modal de crear orden
-            }
-        });
-    } else {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: response.error,
-            confirmButtonColor: '#FFAFCC',
-            confirmButtonText: 'Cerrar'
-        });
+    try {
+        // Se verifica si hay un objeto formData y se establece la acción en consecuencia.
+        const action = formData ? 'searchRows' : 'readAll';
+        // Petición para obtener los registros disponibles.
+        const responseData = await fetchData(ORDENES_API, action, formData);
+        
+        // Verificar si el objeto responseData está definido y tiene la propiedad 'status'.
+        if (responseData && responseData.status) {
+            // Se recorre el conjunto de registros fila por fila.
+            responseData.dataset.forEach(row => {
+                // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+                TABLE_BODY.innerHTML += `
+                <tr>
+                    <td>${row.id_Orden}</td>
+                    <td>${row.id_Cliente}</td>
+                    <td>${row.Fecha_Orden }</td>
+                    <td>${row.Estado_Orden}</td>
+                </tr>
+                `;
+                
+            
+            });
+            // Se muestra un mensaje de acuerdo con el resultado.
+            ROWS_FOUND.textContent = responseData.message;
+        } else {
+            // Si el objeto responseData no está definido o no tiene la propiedad 'status', muestra un mensaje de error.
+            throw new Error('No se pudo obtener los datos correctamente.');
+        }
+    } catch (error) {
+        // Captura cualquier error y muestra un mensaje en la consola.
+        console.error('Error al llenar la tabla:', error);
+        // También puedes manejar el error mostrando un mensaje al usuario si lo deseas.
     }
-}
-
-// Función para eliminar una ordenes
-function eliminarOrdenes(idCliente) {
-    Swal.fire({
-        icon: 'question',
-        title: '¿Estás seguro de eliminar esta orden?',
-        text: 'Esta acción no se puede deshacer.',
-        showCancelButton: true,
-        cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#FFAFCC',
-        confirmButtonText: 'Eliminar',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Simulación de respuesta
-            var response = {
-                status: 1,
-                message: "Orden eliminada correctamente."
-            };
-
-            if (response.status === 1) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Éxito',
-                    text: response.message,
-                    confirmButtonColor: '#FFAFCC',
-                    confirmButtonText: 'Cerrar',
-                    onClose: () => {
-                        location.reload(); // Recargar la página después de eliminar la orden
-                    }
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: response.error,
-                    confirmButtonColor: '#FFAFCC',
-                    confirmButtonText: 'Cerrar'
-                });
-            }
-        }
-    });
-}
-
-// Función para guardar la orden editada
-function guardarOrdenesEditada() {
-    var idCliente = $('#idClienteEditar').val();
-    var fechaOrden = $('#fechaOrdenEditar').val();
-    var estadoOrden = $('#estadoOrdenEditar').val();
-
-    // Aquí podrías realizar alguna operación para guardar la orden editada, como enviar una solicitud AJAX al servidor.
-    // Por ahora, simplemente mostraremos un mensaje de confirmación.
-    Swal.fire({
-        icon: 'success',
-        title: 'Éxito',
-        text: 'Ordenes editadas correctamente.',
-        confirmButtonColor: '#FFAFCC',
-        confirmButtonText: 'Cerrar',
-        onClose: () => {
-            $('#modalEditarOrdenes').modal('hide'); // Cerrar modal de editar ordenes
-        }
-    });
-}
-
-// Función para buscar orden
-function buscarOrdenes() {
-    var query = $('#searchInput').val();
-
-    // Aquí deberías realizar una solicitud AJAX al servidor para buscar ordens según la consulta.
-    // Por ahora, simplemente simularemos una búsqueda y mostraremos los resultados.
-    // En lugar de esta simulación, puedes realizar la solicitud AJAX real como lo hiciste en el código original.
-    var resultadosSimulados = `<div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Ordenes Encontrada</h5>
-                                        <p class="card-text">Descripción de la orden encontrada.</p>
-                                    </div>
-                                </div>`;
-
-    $('#resultadosBusqueda').html(resultadosSimulados); // Mostrar resultados simulados
 }
