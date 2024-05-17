@@ -21,7 +21,7 @@ class OrdenesHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_Orden , id_Cliente, Fecha_Orden, Estado_Orden 
+        $sql = 'SELECT id_Orden, id_Cliente, Fecha_Orden, Estado_Orden 
                 FROM ordenes
                 WHERE id_Orden LIKE ? OR id_Cliente LIKE ?';
         $params = array($value, $value);
@@ -38,7 +38,7 @@ class OrdenesHandler
 
     public function readAll()
     {
-        $sql = 'SELECT id_Orden , id_Cliente, Fecha_Orden, Estado_Orden
+        $sql = 'SELECT id_Orden, id_Cliente, Fecha_Orden, Estado_Orden
                 FROM ordenes
                 ORDER BY id_Orden';
         return Database::getRows($sql);
@@ -46,7 +46,7 @@ class OrdenesHandler
 
     public function readOne()
     {
-        $sql = 'SELECT id_Orden , id_Cliente, Fecha_Orden, Estado_Orden
+        $sql = 'SELECT id_Orden, id_Cliente, Fecha_Orden, Estado_Orden
                 FROM ordenes
                 WHERE id_Orden = ?';
         $params = array($this->idOrden);

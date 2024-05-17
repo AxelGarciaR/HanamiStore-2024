@@ -30,8 +30,8 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (
                     !$orden->setIdCliente($_POST['idCliente']) or
-                    !$orden->setFechaOrden($_POST['idFechaOrden']) or
-                    !$orden->setEstadoOrden($_POST['idEstadoOrden'])
+                    !$orden->setFechaOrden($_POST['fechaOrden']) or
+                    !$orden->setEstadoOrden($_POST['estadoOrden'])
                 ) {
                     $result['error'] = $orden->getDataError();
                 } elseif ($orden->createRow()) {
@@ -50,7 +50,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readOne':
-                if (!$orden->setIdCliente($_POST['idOrden'])) {
+                if (!$orden->setIdOrden($_POST['idOrden'])) {
                     $result['error'] = $orden->getDataError();
                 } elseif ($result['dataset'] = $orden->readOne()) {
                     $result['status'] = 1;
@@ -62,8 +62,9 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (
                     !$orden->setIdCliente($_POST['idCliente']) or
-                    !$orden->setFechaOrden($_POST['idFechaOrden']) or
-                    !$orden->setEstadoOrden($_POST['idEstadoOrden'])
+                    !$orden->setFechaOrden($_POST['fechaOrden']) or
+                    !$orden->setEstadoOrden($_POST['estadoOrden']) or
+                    !$orden->setIdOrden($_POST['idOrden'])
                 ) {
                     $result['error'] = $orden->getDataError();
                 } elseif ($orden->updateRow()) {
@@ -74,7 +75,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'deleteRow':
-                if (!$orden->setIdCliente($_POST['idCliente'])) {
+                if (!$orden->setIdOrden($_POST['idOrden'])) {
                     $result['error'] = $orden->getDataError();
                 } elseif ($orden->deleteRow()) {
                     $result['status'] = 1;
