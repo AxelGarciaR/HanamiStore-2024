@@ -29,16 +29,14 @@ document.addEventListener('DOMContentLoaded', function () {
         <a class="nav-link" href="Clientes.html">Clientes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Perfil.html">Perfil</a>
+          <a class="nav-link" href="PerfilAdmin.html">Perfil</a>
         </li>
-        <a class="nav-link" href="Categorias.html">Categorias</a>
-
         <li class="nav-item">
         <a class="nav-link" href="Ordenes.html">Ordenes</a>
         </li>
-      <li class="nav-item">
-      <a class="nav-link" href="Valoraciones.html">Valoraciones</a>
-      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="Valoraciones.html">Valoraciones</a>
+        </li>
         <li class="nav-item">
         <a class="nav-link" href="Index.html">Cerrar sesion</a>
       </li>
