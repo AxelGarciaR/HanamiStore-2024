@@ -1,111 +1,72 @@
-var modal1 = document.getElementById("modalAgregarCliente");
-var btn = document.getElementById("btnAgregarCliente");
-var span = document.getElementsByClassName("closeAgregarCliente")[0];
+// Constante para completar la ruta de la API.
+const CLIENTEPRIV_API = 'services/admin/clientepriv.php';
+// Constante para establecer el formulario de buscar.
+const SEARCH_FORM = document.getElementById('searchForm');
+// Constantes para establecer los elementos de la tabla.
+const TABLE_BODY = document.getElementById('tableBody'),
+    ROWS_FOUND = document.getElementById('rowsFound');
 
-// Abrir el modal cuando se hace clic en el botón
-btn.onclick = function () {
-  modal1.style.display = "block";
-}
-
-// Cerrar el modal cuando se hace clic en la "x"
-span.onclick = function () {
-  modal1.style.display = "none";
-}
-
-// Cerrar el modal cuando se hace clic fuera del modal
-window.onclick = function (event) {
-  if (event.target == modal1) {
-    modal1.style.display = "none";
-  }
-}
-
-// Obtener todos los botones "Editar"
-const btnEditarEmpleado = document.querySelectorAll('.btnEditarEmpleado');
-
-// Agregar un event listener a cada botón "Editar"
-btnEditarEmpleado.forEach(btn => {
-  btn.addEventListener('click', function() {
-    // Abrir el mismo modal de agregar empleado al hacer clic en el botón "Editar"
-    modal1.style.display = "block";
-  });
+// Método del evento para cuando el documento ha cargado.
+document.addEventListener('DOMContentLoaded', () => {
+    // Se establece el título del contenido principal.
+    document.getElementById('mainTitle').textContent = 'Ver clientes';
+    // Llamada a la función para llenar la tabla con los registros existentes.
+    fillTable();
 });
 
-// Javascript para el modal
-const openClose = async () => {
-  // Llamada a la función para mostrar un mensaje de confirmación
-  const confirmed = await Swal.fire({
-    icon: 'question',
-    title: '¿Seguro que quieres cancelar?',
-    text: 'Los datos ingresados no serán almacenados',
-    showCancelButton: true,
-    cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#FFAFCC',
-    confirmButtonText: 'Aceptar'
-  });
+// Método del evento para cuando se envía el formulario de buscar.
+SEARCH_FORM.addEventListener('submit', async (event) => {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Constante tipo objeto con los datos del formulario.
+    const formData = new FormData(SEARCH_FORM);
+    // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
+    fillTable(formData);
+});
 
-  if (confirmed.isConfirmed) {
-    $(modal2).modal('hide');
-    modal2.style.display = "none";
-  }
-}
+/*
+*   Función asíncrona para llenar la tabla con los registros disponibles.
+*   Parámetros: formData (objeto opcional con los datos de búsqueda).
+*   Retorno: ninguno.
+*/
+const fillTable = async (formData = null) => {
+    // Se inicializa el contenido de la tabla.
+    ROWS_FOUND.textContent = '';
+    TABLE_BODY.innerHTML = '';
 
-const openNoti = async () => {
-  // Muestra una notificación de éxito utilizando SweetAlert
-  Swal.fire({
-    icon: 'success',
-    title: '¡Éxito!',
-    text: 'Se ha guardado con éxito',
-    confirmButtonColor: '#FFAFCC',
-    confirmButtonText: 'Cerrar',
-    onAfterClose: () => {
-      $(modal2).modal('hide');
-      modal2.style.display = "none";
+    try {
+        // Se verifica si hay un objeto formData y se establece la acción en consecuencia.
+        const action = formData ? 'searchRows' : 'readAll';
+        // Petición para obtener los registros disponibles.
+        const responseData = await fetchData(CLIENTEPRIV_API, action, formData);
+        
+        // Verificar si el objeto responseData está definido y tiene la propiedad 'status'.
+        if (responseData && responseData.status) {
+            // Se recorre el conjunto de registros fila por fila.
+            responseData.dataset.forEach(row => {
+                // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+                TABLE_BODY.innerHTML += `
+                <tr>
+                    <td>${row.id_cliente}</td>
+                    <td>${row.nombre_cliente}</td>
+                    <td>${row.apellido_cliente }</td>
+                    <td>${row.nombre_perfil}</td>
+                    <td>${row.CorreoE}</td>
+                    <td>${row.Direccion}</td>
+                </tr>
+                `;
+                
+            
+            });
+            // Se muestra un mensaje de acuerdo con el resultado.
+            ROWS_FOUND.textContent = responseData.message;
+        } else {
+            // Si el objeto responseData no está definido o no tiene la propiedad 'status', muestra un mensaje de error.
+            throw new Error('No se pudo obtener los datos correctamente.');
+        }
+    } catch (error) {
+        // Captura cualquier error y muestra un mensaje en la consola.
+        console.error('Error al llenar la tabla:', error);
+        // También puedes manejar el error mostrando un mensaje al usuario si lo deseas.
     }
-  });
 }
-
-// Obtener todos los botones "Eliminar"
-const btnEliminarEmpleado = document.querySelectorAll('.btnEliminarEmpleado');
-
-// Agregar un event listener a cada botón "Eliminar"
-btnEliminarEmpleado.forEach(btn => {
-  btn.addEventListener('click', function() {
-    // Mostrar una alerta de confirmación
-    Swal.fire({
-      icon: 'question',
-      title: '¿Estás seguro de querer eliminar este empleado?',
-      text: 'Esta acción no se puede deshacer',
-      showCancelButton: true,
-      confirmButtonColor: '#FFAFCC',
-      cancelButtonColor: '#6c757d',
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Si se confirma la eliminación, obtener la fila asociada al botón y eliminarla
-        const row = this.closest('tr');
-        row.remove();
-        // Mostrar una notificación de éxito
-        Swal.fire({
-          icon: 'success',
-          title: 'Empleado eliminado',
-          showConfirmButton: false,
-          timer: 1500
-        });
-      }
-    });
-  });
-});
-
-// Función para validar que solo se ingresen letras en los campos especificados
-$(document).ready(function () {
-  $('.soloLetras').on('keypress', function (e) {
-      var keyCode = e.keyCode || e.which;
-      var regex = /^[a-zA-Z\s]*$/;
-      var isValid = regex.test(String.fromCharCode(keyCode));
-      if (!isValid) {
-          e.preventDefault();
-          return false;
-      }
-  });
-});

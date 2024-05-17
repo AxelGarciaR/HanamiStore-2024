@@ -1,163 +1,84 @@
 <!DOCTYPE html>
+<!-- Declaración del idioma para el documento -->
 <html lang="es">
 
 <head>
+    <!-- Título del documento -->
+    <title>Clientes</title>
+    <!-- Metadatos de la página web -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hanami</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="../../Resources/css/cssClientes.css">
+    <meta name="author" content="hanami authors">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- IMPORTACIÓN DE RECURSOS EXTERNOS -->
+    <!-- Llamada al icono de la página web -->
+    <link type="image/png" rel="icon" href="../../resources/img/icon.png">
+    <!-- Llamada a las hojas de estilos del framework e iconos -->
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
 </head>
 
-<!--Etiqueta para aplicar plantilla de navbar-->
-
 <body>
-
-    <header class="header sticky-top">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar"></nav>
-    </header>
-
-
-    <!--Contenedor de contenido-->
-
-    <br>
-
-    <div class="tablaContainer">
-        <!--Contenedor de botones de accion de CRUD-->
-        <div class="containerBotones">
-            <button class="btnCrud btn btn-primary" type="submit" id="btnAgregarCliente">Crear</button>
-            <form class="d-flex" role="search" id="cosoBuscar">
-                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+  
+  <header class="header sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar"></nav>
+</header>
+    <!-- Contenido principal del documento -->
+    <main>
+        <!-- Título del contenido principal -->
+        <h3 id="mainTitle">Clientes</h3>
+        <div class="row">
+            <!-- Formulario de búsqueda -->
+            <form class="col-sm-12 col-md-6" id="searchForm">
+                <div class="row">
+                    <div class="col-6">
+                        <input type="search" class="form-control" name="search" placeholder="Buscar" required>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-success">
+                            <h6>Buscar</h6>
+                        </button>
+                        <button type="reset" class="btn btn-secondary" onclick="fillTable()">
+                            <h6>Recargar</h6>
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
 
-        <br>
+        <!-- Tabla para mostrar los registros existentes -->
+        <table class="table table-hover">
+            <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
+            <thead>
+                <tr>
+                    <td colspan="3" id="rowsFound"></td>
+                </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Perfil</th>
+                    <th>Correo</th>
+                    <th>Direccion</th>
+                </tr>
+            </thead>
+            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
+            <tbody id="tableBody"></tbody>
+        </table>
 
-        <!--Contenedor de tabla de CRUD-->
-        <div class="containerT">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Correo</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Nombre perfil</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>emilimurillo@gmail.com</td>
-                        <td>Emily Murillo</td>
-                        <td>emy1235</td>
-                        <td>
-                            <button class="btnCrud btn btn-primary btnEditarEmpleado" type="button" data-toggle="modal" data-target="#modalEditarCliente">Editar</button>
-                            <button class="btnCrud btn btn-danger btnEliminarEmpleado" type="button">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>emilimurillo@gmail.com</td>
-                        <td>Axel Garcia</td>
-                        <td>Cliente</td>
-                        <td>
-                            <button class="btnCrud btn btn-primary btnEditarEmpleado" type="button" data-toggle="modal" data-target="#modalEditarCliente">Editar</button>
-                            <button class="btnCrud btn btn-danger btnEliminarEmpleado"  type="button">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>emilimurillo@gmail.com</td>
-                        <td>Daniel Cortes</td>
-                        <td>Cliente</td>
-                        <td>
-                            <button class="btnCrud btn btn-primary btnEditarEmpleado" type="button" data-toggle="modal" data-target="#modalEditarCliente">Editar</button>
-                            <button class="btnCrud btn btn-danger btnEliminarEmpleado" type="button">Eliminar</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    </main>
     <div id="footer"></div>
-    <!--Modal para agregar empleados-->
-
-    <div id="modalAgregarCliente" class="modal">
-        <div class="modal-content">
-            <span class="closeAgregarCliente">&times;</span>
-            <div class="contenidoModalSer">
-                <div class="titulo">
-                    <h4>Agregar Usuarios</h4>
-                </div>
-
-                <div class="camposServicios">
-
-
-                    <div class="camposAgregarEmpleado">
-
-                        <div class="form-floating mb-2 p-0">
-                            <input type="text" class="form-control soloLetras" id="nombreUsuario" placeholder="..." maxlength="50" pattern="[A-Za-z\s]+" required>
-                            <label for="nombre">Nombre</label>
-                        </div>
-
-
-                        <div class="form-floating mb-2 p-0">
-                            <input type="text" class="form-control soloLetras" id="apellido" placeholder="..." maxlength="50" pattern="[A-Za-z\s]+" required>
-                            <label for="apellido">Apellido</label>
-                        </div>
-
-                        <div class="form-floating mb-2 p-0">
-                            <input type="password" class="form-control" id="contrasena" placeholder="..." maxlength="100" required>
-                            <label for="clave">Clave</label>
-                        </div>
-
-                        <div class="form-floating mb-2 p-0">
-                            <input type="email" class="form-control" id="correoElectronico" placeholder="..." maxlength="50" required>
-                            <label for="correoElectronico">Correo</label>
-                        </div>
-
-                        <div class="form-floating mb-2 p-0">
-                            <input type="text" class="form-control" id="direccion" placeholder="..." maxlength="100" required>
-                            <label for="direccion">Dirección</label>
-                        </div>
-
-
-                        <div class="form-floating mb-2 p-0">
-                            <input type="text" class="form-control" id="nombrePerfil" placeholder="..." maxlength="50" required>
-                            <label for="nombrePerfil">Nombre perfil</label>
-                        </div>
-
-                </div>
-
-                <hr class="bottomModalSer">
-
-                <div class="botonesModalSer">
-                    <button type="button" class="btn btn-dark" id="cancelarModalButton"
-                        onclick="openClose()">Cancelar</button>
-                    <button type="button" class="btn btn-danger" onclick="openNoti()">Aceptar</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
-    <!--Conenedor de footer para aplicar la plantilla-->
-   
-
-    <!--Scripts necesarios para que funcionen las páginas-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
+    <!-- Llamada al framework y librería de mensajes -->
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    <!-- Llamada al controlador general de la aplicación -->
+    <script type="text/javascript" src="../../controllers/utils/components.js"></script>
+    <!-- Llamada al controlador del sitio privado -->
+    <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
+    <!-- Llamada al controlador de la página web -->
+    <script type="text/javascript" src="../../controllers/admin/clientes.js"></script>
     <script src="../../controllers/admin/navbar.js"></script>
     <script src="../../controllers/admin/footer.js"></script>
-    <script src="../../Controllers/admin/clientes.js"></script>
-    <script src="../../Resources/js/clientes_custom.js"></script>
 </body>
 
 </html>
