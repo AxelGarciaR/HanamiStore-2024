@@ -33,58 +33,54 @@ if (isset($_GET['action'])) {
                     !$orden->setFechaOrden($_POST['idFechaOrden']) or
                     !$orden->setEstadoOrden($_POST['idEstadoOrden'])
                 ) {
-                    $result['error'] = $marca->getDataError();
-                } elseif ($marca->createRow()) {
+                    $result['error'] = $orden->getDataError();
+                } elseif ($orden->createRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Marca creada correctamente';
-                    // Se asigna el estado del archivo después de insertar.
-                    $result['fileStatus'] = Validator::saveFile($_FILES['logoMarca'], $marca::RUTA_IMAGEN);
+                    $result['message'] = 'Ordenes creada correctamente';
                 } else {
-                    $result['error'] = 'Ocurrió un problema al ingresar la marca';
+                    $result['error'] = 'Ocurrió un problema al ingresar la ordenes';
                 }
                 break;
             case 'readAll':
-                if ($result['dataset'] = $marca->readAll()) {
+                if ($result['dataset'] = $orden->readAll()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } else {
-                    $result['error'] = 'No existen marcas registradas';
+                    $result['error'] = 'No existen ordenes registradas';
                 }
                 break;
             case 'readOne':
-                if (!$marca->setIdMarca($_POST['idMarca'])) {
-                    $result['error'] = $marca->getDataError();
-                } elseif ($result['dataset'] = $marca->readOne()) {
+                if (!$orden->setIdCliente($_POST['idOrden'])) {
+                    $result['error'] = $orden->getDataError();
+                } elseif ($result['dataset'] = $orden->readOne()) {
                     $result['status'] = 1;
                 } else {
-                    $result['error'] = 'Marca inexistente';
+                    $result['error'] = 'Orden inexistente';
                 }
                 break;
             case 'updateRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
-                    !$marca->setIdMarca($_POST['idMarca']) or
-                    !$marca->setNombreMarca($_POST['nombreMarca']) or
-                    !$marca->setLogoMarca($_POST['logoMarca'], $marca->getFilename())
+                    !$orden->setIdCliente($_POST['idCliente']) or
+                    !$orden->setFechaOrden($_POST['idFechaOrden']) or
+                    !$orden->setEstadoOrden($_POST['idEstadoOrden'])
                 ) {
-                    $result['error'] = $marca->getDataError();
-                } elseif ($marca->updateRow()) {
+                    $result['error'] = $orden->getDataError();
+                } elseif ($orden->updateRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Marca actualizada';
-                    // Se asigna el estado del archivo después de actualizar.
-                    $result['fileStatus'] = Validator::changeFile($_FILES['logoMarca'], $marca::RUTA_IMAGEN, $marca->getFilename());
+                    $result['message'] = 'Orden actualizada';
                 } else {
-                    $result['error'] = 'Ocurrió un problema al modificar la marca';
+                    $result['error'] = 'Ocurrió un problema al modificar la orden';
                 }
                 break;
             case 'deleteRow':
-                if (!$marca->setIdMarca($_POST['idMarca'])) {
-                    $result['error'] = $marca->getDataError();
-                } elseif ($marca->deleteRow()) {
+                if (!$orden->setIdCliente($_POST['idCliente'])) {
+                    $result['error'] = $orden->getDataError();
+                } elseif ($orden->deleteRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Marca eliminada correctamente';
+                    $result['message'] = 'Orden eliminada correctamente';
                 } else {
-                    $result['error'] = 'Ocurrió un problema al eliminar la marca';
+                    $result['error'] = 'Ocurrió un problema al eliminar la orden';
                 }
                 break;
             default:
