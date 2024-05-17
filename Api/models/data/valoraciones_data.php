@@ -14,7 +14,7 @@ class ValoracionesData extends ValoracionesHandler
     public function setIdValoracion($value)
     {
         if (Validator::validateNaturalNumber($value)) {
-            $this->id = $value;
+            $this->idValoracion = $value;
             return true;
         } else {
             $this->data_error = 'El identificador de la varloracion es incorrecto';
@@ -29,7 +29,7 @@ class ValoracionesData extends ValoracionesHandler
             $this->valoracion = $value;
             return true;
         } else {
-            $this->data_error = 'La valoracion es incorrecta';
+            $this->data_error = 'La valoracion solo puede ser numerica';
             return false;
         }
     }
