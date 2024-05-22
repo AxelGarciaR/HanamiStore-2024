@@ -31,7 +31,7 @@ if (isset($_GET['action'])) {
                     !$producto->setNombreProducto($_POST['nombreProducto']) or
                     !$producto->setDescripcionProducto($_POST['descripcionProducto']) or
                     !$producto->setPrecioProducto($_POST['precioProducto']) or
-                    !$producto->setImagen($_POST['imagenPrincipal'], $producto->getFilename()) or
+                    !$producto->setImagen($_FILES['imagenPrincipal']) or
                     !$producto->setCantidadProducto($_POST['cantidadProducto']) or
                     !$producto->setidSubcategoria($_POST['subCategoriaProducto']) or
                     !$producto->setDescuento($_POST['descuentoProducto']) or
@@ -71,11 +71,11 @@ if (isset($_GET['action'])) {
                     !$producto->setNombreProducto($_POST['nombreProducto']) or
                     !$producto->setDescripcionProducto($_POST['descripcionProducto']) or
                     !$producto->setPrecioProducto($_POST['precioProducto']) or
-                    !$producto->setImagen($_POST['imagenPrincipal'], $producto->getFilename()) or
+                    !$producto->setImagen($_FILES['imagenPrincipal']) or
                     !$producto->setCantidadProducto($_POST['cantidadProducto']) or
                     !$producto->setidSubcategoria($_POST['subCategoriaProducto']) or
                     !$producto->setDescuento($_POST['descuentoProducto']) or
-                    !$producto->setIdMarca($_POST['marcaProducto']) 
+                    !$producto->setIdMarca($_POST['marcaProducto'])
                 ) {
                     $result['error'] = $producto->getDataError();
                 } elseif ($producto->updateRow()) {

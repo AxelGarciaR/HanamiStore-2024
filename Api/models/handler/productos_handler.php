@@ -7,7 +7,7 @@ require_once('../../helpers/database.php');
 class ProductosHandler
 {
     //Declaracion de atributos para el manejo de los datos de la tabla en la base de datos
-    protected $id = null;
+    protected $idProducto = null;
     protected $nombreProducto = null;
     protected $descripcionProducto = null;
     protected $precioProducto = null;
@@ -28,8 +28,7 @@ class ProductosHandler
         $value = '%' . Validator::getSearchValue() . '%';
         $sql = 'SELECT id_Producto, Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca
                 FROM productos
-                WHERE Nombre_Producto LIKE ? OR id_Producto LIKE ?
-                ORDER BY Nombre_Producto';
+                WHERE Nombre_Producto LIKE ? OR id_Producto LIKE ?';
         $params = array($value, $value);
         return Database::getRows($sql, $params);
     }
@@ -58,7 +57,7 @@ class ProductosHandler
         $sql = 'SELECT id_Producto, Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca
                 FROM productos
                 WHERE id_Producto = ?';
-        $params = array($this->id);
+        $params = array($this->idProducto);
         return Database::getRow($sql, $params);
     }
 
@@ -75,7 +74,7 @@ class ProductosHandler
                 descuento = ?,
                 id_Marca = ?
                 WHERE id_Producto = ?';
-        $params = array($this->nombreProducto, $this->descripcionProducto, $this->precioProducto, $this->imagenPrincipal, $this->cantidadProducto, $this->idSubcategoria,$this->descuento, $this->marca, $this->id);
+        $params = array($this->nombreProducto, $this->descripcionProducto, $this->precioProducto, $this->imagenPrincipal, $this->cantidadProducto, $this->idSubcategoria,$this->descuento, $this->marca, $this->idProducto);
         return Database::executeRow($sql, $params);
     }
 
@@ -84,7 +83,7 @@ class ProductosHandler
     {
         $sql = 'DELETE FROM productos
                 WHERE id_Producto = ?';
-        $params = array($this->id);
+        $params = array($this->idProducto);
         return Database::executeRow($sql, $params);
     }
 
@@ -94,7 +93,7 @@ class ProductosHandler
         $sql = 'SELECT imagen_principal
                 FROM productos
                 WHERE id_Producto = ?';
-        $params = array($this->id);
+        $params = array($this->idProducto);
         return Database::getRow($sql, $params);
     }
 

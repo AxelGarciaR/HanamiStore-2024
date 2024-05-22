@@ -15,7 +15,7 @@ class ProductosData extends ProductosHandler
     public function setIdProducto($value)
     {
         if (Validator::validateNaturalNumber($value)) {
-            $this->id = $value;
+            $this->idProducto = $value;
             return true;
         } else {
             $this->data_error = 'El identificador del producto es incorrecto';
@@ -63,31 +63,7 @@ class ProductosData extends ProductosHandler
     }
 
     // Función para validar el nombre del archivo
-    public function setImagen($value, $min = 2, $max = 100)
-    {
-        if (Validator::validateLength($value, $min, $max)) {
-            $this->imagenPrincipal = $value;
-            return true;
-        } else {
-            $this->data_error = 'El nombre del archivo del logo de la marca debe tener una longitud entre ' . $min . ' y ' . $max;
-            return false;
-        }
-    }
-
-    //Funcion para validar validar el nombre del archivo
-    public function setFilename()
-    {
-        if ($data = $this->readFilename()) {
-            $this->filename = $data['imagenPrincipal'];
-            return true;
-        } else {
-            $this->data_error = 'Producto inexistente';
-            return false;
-        }
-    }
-
-    //Funcion para validar el validar la imagen
-    public function setImagenFile($file, $filename = null)
+    public function setImagen($file, $filename = null)
     {
         if (Validator::validateImageFile($file, 1000)) {
             $this->imagenPrincipal = Validator::getFileName();
@@ -103,6 +79,18 @@ class ProductosData extends ProductosHandler
             return true;
         }
     }
+
+    //Funcion para validar validar el nombre del archivo
+    public function setFilename()
+    {
+        if ($data = $this->readFilename()) {
+            $this->filename = $data['imagen_producto'];
+            return true;
+        } else {
+            $this->data_error = 'Producto inexistente';
+            return false;
+        }
+    } 
 
     //Funcion para validar la cantidad del producto
     public function setCantidadProducto($value)
