@@ -80,18 +80,6 @@ class ProductosData extends ProductosHandler
         }
     }
 
-    //Funcion para validar validar el nombre del archivo
-    public function setFilename()
-    {
-        if ($data = $this->readFilename()) {
-            $this->filename = $data['imagen_producto'];
-            return true;
-        } else {
-            $this->data_error = 'Producto inexistente';
-            return false;
-        }
-    } 
-
     //Funcion para validar la cantidad del producto
     public function setCantidadProducto($value)
     {
@@ -139,6 +127,31 @@ class ProductosData extends ProductosHandler
             return false;
         }
     }
+
+    
+    public function setEstado($value)
+    {
+        if (Validator::validateBoolean($value)) {
+            $this->estado = $value;
+            return true;
+        } else {
+            $this->data_error = 'El estado debe ser entre 0 y 1';
+            return false;
+        }
+    }
+
+
+    //Funcion para validar validar el nombre del archivo
+    public function setFilename()
+    {
+        if ($data = $this->readFilename()) {
+            $this->filename = $data['imagen_producto'];
+            return true;
+        } else {
+            $this->data_error = 'Producto inexistente';
+            return false;
+        }
+    } 
 
     //Funcion para obtener el error
     public function getDataError()
