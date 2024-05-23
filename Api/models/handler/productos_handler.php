@@ -16,6 +16,7 @@ class ProductosHandler
     protected $idSubcategoria = null;
     protected $descuento = null;
     protected $marca = null;
+    protected $estado = null;
 
     // Constante para establecer la ruta de las imagenes
     const RUTA_IMAGEN = '../../images/productos/';
@@ -26,7 +27,7 @@ class ProductosHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_Producto, Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca
+        $sql = 'SELECT id_Producto, Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca, estado
                 FROM productos
                 WHERE Nombre_Producto LIKE ? OR id_Producto LIKE ?';
         $params = array($value, $value);
@@ -36,16 +37,16 @@ class ProductosHandler
     //Esta funcion es para crear productos
     public function createRow()
     {
-        $sql = 'INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
-                VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombreProducto, $this->descripcionProducto, $this->precioProducto, $this->imagenPrincipal, $this->cantidadProducto, $this->idSubcategoria,$this->descuento, $this->marca);
+        $sql = 'INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca, estado)
+                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombreProducto, $this->descripcionProducto, $this->precioProducto, $this->imagenPrincipal, $this->cantidadProducto, $this->idSubcategoria,$this->descuento, $this->marca, $this->estado);
         return Database::executeRow($sql, $params);
     }
 
     //Esta funcion es para leer todos los productos
     public function readAll()
     {
-        $sql = 'SELECT id_Producto, Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria,descuento, id_Marca
+        $sql = 'SELECT id_Producto, Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria,descuento, id_Marca, estado
                 FROM productos
                 ORDER BY Nombre_Producto';
         return Database::getRows($sql);
@@ -54,7 +55,7 @@ class ProductosHandler
     //Esta funcion es para leer un producto en especifico
     public function readOne()
     {
-        $sql = 'SELECT id_Producto, Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca
+        $sql = 'SELECT id_Producto, Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca, estado
                 FROM productos
                 WHERE id_Producto = ?';
         $params = array($this->idProducto);
@@ -72,9 +73,10 @@ class ProductosHandler
                 CantidadP = ?,
                 id_subcategoria = ?,
                 descuento = ?,
-                id_Marca = ?
+                id_Marca = ?,
+                estado = ?
                 WHERE id_Producto = ?';
-        $params = array($this->nombreProducto, $this->descripcionProducto, $this->precioProducto, $this->imagenPrincipal, $this->cantidadProducto, $this->idSubcategoria,$this->descuento, $this->marca, $this->idProducto);
+        $params = array($this->nombreProducto, $this->descripcionProducto, $this->precioProducto, $this->imagenPrincipal, $this->cantidadProducto, $this->idSubcategoria,$this->descuento, $this->marca, $this->estado, $this->idProducto);
         return Database::executeRow($sql, $params);
     }
 
