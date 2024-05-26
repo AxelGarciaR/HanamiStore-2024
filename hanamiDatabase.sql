@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
   nombre_usuario VARCHAR(100),
   clave VARCHAR(100),
   correo VARCHAR(100),
-  estado BOOLEAN
+  estado BOOLEAN DEFAULT 1
 );
 
 -- Creación de la tabla clientes
@@ -20,7 +20,8 @@ CREATE TABLE IF NOT EXISTS clientes (
   nombre_perfil VARCHAR(50),
   clave VARCHAR(100),
   CorreoE VARCHAR(100),
-  Direccion VARCHAR(100)
+  Direccion VARCHAR(100),
+  estado BOOLEAN DEFAULT 1
 );
 
 -- Creación de la tabla ordenes
