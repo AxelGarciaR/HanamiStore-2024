@@ -240,13 +240,13 @@ DELIMITER ;*/
 
 
 INSERT INTO clientes (nombre_cliente, apellido_cliente, nombre_perfil, clave, CorreoE, Direccion)
-VALUES ('Nombre1', 'Apellido1', 'Perfil1', 'Clave1', 'correo1@example.com', 'Dirección1');
+VALUES ('Nombre1', 'Apellido1', 'Perfil1', '$2y$10$HLNvFDTxzgbqdoLBMSQOMOglgewxVe2.Uvw7pe37qKQ/N.6JwDUPu', 'correo1@example.com', 'Dirección1');
 
 INSERT INTO clientes (nombre_cliente, apellido_cliente, nombre_perfil, clave, CorreoE, Direccion)
-VALUES ('Nombre2', 'Apellido2', 'Perfil2', 'Clave2', 'correo2@example.com', 'Dirección2');
+VALUES ('Nombre2', 'Apellido2', 'Perfil2', '$2y$10$HLNvFDTxzgbqdoLBMSQOMOglgewxVe2.Uvw7pe37qKQ/N.6JwDUPu', 'correo2@example.com', 'Dirección2');
 
 INSERT INTO clientes (nombre_cliente, apellido_cliente, nombre_perfil, clave, CorreoE, Direccion)
-VALUES ('Nombre3', 'Apellido3', 'Perfil3', 'Clave3', 'correo3@example.com', 'Dirección3');
+VALUES ('Nombre3', 'Apellido3', 'Perfil3', '$2y$10$HLNvFDTxzgbqdoLBMSQOMOglgewxVe2.Uvw7pe37qKQ/N.6JwDUPu', 'correo3@example.com', 'Dirección3');
 
 INSERT INTO usuarios (nombre_usuario, clave, correo)
 VALUES ('Usuario1', '$2y$10$HLNvFDTxzgbqdoLBMSQOMOglgewxVe2.Uvw7pe37qKQ/N.6JwDUPu', 'correo1@example.com');
