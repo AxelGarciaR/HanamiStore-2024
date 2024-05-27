@@ -1,0 +1,179 @@
+/*Fuentes*/
+
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
+
+* {
+    font-family: "ABeeZee", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.abeezee-regular {
+    font-family: "ABeeZee", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body::-webkit-scrollbar {
+    background-color: #F0F0F0;
+    width: 15px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 200, 221, .8);
+    border-radius: 10px;
+    border-right: 2px solid #F0F0F0;
+}
+
+/**Css para la pagina de login**/
+
+
+.card {
+    margin-bottom: 20px;
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+#ContainerPadre {
+    background-color: #FFC8DD;
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+.containerLogoImg {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerLogoImg h1 {
+    font-family: 'ABeeZee', sans-serif;
+}
+
+p {
+    font-family: 'ABeeZee', sans-serif;
+}
+
+.containerLogoImg img {
+    width: 175px;
+    height: 150px;
+}
+
+#container1 {
+    height: 100vh;
+}
+
+
+
+#container2 {
+    background-color: #FFFFFF;
+    height: 100vh;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+#container2 h1 {
+    font-family: 'Adamina', serif;
+    margin-bottom: 125px;
+}
+
+#container2 button {
+    background-color: #FFC8DD;
+    border-color: #FFC8DD;
+    color: black;
+    width: 50%;
+    margin-bottom: 25px;
+}
+
+#container2 a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-decoration: none;
+}
+
+#container2 input[type=text] {
+    width: 50%;
+    border: none;
+    border-bottom: 2px solid silver;
+    outline: none;
+    margin-bottom: 50px;
+}
+
+#container2 input[type=password] {
+    width: 50%;
+    border: none;
+    border-bottom: 2px solid silver;
+    outline: none;
+    margin-bottom: 50px;
+}
+
+.imagenLogin {
+    position: absolute;
+    align-self: self-end;
+    margin-left: 20%;
+    height: 600px;
+}
+
+.imagenLogin2 {
+    height: 270px;
+    width: 220px;
+    margin-bottom: 15px;
+    display: none;
+}
+
+#loginForm{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+#loginForm div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#container2 a{
+    color: black;
+}
+
+@media (max-width: 1350px) {
+
+    #ContainerPadre {
+        flex-direction: column;
+    }
+
+    #container1 {
+        height: 20vh;
+    }
+
+    .imagenLogin {
+        display: none;
+    }
+
+    .imagenLogin2 {
+        display: block;
+    }
+
+}
+
+/*Css de login termina aqui*/
+
