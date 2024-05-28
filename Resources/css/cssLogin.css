@@ -148,6 +148,9 @@ p {
     width: 100%;
 }
 
+#container2 a{
+    color: black;
+}
 
 @media (max-width: 1350px) {
 
@@ -170,3 +173,4 @@ p {
 }
 
 /*Css de login termina aqui*/
+
