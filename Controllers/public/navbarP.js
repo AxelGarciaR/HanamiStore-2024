@@ -1,3 +1,5 @@
+const USER_API = 'services/public/cliente.php';
+
 document.addEventListener('DOMContentLoaded', function() {
     const navbar = document.getElementById('navbar');
     navbar.innerHTML = /*Codigo para insertar en la plantilla de navbar*/`
@@ -23,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <a class="nav-link" href="../../views/public/SobreNosotros.html">Nosotros</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../../views/public/IndexPublic.html">Salir</a>
+            <a class="nav-link" href="#" onclick="logOut()">Salir</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="../../views/public/Categorias.html">Categorias</a>
