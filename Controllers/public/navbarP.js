@@ -22,14 +22,18 @@ document.addEventListener('DOMContentLoaded', function() {
             <a class="nav-link" href="../../views/public/HistorialDeCompra.html">Historial de Compra</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="../../views/public/Categorias.html">Categorias</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../../views/public/PerfilPublic.html">Perfil</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="../../views/public/SobreNosotros.html">Nosotros</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#" onclick="logOut()">Salir</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../../views/public/Categorias.html">Categorias</a>
-          </li>
+          
         </ul>
       </div>
     `;

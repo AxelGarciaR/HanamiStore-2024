@@ -8,6 +8,7 @@
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../../Resources/css/admin&publicstyle.css">
+    <link rel="stylesheet" href="../../Resources/css/cssCategoriasPublic.css">
 </head>
 
 <body>
@@ -17,60 +18,73 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Columna para los filtros de productos -->
-            <div class="col-lg-3">
-                <div class="container-box" id="jj" style="border: 1px solid #ccc; padding: 10px;">
+            <div class="col-lg-3" id="filter-column">
+                <!-- Aquí se incluirán los filtros -->
+                <div class="container-box" id="jj">
 
                     <h2>Filtros de Productos</h2>
 
                     <details>
                         <summary>Skincare</summary>
                         <ul>
-                            <li>Limpieza Facial</li>
-                            <li>Hidratantes</li>
-                            <li>Mascarillas</li>
+                            <input type="checkbox" id="skincare1"><label for="skincare1"> &nbsp; Limpieza Facial</label>
+                            <br>
+                            <input type="checkbox" id="skincare2"><label for="skincare2"> &nbsp; Hidratantes</label>
+                            <br>
+                            <input type="checkbox" id="skincare3"><label for="skincare3"> &nbsp; Mascarillas</label>
+                            <br>
                         </ul>
                     </details>
+
 
                     <details>
                         <summary>Cuidado Personal</summary>
                         <ul>
-                            <li>Cuidado del Cabello</li>
-                            <li>Cuidado Bucal</li>
-                            <li>Higiene Corporal</li>
+                            <input type="checkbox" id="personal-care1"><label for="personal-care1"> &nbsp; Cuidado del
+                                Cabello</label> <br>
+                            <input type="checkbox" id="personal-care2"><label for="personal-care2"> &nbsp; Cuidado
+                                Bucal</label> <br>
+                            <input type="checkbox" id="personal-care3"><label for="personal-care3"> &nbsp; Higiene
+                                Corporal</label> <br>
                         </ul>
                     </details>
 
                     <details>
                         <summary>Accesorios de Belleza</summary>
                         <ul>
-                            <li>Cepillos y Peines</li>
-                            <li>Esponjas y Aplicadores</li>
-                            <li>Estuches y Organizadores</li>
+                            <input type="checkbox" id="beauty-accessories1"><label for="beauty-accessories1"> &nbsp;
+                                Cepillos y Peines</label> <br>
+                            <input type="checkbox" id="beauty-accessories2"><label for="beauty-accessories2"> &nbsp;
+                                Esponjas y Aplicadores</label> <br>
+                            <input type="checkbox" id="beauty-accessories3"><label for="beauty-accessories3"> &nbsp;
+                                Estuches y Organizadores</label> <br>
                         </ul>
                     </details>
 
                     <details>
                         <summary>Salud y Belleza</summary>
                         <ul>
-                            <li>Vitaminas y Suplementos</li>
-                            <li>Equipos de Ejercicio</li>
-                            <li>Productos para el Bienestar</li>
+                            <input type="checkbox" id="health-beauty1"><label for="health-beauty1"> &nbsp; Vitaminas y
+                                Suplementos</label> <br>
+                            <input type="checkbox" id="health-beauty2"><label for="health-beauty2"> &nbsp; Equipos de
+                                Ejercicio</label> <br>
+                            <input type="checkbox" id="health-beauty3"><label for="health-beauty3"> &nbsp; Productos
+                                para el Bienestar</label> <br>
                         </ul>
                     </details>
+
 
                     <h4 class="widget-title">Precio</h4>
                     <div class="ui-range-label">
                         <h5>Rango:</h5>
                         <div class="ui-range-values">
                             <div class="ui-range-value-min">
-                                $
-                                <span>1</span>
+                                $<span>1</span>
                                 <input type="hidden" name="minprice" id="minprice" value="1">
                             </div>
                             &nbsp;-&nbsp;
                             <div class="ui-range-value-max">
-                                $
-                                <p id="price-value"><span>50</span></p>
+                                $<span id="price-value">50</span>
                                 <input type="hidden" name="maxprice" id="maxprice" value="50">
                             </div>
                         </div>
@@ -80,12 +94,11 @@
                         <button type="button" class="btn btn-dark">Aplicar Filtros</button>
                     </div>
                 </div>
-
             </div>
 
-
             <!-- Columna para mostrar los productos -->
-            <div class="col-lg-9">
+            <div class="col-lg-9" id="products-column">
+                <!-- Aquí se mostrarán los productos -->
                 <div class="container product-list">
                     <div class="container-fluid flexi">
                         <div class="row flex-column align-items-center">
@@ -146,7 +159,7 @@
 
                                 <!-- Tarjeta de producto 5 -->
                                 <div class="col-lg-4 mb-4">
-                                    <div class="card <div class=" card">
+                                    <div class="card">
                                         <img src="../../Resources/images/Loción hidratante de pepino (1).png"
                                             class="card-img-top" alt="Producto 5">
                                         <div class="card-body">
@@ -175,31 +188,17 @@
         </div>
     </div>
 
-    <script>
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const priceRange = document.getElementById('price-range');
-            const priceValue = document.getElementById('price-value');
-
-            // Actualizar el valor del rango de precios al mover el slider
-            priceRange.addEventListener('input', () => {
-                priceValue.textContent = priceRange.value;
-            });
-        });
-    </script>
-    
+    <script src="scripts.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-     <!-- Llamada al controlador general de la aplicación -->
-    <script type="text/javascript" src="../../controllers/utils/components.js"></script>
-    <script src="../../Controllers/public/DetalleProducto.js"></script>
+    <script src="../../controllers/utils/components.js"></script>
+    <script src="../../Controllers/public/categoriasP.js"></script>
     <script src="../../Controllers/admin/footer.js"></script>
     <script src="../../Controllers/public/navbarP.js"></script>
-
-
 </body>
 
 </html>
