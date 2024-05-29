@@ -1,6 +1,6 @@
 // Constantes para completar la ruta de la API.
-const PRODUCTO_API = 'services/public/producto.php';
-const PEDIDO_API = 'services/public/pedido.php';
+const PRODUCTO_API = 'services/admin/productos.php';
+const PEDIDO_API = 'services/admin/ordenes.php';
 // Constante tipo objeto para obtener los parámetros disponibles en la URL.
 const PARAMS = new URLSearchParams(location.search);
 // Constante para establecer el formulario de agregar un producto al carrito de compras.
@@ -54,19 +54,6 @@ SHOPPING_FORM.addEventListener('submit', async (event) => {
     }
 });
 
-// Función para realizar peticiones a la API.
-async function fetchData(api, action, formData) {
-    try {
-        const response = await fetch(api + '?action=' + action, {
-            method: 'POST',
-            body: formData
-        });
-        return await response.json();
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        return { status: 0, error: 'Error fetching data' };
-    }
-}
 
 // Función para cargar las plantillas de encabezado y pie de página.
 function loadTemplate() {
