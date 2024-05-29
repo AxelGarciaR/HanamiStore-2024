@@ -1,278 +1,76 @@
 <!DOCTYPE html>
+<!-- Declaración del idioma para el documento -->
 <html lang="es">
-    
 
 <head>
-    <title>Detalle Producto</title>
+    <!-- Título del documento -->
+    <title>Detalle del Producto</title>
+    <!-- Metadatos de la página web -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Hanamis">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- IMPORTACIÓN DE RECURSOS EXTERNOS -->
+    <!-- Llamada al icono de la página web -->
+    <link type="image/png" rel="icon" href="../../resources/img/icon.png">
+    <!-- Llamada a las hojas de estilos del framework e iconos -->
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../../Resources/css/cssDetalleProducto.css">
 </head>
 
 <body>
     <header class="header sticky-top">
         <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar"></nav>
     </header>
-
-    <div class="container-fluid d-flex justify-content-center align-items-center" id="containerFotosYCarrito">
-        <div class="row container-fluid d-flex justify-content-center align-items-center">
-            <div class="col-lg-2 col-md-3 row-sm-4 row-6" id="containerImagenes">
-                <img src="../../Resources/images/Imagen1P.png" alt="" class="img-fluid">
-                <img src="../../Resources/images/Imagen2P.png" alt="" class="img-fluid">
-                <img src="../../Resources/images/Imagen3P.png" alt="" class="img-fluid">
-            </div>
-
-            <div class="col-lg-5 col-md-6 col-sm-8 col-12 d-flex justify-content-center align-items-center">
-                <img src="../../Resources/images/ImagenPP.png" alt="" id="imagenPrincipal" class="img-fluid">
-            </div>
-
-            <div class="col-lg-5 col-md-9 col-sm-12 col-12">
-                <h1>Azucar Exfoliante Corporal - Te V</h1>
-
-                <div class="rating rtl">
-                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5"
-                        title="5 stars">&#9733;</label>
-                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
-                        title="4 stars">&#9733;</label>
-                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
-                        title="3 stars">&#9733;</label>
-                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
-                        title="2 stars">&#9733;</label>
-                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
-                        title="1 star">&#9733;</label>
-                    <span id="ratingValue"></span>
+    <!-- Contenido principal del documento -->
+    <main>
+        <!-- Título del contenido principal -->
+        <h4 id="mainTitle"></h4>
+        <!-- Componente Horizontal Card para mostrar el detalle de un producto -->
+        <div class="card mb-3" id="detalle">
+            <div class="row">
+                <div class="col-md-4">
+                    <!-- Se muestra la imagen del producto -->
+                    <img id="imagenProducto" class="img-fluid rounded-start" alt="Imagen del producto">
                 </div>
-
-                <h1>$5.79</h1>
-                <br>
-                <p>Exfoliante para tu cuerpo</p>
-                <hr>
-
-                <div class="containerCarrito">
-                    <div class="counter">
-                        <button class="minus">-</button>
-                        <div class="number">0</div>
-                        <button class="plus">+</button>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title" id="nombreProducto"></h5>
+                        <p class="card-text" id="descripcionProducto"></p>
+                        <p class="card-text">Precio unitario (US$) <b id="precioProducto"></b></p>
+                        <p class="card-text">Existencias <b id="existenciasProducto"></b></p>
+                        <!-- Formulario para agregar el producto al carrito de compras -->
+                        <form class="row" id="shoppingForm">
+                            <!-- Campo oculto para asignar el id del producto -->
+                            <input type="hidden" id="idProducto" name="idProducto">
+                            <div class="col-6">
+                                <input type="number" id="cantidadProducto" name="cantidadProducto" min="1" class="form-control" placeholder="Ingrese cantidad" required>
+                            </div>
+                            <div class="col-6 align-self-end">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-cart-plus-fill"></i> Comprar
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                    <button class="btn btn-primary" type="submit" id="btnAgregarCarrito">Agregar al Carrito</button>
                 </div>
             </div>
         </div>
-    </div>
 
-    <hr>
-
-    <div class="container-fluid containerContador">
-        <h4>Comentarios</h4>
-        <h3 id="contador">0</h3>
-    </div>
-
-    <div class="container-fluid" id="containerComentarios">
-
-        <div class="container-fluid col-md-6">
-            <section class="contenidocomentario">
-                <section class="nombreYcheck">
-                    <H3>Samantha.D</H3>
-                    <img src="../../Resources/images/check.png" alt="">
-                </section>
-                <br>
-                <P>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem consectetur provident corrupti
-                    dolores
-                    ipsum ut est? Labore asperiores molestiae, expedita quae libero reiciendis et exercitationem quasi
-                    adipisci qui, ad quisquam!"</P>
-            </section>
-        </div>
-
-        <div class="container-fluid col-md-6">
-            <section class="contenidocomentario">
-                <section class="nombreYcheck">
-                    <H3>Samantha.D</H3>
-                    <img src="../../Resources/images/check.png" alt="">
-                </section>
-                <br>
-                <P>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem consectetur provident corrupti
-                    dolores
-                    ipsum ut est? Labore asperiores molestiae, expedita quae libero reiciendis et exercitationem quasi
-                    adipisci qui, ad quisquam!"</P>
-            </section>
-        </div>
-
-
-
-
-
-
-    </div>
-
-
-    <br>
-
-    <div class="container">
-        <h1>Tambien puede gustarte</h1>
-    </div>
-
-    <br>
-
-    <div class="container-fluid" id="containerCards">
-
-        <div class="cards col-xxl-2">
-            <img src="../../Resources/images/ImagenPP.png" alt="">
-            <p>Azucar Exfoliante Corporal - Te V</p>
-            <div class="rating rtl" style="align-items: center;">
-                <input type="radio" id="star5" name="rating" value="5" /><label for="star5"
-                    title="5 stars">&#9733;</label>
-                <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
-                    title="4 stars">&#9733;</label>
-                <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
-                    title="3 stars">&#9733;</label>
-                <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
-                    title="2 stars">&#9733;</label>
-                <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
-                    title="1 star">&#9733;</label>
-                <span id="ratingValue"></span>
-            </div>
-            <p>$5.50</p>
-        </div>
-
-        <div class="cards col-xxl-2">
-            <img src="../../Resources/images/ImagenPP.png" alt="">
-            <p>Azucar Exfoliante Corporal - Te V</p>
-            <div class="rating rtl" style="align-items: center;">
-                <input type="radio" id="star5" name="rating" value="5" /><label for="star5"
-                    title="5 stars">&#9733;</label>
-                <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
-                    title="4 stars">&#9733;</label>
-                <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
-                    title="3 stars">&#9733;</label>
-                <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
-                    title="2 stars">&#9733;</label>
-                <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
-                    title="1 star">&#9733;</label>
-                <span id="ratingValue"></span>
-            </div>
-            <p>$5.50</p>
-        </div>
-
-        <div class="cards col-xxl-2">
-            <img src="../../Resources/images/ImagenPP.png" alt="">
-            <p>Azucar Exfoliante Corporal - Te V</p>
-            <div class="rating rtl" style="align-items: center;">
-                <input type="radio" id="star5" name="rating" value="5" /><label for="star5"
-                    title="5 stars">&#9733;</label>
-                <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
-                    title="4 stars">&#9733;</label>
-                <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
-                    title="3 stars">&#9733;</label>
-                <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
-                    title="2 stars">&#9733;</label>
-                <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
-                    title="1 star">&#9733;</label>
-                <span id="ratingValue"></span>
-            </div>
-            <p>$5.50</p>
-        </div>
-
-        <div class="cards col-xxl-2 ">
-            <img src="../../Resources/images/ImagenPP.png" alt="">
-            <p>Azucar Exfoliante Corporal - Te V</p>
-            <div class="rating rtl" style="align-items: center;">
-                <input type="radio" id="star5" name="rating" value="5" /><label for="star5"
-                    title="5 stars">&#9733;</label>
-                <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
-                    title="4 stars">&#9733;</label>
-                <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
-                    title="3 stars">&#9733;</label>
-                <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
-                    title="2 stars">&#9733;</label>
-                <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
-                    title="1 star">&#9733;</label>
-                <span id="ratingValue"></span>
-            </div>
-            <p>$5.50</p>
-        </div>
-
-        <div class="cards col-xxl-2 ">
-            <img src="../../Resources/images/ImagenPP.png" alt="">
-            <p>Azucar Exfoliante Corporal - Te V</p>
-            <div class="rating rtl" style="align-items: center;">
-                <input type="radio" id="star5" name="rating" value="5" /><label for="star5"
-                    title="5 stars">&#9733;</label>
-                <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
-                    title="4 stars">&#9733;</label>
-                <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
-                    title="3 stars">&#9733;</label>
-                <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
-                    title="2 stars">&#9733;</label>
-                <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
-                    title="1 star">&#9733;</label>
-                <span id="ratingValue"></span>
-            </div>
-            <p>$5.50</p>
-        </div>
-
-        <div class="cards col-xxl-2">
-            <img src="../../Resources/images/ImagenPP.png" alt="">
-            <p>Azucar Exfoliante Corporal - Te V</p>
-            <div class="rating rtl" style="align-items: center;">
-                <input type="radio" id="star5" name="rating" value="5" /><label for="star5"
-                    title="5 stars">&#9733;</label>
-                <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
-                    title="4 stars">&#9733;</label>
-                <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
-                    title="3 stars">&#9733;</label>
-                <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
-                    title="2 stars">&#9733;</label>
-                <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
-                    title="1 star">&#9733;</label>
-                <span id="ratingValue"></span>
-            </div>
-            <p>$5.50</p>
-        </div>
-
-        <div class="cards col-xxl-2">
-            <img src="../../Resources/images/ImagenPP.png" alt="">
-            <p>Azucar Exfoliante Corporal - Te V</p>
-            <div class="rating rtl" style="align-items: center;">
-                <input type="radio" id="star5" name="rating" value="5" /><label for="star5"
-                    title="5 stars">&#9733;</label>
-                <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
-                    title="4 stars">&#9733;</label>
-                <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
-                    title="3 stars">&#9733;</label>
-                <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
-                    title="2 stars">&#9733;</label>
-                <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
-                    title="1 star">&#9733;</label>
-                <span id="ratingValue"></span>
-            </div>
-            <p>$5.50</p>
-        </div>
-
-    </div>
-
-    <br>
-
-
-
-    <div id="footer"> </div>
-    </div>
-
-    
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </main>
+    <div id="footer"></div>
+    <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
+    <!-- Llamada al framework y librería de mensajes -->
     <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-     <!-- Llamada al controlador general de la aplicación -->
+    <!-- Llamada al controlador general de la aplicación -->
     <script type="text/javascript" src="../../controllers/utils/components.js"></script>
-    <script src="../../Controllers/public/DetalleProducto.js"></script>
+    <!-- Llamada al controlador del sitio público -->
+    <script type="text/javascript" src="../../controllers/utils/public.js"></script>
+    <!-- Llamada al controlador de la página web -->
+    <script type="text/javascript" src="../../controllers/public/detail.js"></script>
     <script src="../../Controllers/admin/footer.js"></script>
     <script src="../../Controllers/public/navbarP.js"></script>
 
 </body>
-
 
 </html>
