@@ -1,0 +1,132 @@
+/* Estilos CSS adicionales */
+.container-box {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.container-box:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+details {
+    margin-bottom: 15px;
+}
+
+summary {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.product-container {
+    margin-top: 20px;
+}
+
+.card {
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Estilo personalizado para los checkboxes */
+input[type="checkbox"] {
+    -webkit-appearance: none; /* Oculta el estilo predeterminado del navegador */
+    -moz-appearance: none;
+    appearance: none;
+    width: 16px; /* Tamaño del checkbox */
+    height: 16px;
+    border: 2px solid #ff9aa2; /* Borde del checkbox */
+    background-color: #fff; /* Color de fondo del checkbox */
+    border-radius: 3px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el checkbox */
+    outline: none; /* Elimina el contorno al hacer clic */
+    position: relative; /* Posicionamiento relativo para el pseudo-elemento */
+}
+
+/* Estilo del indicador (marcado) del checkbox */
+input[type="checkbox"]:checked {
+    background-color: #ff9aa2; /* Cambia el color de fondo cuando el checkbox está marcado */
+}
+    
+/* Estilo del indicador de verificación (solo marca de verificación) */
+input[type="checkbox"]::before {
+    content: "\2713"; /* Código Unicode para el símbolo de marca de verificación */
+    position: absolute; /* Posicionamiento absoluto con respecto al checkbox */
+    top: 50%; /* Posición vertical en el centro */
+    left: 50%; /* Posición horizontal en el centro */
+    transform: translate(-50%, -50%); /* Centra la marca de verificación */
+    font-size: 16px; /* Tamaño de la marca de verificación */
+    color: #000; /* Color de la marca de verificación */
+    opacity: 0; /* Oculta la marca de verificación por defecto */
+}
+
+/* Estilo del indicador de verificación (solo marca de verificación) cuando el checkbox está marcado */
+input[type="checkbox"]:checked::before {
+    opacity: 1; /* Muestra la marca de verificación cuando el checkbox está marcado */
+}
+
+/* Estilo para los detalles (animación de aparición/desaparición) */
+details {
+    margin-bottom: 15px;
+    overflow: hidden; /* Oculta el contenido al principio */
+    transition: max-height 0.3s ease-out; /* Transición suave de la altura máxima */
+}
+
+details[open] {
+    max-height: 200px; /* Altura máxima para mostrar el contenido abierto */
+}
+
+/* Estilo para el resumen (cursor y transición) */
+summary {
+    cursor: pointer;
+    font-weight: bold;
+    transition: color 0.3s ease; /* Transición suave del color del texto */
+}
+
+/* Cambiar el color del resumen al pasar el ratón */
+summary:hover {
+    color: #ff9aa2; /* Cambia el color del texto al pasar el ratón */
+}
+
+/* Animación al aplicar filtros */
+button.btn {
+    transition: transform 0.3s ease; /* Transición suave de la transformación */
+    background-color: #ff9aa2;
+}
+
+button.btn:hover {
+    transform: scale(1.1); /* Aumenta ligeramente el tamaño al pasar el ratón */
+}
+
+.ui-range-label {
+    text-align: center; /* Centrar el contenido */
+}
+
+.ui-range-values {
+    display: flex; /* Usar flexbox para organizar los elementos */
+    align-items: center; /* Centrar verticalmente los elementos */
+}
+
+.ui-range-value-min,
+.ui-range-value-max {
+    display: flex; /* Usar flexbox para organizar los elementos */
+    align-items: center; /* Centrar verticalmente los elementos */
+}
+
+.ui-range-value-min span,
+.ui-range-value-max span {
+    margin-right: 5px; /* Añadir un espacio entre el signo de dólar y el número */
+}
+
+.ui-range-label {
+    text-align: center; /* Centra el contenido */
+}
+
+.ui-range-label input[type="range"] {
+    width: 100%; /* Establece el ancho al 100% */
+}
