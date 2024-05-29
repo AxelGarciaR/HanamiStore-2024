@@ -35,8 +35,7 @@ if (isset($_GET['action'])) {
                     !$producto->setCantidadProducto($_POST['cantidadProducto']) or
                     !$producto->setidSubcategoria($_POST['subCategoriaProducto']) or
                     !$producto->setDescuento($_POST['descuentoProducto']) or
-                    !$producto->setIdMarca($_POST['marcaProducto']) or
-                    !$producto->setEstado($_POST['estadoProducto'])
+                    !$producto->setIdMarca($_POST['marcaProducto'])
                 ) {
                     $result['error'] = $producto->getDataError();
                 } elseif ($producto->createRow()) {
@@ -76,8 +75,7 @@ if (isset($_GET['action'])) {
                     !$producto->setCantidadProducto($_POST['cantidadProducto']) or
                     !$producto->setidSubcategoria($_POST['subCategoriaProducto']) or
                     !$producto->setDescuento($_POST['descuentoProducto']) or
-                    !$producto->setIdMarca($_POST['marcaProducto']) or
-                    !$producto->setEstado($_POST['estadoProducto'])
+                    !$producto->setIdMarca($_POST['marcaProducto'])
                 ) {
                     $result['error'] = $producto->getDataError();
                 } elseif ($producto->updateRow()) {
@@ -103,8 +101,8 @@ if (isset($_GET['action'])) {
                 $result['error'] = 'Acción no disponible dentro de la sesión';
         }
     } else {
-         // Se obtiene la excepción del servidor de base de datos por si ocurrió un problema.
-         $result['exception'] = Database::getException();
+        // Se obtiene la excepción del servidor de base de datos por si ocurrió un problema.
+        $result['exception'] = Database::getException();
     }
 } else {
     $result['error'] = 'Recurso no disponible';
@@ -113,4 +111,4 @@ if (isset($_GET['action'])) {
 // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
 header('Content-type: application/json; charset=utf-8');
 // Se imprime el resultado en formato JSON y se retorna al controlador.
-print(json_encode($result));
+print (json_encode($result));

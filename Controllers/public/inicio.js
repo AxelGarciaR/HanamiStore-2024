@@ -1,5 +1,5 @@
 // Constante para completar la ruta de la API.
-const PRODUCTO_API = 'services/public/producto.php';
+const PRODUCTO_API = 'services/admin/productos.php';
 // Constante tipo objeto para obtener los parámetros disponibles en la URL.
 const PARAMS = new URLSearchParams(location.search);
 const PRODUCTOS = document.getElementById('productos');
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const FORM = new FormData();
     FORM.append('idCategoria', PARAMS.get('id'));
     // Petición para solicitar los productos de la categoría seleccionada.
-    const DATA = await fetchData(PRODUCTO_API, 'readProductosCategoria', FORM);
+    const DATA = await fetchData(PRODUCTO_API, 'readAll', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se asigna como título principal la categoría de los productos.
@@ -50,18 +50,4 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Función para cargar las plantillas de encabezado y pie de página.
 function loadTemplate() {
     // Implementar la lógica para cargar el encabezado y pie de página según sea necesario.
-}
-
-// Función para realizar peticiones a la API.
-async function fetchData(api, action, formData) {
-    try {
-        const response = await fetch(api + '?action=' + action, {
-            method: 'POST',
-            body: formData
-        });
-        return await response.json();
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        return { status: 0, error: 'Error fetching data' };
-    }
 }
