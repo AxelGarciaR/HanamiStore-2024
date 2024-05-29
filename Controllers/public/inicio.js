@@ -16,8 +16,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const DATA = await fetchData(PRODUCTO_API, 'readAll', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
-        // Se asigna como título principal la categoría de los productos.
-        MAIN_TITLE.textContent = `Categoría: ${PARAMS.get('nombre')}`;
         // Se inicializa el contenedor de productos.
         PRODUCTOS.innerHTML = '';
         // Se recorre el conjunto de registros fila por fila a través del objeto row.
@@ -41,9 +39,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
             `;
         });
-    } else {
-        // Se presenta un mensaje de error cuando no existen datos para mostrar.
-        MAIN_TITLE.textContent = DATA.error;
     }
 });
 
