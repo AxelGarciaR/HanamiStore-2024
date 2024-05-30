@@ -1,5 +1,5 @@
 // Constante para completar la ruta de la API.
-const PRODUCTO_API = 'services/admin/productos.php';
+const PRODUCTO_API = 'services/public/productos.php';
 // Constante tipo objeto para obtener los parámetros disponibles en la URL.
 const PARAMS = new URLSearchParams(location.search);
 const PRODUCTOS = document.getElementById('productos');
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const FORM = new FormData();
     FORM.append('idCategoria', PARAMS.get('id'));
     // Petición para solicitar los productos de la categoría seleccionada.
-    const DATA = await fetchData(PRODUCTO_API, 'readAll', FORM);
+    const DATA = await fetchData(PRODUCTO_API, 'newProduct', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se inicializa el contenedor de productos.

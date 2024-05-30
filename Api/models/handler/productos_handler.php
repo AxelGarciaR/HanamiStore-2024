@@ -1,6 +1,6 @@
 <?php
 // Se incluye la clase para trabajar con la base de datos.
-require_once('../../helpers/database.php');
+require_once ('../../helpers/database.php');
 
 //Esta clase es para manejar el comportamiento de los datos de la tabla Usuarios
 
@@ -38,7 +38,7 @@ class ProductosHandler
     {
         $sql = 'INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombreProducto, $this->descripcionProducto, $this->precioProducto, $this->imagenPrincipal, $this->cantidadProducto, $this->idSubcategoria,$this->descuento, $this->marca);
+        $params = array($this->nombreProducto, $this->descripcionProducto, $this->precioProducto, $this->imagenPrincipal, $this->cantidadProducto, $this->idSubcategoria, $this->descuento, $this->marca);
         return Database::executeRow($sql, $params);
     }
 
@@ -48,6 +48,16 @@ class ProductosHandler
         $sql = 'SELECT id_Producto , Nombre_Producto , descripcion_producto , precio_producto , imagen_principal , CantidadP, id_subcategoria ,descuento, id_Marca
                 FROM productos
                 ORDER BY Nombre_Producto';
+        return Database::getRows($sql);
+    }
+
+    //Esta funcion es para hacer select de los productos de mayor id a menor para ver cuales son los mas nuevos
+    public function NewProduct()
+    {
+        $sql = 'SELECT id_Producto, Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca
+                FROM productos
+                ORDER BY id_Producto DESC
+                LIMIT 10';
         return Database::getRows($sql);
     }
 
@@ -74,7 +84,7 @@ class ProductosHandler
                 descuento = ?,
                 id_Marca = ?
                 WHERE id_Producto = ?';
-        $params = array($this->nombreProducto, $this->descripcionProducto, $this->precioProducto, $this->imagenPrincipal, $this->cantidadProducto, $this->idSubcategoria,$this->descuento, $this->marca, $this->idProducto);
+        $params = array($this->nombreProducto, $this->descripcionProducto, $this->precioProducto, $this->imagenPrincipal, $this->cantidadProducto, $this->idSubcategoria, $this->descuento, $this->marca, $this->idProducto);
         return Database::executeRow($sql, $params);
     }
 
