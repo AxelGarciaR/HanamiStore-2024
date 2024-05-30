@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <li class="list-group-item">Existencias ${row.CantidadP}</li>
                         </ul>
                         <div class="card-body text-center">
-                            <a href="detail.html?id=${row.id_Producto}" class="btn btn-primary">Ver detalle</a>
+                            <a href="DetalleProducto.html?id=${row.id_Producto}" class="btn btn-primary">Ver detalle</a>
                         </div>
                     </div>
                 </div>

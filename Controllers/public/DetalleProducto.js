@@ -1,5 +1,5 @@
 // Constantes para completar la ruta de la API.
-const PRODUCTO_API = 'services/admin/productos.php';
+const PRODUCTO_API = 'services/public/productos.php';
 const PEDIDO_API = 'services/admin/ordenes.php';
 // Constante tipo objeto para obtener los parámetros disponibles en la URL.
 const PARAMS = new URLSearchParams(location.search);
