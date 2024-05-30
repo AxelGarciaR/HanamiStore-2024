@@ -1,6 +1,6 @@
 // Constantes para completar la ruta de la API.
 const PRODUCTO_API = 'services/public/productos.php';
-const PEDIDO_API = 'services/admin/ordenes.php';
+const PEDIDO_API = 'services/public/ordenes.php';
 // Constante tipo objeto para obtener los parámetros disponibles en la URL.
 const PARAMS = new URLSearchParams(location.search);
 // Constante para establecer el formulario de agregar un producto al carrito de compras.
@@ -43,14 +43,14 @@ SHOPPING_FORM.addEventListener('submit', async (event) => {
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SHOPPING_FORM);
     // Petición para guardar los datos del formulario.
-    const DATA = await fetchData(PEDIDO_API, 'createDetail', FORM);
+    const DATA = await fetchData(PEDIDO_API, 'createRow', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se constata si el cliente ha iniciado sesión.
     if (DATA.status) {
-        sweetAlert(1, DATA.message, false, 'cart.html');
+        sweetAlert(1, DATA.message, false, 'Carrito.html');
     } else if (DATA.session) {
         sweetAlert(2, DATA.error, false);
     } else {
-        sweetAlert(3, DATA.error, true, 'login.html');
+        sweetAlert(3, DATA.error, true, 'index.html');
     }
 });
 
