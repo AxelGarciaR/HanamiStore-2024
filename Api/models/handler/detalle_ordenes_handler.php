@@ -68,7 +68,7 @@ class DetalleOrdenHandler
     {
         // Se realiza una subconsulta para obtener el precio del producto.
         $sql = 'INSERT INTO detalleOrdenes(id_producto, precio_unitario, cantidad, id_orden)
-                VALUES(?, (SELECT precio_producto FROM producto WHERE id_Producto = ?), ?, ?)';
+                VALUES(?, (SELECT precio_producto FROM productos WHERE id_Producto = ?), ?, ?)';
         $params = array($this->producto, $this->producto, $this->cantidad, $_SESSION['idOrden']);
         return Database::executeRow($sql, $params);
     }
