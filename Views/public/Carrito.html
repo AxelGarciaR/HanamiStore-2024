@@ -23,29 +23,7 @@
         <!-- Ejemplo de tres tarjetas de productos en el carrito -->
         <div class="row">
             <!-- Columna de tarjetas de productos -->
-            <div class="col-md-8">
-                <!-- Producto 1 -->
-                <div class="card col-12 mb-4 rounded rounded-white">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img src="../../Resources/images/allclean.png" class="img-thumbnail" alt="Producto 1">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Producto 1</h5>
-                                <p class="card-text">Descripción del Producto 1.</p>
-                                <p class="card-text">Precio: $20</p>
-                                <div class="input-group mb-3">
-                                    <button class="btn btn-outline-secondary btn-pale-pink" type="button">-</button>
-                                    <input type="text" class="form-control text-center" placeholder="1"
-                                        aria-label="Cantidad" aria-describedby="buttonMinus1 buttonPlus1">
-                                    <button class="btn btn-outline-secondary btn-pale-pink" type="button">+</button>
-                                </div>
-                                <button type="button" class="btn btn-danger btn-block btn-pale-pink">Eliminar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-md-8" id="carritoLista">
 
                 <!-- Producto 2 -->
                 <div class="card col-12  mb-4 rounded rounded-white">
@@ -56,62 +34,75 @@
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">Producto 2</h5>
-                                <p class="card-text">Descripción del Producto 2.</p>
                                 <p class="card-text">Precio: $30</p>
-                                <div class="input-group mb-3">
-                                    <button class="btn btn-outline-secondary btn-pale-pink" type="button">-</button>
-                                    <input type="text" class="form-control text-center" placeholder="1"
-                                        aria-label="Cantidad" aria-describedby="buttonMinus1 buttonPlus1">
-                                    <button class="btn btn-outline-secondary btn-pale-pink" type="button">+</button>
-                                </div>
-                                <button type="button" class="btn btn-danger btn-block btn-pale-pink">Eliminar</button>
+                                <p class="card-text">Total de producto: </p>
+                                <button type="button" onclick="openUpdate()"
+                                    class="btn btn-danger btn-block btn-pale-pink">Cantidad</button>
+                                <button type="button" onclick="openDelete()"
+                                    class="btn btn-danger btn-block btn-pale-pink">Eliminar</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Producto 3 -->
-                <div class="card col-12 mb-4 rounded rounded-white">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img src="../../Resources/images/allclean.png" class=" " alt="Producto 3">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-
-                                <h5 class="card-title">Producto 3</h5>
-                                <p class="card-text">Descripción del Producto 3.</p>
-                                <p class="card-text">Precio: $25</p>
-                                <div class="input-group mb-3">
-                                    <button class="btn btn-outline-secondary btn-pale-pink" type="button">-</button>
-                                    <input type="text" class="form-control text-center" placeholder="1"
-                                        aria-label="Cantidad" aria-describedby="buttonMinus3 buttonPlus3">
-                                    <button class="btn btn-outline-secondary btn-pale-pink" type="button">+</button>
-                                </div>
-                                <button type="button" class="btn btn-danger btn-block btn-pale-pink">Eliminar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- Columna del resumen de compra -->
             <div class="col-md-4 col-12">
                 <div class="card rounded rounded-pink">
                     <div class="card-body">
-                        <h5 class="card-title">Resumen de la Compra</h5>
-                        <!-- Total a pagar -->
-                        <p class="card-text">Sub Total: $75</p>
-                        <!-- Descuento (10%) -->
-                        <p class="card-text">Descuento (10%): -$7.50</p>
-                        <hr>
                         <!-- Total general después del descuento -->
-                        <p class="card-text">Total General: $67.50</p>
-                        <button type="button" class="btn btn-primary btn-block btn-pale-pink"
-                            id="btnRealizarCompra">Realizar Compra</button>
+                        <p class="text-end">TOTAL A PAGAR (US$) <b id="pago"></b></p>
+                        <hr>
+                        <p class="text-end">
+                            <button type="button" class="btn btn-primary" onclick="finishOrder()">
+                                <i class="bi bi-credit-card-fill"></i> Finalizar pedido
+                            </button>
+                        </p>
+                        <!-- Párrafo para mostrar un enlace a la página web principal -->
+                        <p class="text-end">
+                            <a href="index.html" class="btn btn-success">
+                                <i class="bi bi-cart-fill"></i> Seguir comprando
+                            </a>
+                        </p>
+
+                        <p class="text-end">
+                            <a onclick="readDetail()" class="btn btn-success">
+                                <i class="bi bi-cart-fill"></i> Recargar Carrito
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
+
+            <!-- Componente Modal para mostrar una caja de diálogo -->
+            <div class="modal fade" id="itemModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="modalTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <!-- Contenido del componente Modal -->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="modalTitle">Cambiar cantidad</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <!-- Formulario para actualizar cantidad -->
+                        <form id="itemForm">
+                            <div class="modal-body row">
+                                <input type="number" class="d-none" id="idDetalle" name="idDetalle">
+                                <div class="col-sm-12">
+                                    <label for="cantidadProducto" class="form-label">Cantidad</label>
+                                    <input id="cantidadProducto" type="number" name="cantidadProducto" min="1"
+                                        class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -123,9 +114,9 @@
     <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-     <!-- Llamada al controlador general de la aplicación -->
+    <!-- Llamada al controlador general de la aplicación -->
     <script type="text/javascript" src="../../controllers/utils/components.js"></script>
-    <script src="../../Controllers/public/DetalleProducto.js"></script>
+    <script src="../../Controllers/public/carrito.js"></script>
     <script src="../../Controllers/admin/footer.js"></script>
     <script src="../../Controllers/public/navbarP.js"></script>
 
