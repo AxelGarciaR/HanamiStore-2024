@@ -28,10 +28,12 @@ CREATE TABLE IF NOT EXISTS clientes (
 CREATE TABLE IF NOT EXISTS ordenes (
   id_Orden INT PRIMARY KEY AUTO_INCREMENT,
   id_Cliente INT,
+  direccion VARCHAR(250),
   Fecha_Orden DATE NOT NULL DEFAULT current_timestamp(),
-  Estado_Orden BOOLEAN NOT NULL,
+  Estado_Orden enum('Pendiente','Finalizado','Entregado','Anulado') NOT NULL,
   FOREIGN KEY (id_Cliente) REFERENCES clientes (id_cliente)
 );
+
 
 -- Creación de la tabla categorias
 CREATE TABLE IF NOT EXISTS categorias (
@@ -84,7 +86,7 @@ CREATE TABLE IF NOT EXISTS detalleOrdenes (
   id_producto INT,
   cantidad INT UNSIGNED,
   precio_unitario decimal(5,2) UNSIGNED,
-  FOREIGN KEY (id_orden) gREFERENCES ordenes (id_Orden),
+  FOREIGN KEY (id_orden) REFERENCES ordenes (id_Orden),
   FOREIGN KEY (id_producto) REFERENCES productos (id_Producto)
 );
 
