@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS clientes (
 CREATE TABLE IF NOT EXISTS ordenes (
   id_Orden INT PRIMARY KEY AUTO_INCREMENT,
   id_Cliente INT,
-  Fecha_Orden DATE NOT NULL,
+  Fecha_Orden DATE NOT NULL DEFAULT current_timestamp(),
   Estado_Orden BOOLEAN NOT NULL,
   FOREIGN KEY (id_Cliente) REFERENCES clientes (id_cliente)
 );
@@ -82,9 +82,9 @@ CREATE TABLE IF NOT EXISTS detalleOrdenes (
   id_detalle INT PRIMARY KEY AUTO_INCREMENT,
   id_orden INT,
   id_producto INT,
-  cantidad INT,
-  precio_unitario DOUBLE,
-  FOREIGN KEY (id_orden) REFERENCES ordenes (id_Orden),
+  cantidad INT UNSIGNED,
+  precio_unitario decimal(5,2) UNSIGNED,
+  FOREIGN KEY (id_orden) gREFERENCES ordenes (id_Orden),
   FOREIGN KEY (id_producto) REFERENCES productos (id_Producto)
 );
 
