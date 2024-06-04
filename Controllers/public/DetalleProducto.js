@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('imagenProducto').src = SERVER_URL.concat('images/productos/', product.imagen_principal);
         document.getElementById('nombreProducto').textContent = product.Nombre_Producto;
         document.getElementById('descripcionProducto').textContent = product.descripcion_producto;
-        document.getElementById('precioProducto').textContent = product.precio_producto.toFixed(2);
+        document.getElementById('precioProducto').textContent = product.precio_producto;
         document.getElementById('existenciasProducto').textContent = product.CantidadP;
         document.getElementById('idProducto').value = product.id_Producto;
     } else {
