@@ -16,112 +16,63 @@
     </header>
 
     <div class="container">
+
+        <br>
+
+        <h2>Historial de compra</h2>
+        <hr>
+        <br>
+
         <div class="row" id="cardRow">
             <!-- Primera Card -->
             <div class="col-md-4">
                 <div class="card">
                     <img src="../../Resources/images/allclean.png" class="card-img-top" alt="Imagen 1">
                     <div class="card-body">
-                        <h5 class="card-title">allclean</h5>
-                        <div class="card-rating">
-                            <span class="stars">4</span>
-                        </div>
-                        <button class="btn btn-primary add-review-btn" data-bs-toggle="modal"
-                            data-bs-target="#reviewModal">Agregar reseña</button>
+                        <h5 class="card-title">NombreProducto</h5>
+                        <hr>
+                        <p class="card-text">Precio unitario: </p>
+                        <p class="card-text">Cantidad: </p>
+                        <p class="card-text">Fecha de compra: </p>
+                        <button type="button" onclick="openUpdate()" class="btn btn-primary add-review-btn">Agregar
+                            reseña</button>
                     </div>
                 </div>
             </div>
-            <!-- Segunda Card -->
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="../../Resources/images/allclean.png" class="card-img-top" alt="Imagen 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre 2</h5>
-                        <div class="card-rating">
-                            <span class="stars">3</span>
-                        </div>
-                        <button class="btn btn-primary add-review-btn" data-bs-toggle="modal"
-                            data-bs-target="#reviewModal">Agregar reseña</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Tercera Card -->
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="../../Resources/images/allclean.png" class="card-img-top" alt="Imagen 3">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre 3</h5>
-                        <div class="card-rating">
-                            <span class="stars">5</span>
-                        </div>
-                        <button class="btn btn-primary add-review-btn" data-bs-toggle="modal"
-                            data-bs-target="#reviewModal">Agregar reseña</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Cuarta Card -->
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="../../Resources/images/allclean.png" class="card-img-top" alt="Imagen 4">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre 4</h5>
-                        <div class="card-rating">
-                            <span class="stars">4</span>
-                        </div>
-                        <button class="btn btn-primary add-review-btn" data-bs-toggle="modal"
-                            data-bs-target="#reviewModal">Agregar reseña</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Quinta Card -->
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="../../Resources/images/allclean.png" class="card-img-top" alt="Imagen 5">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre 5</h5>
-                        <div class="card-rating">
-                            <span class="stars">2</span>
-                        </div>
-                        <button class="btn btn-primary add-review-btn" data-bs-toggle="modal"
-                            data-bs-target="#reviewModal">Agregar reseña</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Sexta Card -->
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="../../Resources/images/allclean.png" class="card-img-top" alt="Imagen 6">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre 6</h5>
-                        <div class="card-rating">
-                            <span class="stars">3</span>
-                        </div>
-                        <button class="btn btn-primary add-review-btn" data-bs-toggle="modal"
-                            data-bs-target="#reviewModal">Agregar reseña</button>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 
-    <!-- Modal para agregar reseña -->
-    <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <!-- Componente Modal para mostrar una caja de diálogo -->
+    <div class="modal fade" id="itemModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <!-- Contenido del componente Modal -->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="reviewModalLabel">Agregar reseña</h5>
+                    <h1 class="modal-title fs-5" id="modalTitle">Agregar comentario</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <!-- Aquí va el formulario para agregar reseña -->
-                    <form>
-                        <div class="mb-3">
-                            <label for="reviewTextarea" class="form-label">Escribe tu reseña:</label>
-                            <textarea class="form-control" id="reviewTextarea" rows="3"></textarea>
+                <!-- Formulario para actualizar cantidad -->
+                <form id="itemForm">
+                    <div class="modal-body row">
+                        <input type="number" class="d-none" id="idDetalle" name="idDetalle">
+                        <div class="col-sm-12">
+                            <label for="comentarioProducto" class="form-label">Comentario</label>
+                            <input id="comentarioProducto" type="text" name="comentarioProducto" class="form-control"
+                                required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Enviar reseña</button>
-                    </form>
-                </div>
+                    
+                        <div class="col-sm-12 pt-4">
+                            <label for="puntuacionProducto" class="form-label">Puntuacion</label>
+                            <input id="puntuacionProducto" type="number" name="puntuacionProducto" min="1"
+                                class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -135,9 +86,9 @@
     <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-     <!-- Llamada al controlador general de la aplicación -->
+    <!-- Llamada al controlador general de la aplicación -->
     <script type="text/javascript" src="../../controllers/utils/components.js"></script>
-    <script src="../../Controllers/public/DetalleProducto.js"></script>
+    <script src="../../Controllers/public/HistorialDeCompra.js"></script>
     <script src="../../Controllers/admin/footer.js"></script>
     <script src="../../Controllers/public/navbarP.js"></script>
 
