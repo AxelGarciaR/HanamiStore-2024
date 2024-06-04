@@ -1,11 +1,34 @@
 window.addEventListener('DOMContentLoaded', (event) => {
     const priceRange = document.getElementById('price-range');
     const priceValue = document.getElementById('price-value');
+    const applyFiltersButton = document.getElementById('apply-filters');
+    const productCards = document.querySelectorAll('.card');
+    const noResults = document.getElementById('no-results');
 
     // Actualizar el valor del rango de precios al mover el slider
     priceRange.addEventListener('input', () => {
         priceValue.textContent = priceRange.value;
     });
+
+    // Función para aplicar filtros
+    const applyFilters = () => {
+        const maxPrice = parseInt(priceRange.value);
+        let hasResults = false;
+        productCards.forEach(card => {
+            const productPrice = parseInt(card.getAttribute('data-price'));
+            if (productPrice <= maxPrice) {
+                card.parentNode.style.display = 'block';
+                hasResults = true;
+            } else {
+                card.parentNode.style.display = 'none';
+            }
+        });
+        // Mostrar o ocultar el mensaje de no resultados
+        noResults.style.display = hasResults ? 'none' : 'block';
+    };
+
+    // Agregar evento de clic al botón de aplicar filtros
+    applyFiltersButton.addEventListener('click', applyFilters);
 
     // Seleccionar todos los detalles y resúmenes
     const details = document.querySelectorAll('details');

@@ -89,7 +89,7 @@
                     </div>
                     <input type="range" id="price-range" min="0" max="100" value="50" step="1">
                     <div class="col-lg-12 text-center">
-                        <button type="button" class="btn btn-dark">Aplicar Filtros</button>
+                        <button type="button" class="btn btn-dark" id="apply-filters">Aplicar Filtros</button>
                     </div>
                 </div>
             </div>
@@ -106,77 +106,88 @@
                         </div>
 
                         <div class="container product-container">
-                            <div class="row">
+                            <div class="row" id="product-cards">
                                 <!-- Tarjeta de producto 1 -->
                                 <div class="col-lg-4 mb-4">
-                                    <div class="card">
+                                    <div class="card" data-price="45">
                                         <img src="../../Resources/images/Escenciaplanta.png" class="card-img-top"
                                             alt="Producto 1">
                                         <div class="card-body">
                                             <h5 class="card-title">Crema de manos hidratante matcha</h5>
                                             <p class="card-text">Descripción de Crema de manos hidratante matcha</p>
+                                            <p class="card-text"><strong>Precio: $45</strong></p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Tarjeta de producto 2 -->
                                 <div class="col-lg-4 mb-4">
-                                    <div class="card">
+                                    <div class="card" data-price="30">
                                         <img src="../../Resources/images/Lociónhidratantedepepino.png"
                                             class="card-img-top" alt="Producto 2">
                                         <div class="card-body">
                                             <h5 class="card-title">Loción hidratante de pepino</h5>
                                             <p class="card-text">Descripción de Loción hidratante de pepino</p>
+                                            <p class="card-text"><strong>Precio: $30</strong></p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Tarjeta de producto 3 -->
                                 <div class="col-lg-4 mb-4">
-                                    <div class="card">
+                                    <div class="card" data-price="55">
                                         <img src="../../Resources/images/cremademanos.png" class="card-img-top"
                                             alt="Producto 3">
                                         <div class="card-body">
-                                            <h5 class="card-title">Crema de manos</h5>
-                                            <p class="card-text">Descripción de Crema de manos</p>
+                                            <h5 class="card-title">Crema de manos de extracto de uva</h5>
+                                            <p class="card-text">Descripción de Crema de manos de extracto de uva</p>
+                                            <p class="card-text"><strong>Precio: $55</strong></p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Tarjeta de producto 4 -->
                                 <div class="col-lg-4 mb-4">
-                                    <div class="card">
+                                    <div class="card" data-price="20">
                                         <img src="../../Resources/images/Cremademanoshidratantematcha.png"
                                             class="card-img-top" alt="Producto 4">
                                         <div class="card-body">
                                             <h5 class="card-title">Esencia de planta té verde</h5>
                                             <p class="card-text">Descripción de Esencia de planta té verde</p>
+                                            <p class="card-text"><strong>Precio: $20</strong></p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Tarjeta de producto 5 -->
                                 <div class="col-lg-4 mb-4">
-                                    <div class="card">
+                                    <div class="card" data-price="70">
                                         <img src="../../Resources/images/Mascarilladeacidohialurónico.png"
                                             class="card-img-top" alt="Producto 5">
                                         <div class="card-body">
                                             <h5 class="card-title">Loción hidratante de pepino</h5>
                                             <p class="card-text">Descripción de Loción de pepino</p>
+                                            <p class="card-text"><strong>Precio: $70</strong></p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Tarjeta de producto 6 -->
                                 <div class="col-lg-4 mb-4">
-                                    <div class="card">
+                                    <div class="card" data-price="40">
                                         <img src="../../Resources/images/locionoliva.png" class="card-img-top"
                                             alt="Producto 6">
                                         <div class="card-body">
                                             <h5 class="card-title">Mascarilla de ácido hialurónico</h5>
                                             <p class="card-text">Descripción de Mascarilla de ácido hialurónico</p>
+                                            <p class="card-text"><strong>Precio: $40</strong></p>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-center" id="no-results" style="display: none;">
+                                    <h3><strong>No se encontraron resultados</strong></h3>
                                 </div>
                             </div>
                         </div>
