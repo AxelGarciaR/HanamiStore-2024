@@ -13,14 +13,16 @@ window.addEventListener('DOMContentLoaded', (event) => {
     // Función para aplicar filtros
     const applyFilters = () => {
         const maxPrice = parseInt(priceRange.value);
+        const selectedCategories = getSelectedCategories();
         let hasResults = false;
         productCards.forEach(card => {
             const productPrice = parseInt(card.getAttribute('data-price'));
-            if (productPrice <= maxPrice) {
-                card.parentNode.style.display = 'block';
+            const productCategory = card.closest('.col-lg-4').getAttribute('data-category');
+            if (productPrice <= maxPrice && (selectedCategories.length === 0 || selectedCategories.includes(productCategory))) {
+                card.closest('.col-lg-4').style.display = 'block';
                 hasResults = true;
             } else {
-                card.parentNode.style.display = 'none';
+                card.closest('.col-lg-4').style.display = 'none';
             }
         });
         // Mostrar o ocultar el mensaje de no resultados
@@ -30,31 +32,21 @@ window.addEventListener('DOMContentLoaded', (event) => {
     // Agregar evento de clic al botón de aplicar filtros
     applyFiltersButton.addEventListener('click', applyFilters);
 
-    // Seleccionar todos los detalles y resúmenes
-    const details = document.querySelectorAll('details');
-    const summaries = document.querySelectorAll('summary');
-
-    // Agregar un evento de clic a cada resumen
-    summaries.forEach(summary => {
-        summary.addEventListener('click', () => {
-            // Obtener el detalle asociado al resumen clicado
-            const detail = summary.parentNode;
-
-            // Verificar si el detalle está abierto o cerrado
-            const isOpen = detail.open;
-
-            // Si el detalle está abierto, aplicar animación de entrada a los productos
-            if (isOpen) {
-                const products = detail.nextElementSibling;
-                products.style.opacity = 0; // Inicialmente, establecer la opacidad en 0 para la animación
-                products.style.maxHeight = products.scrollHeight + 'px'; // Establecer la altura máxima para la animación de desplazamiento
-                products.style.transition = 'opacity 0.3s ease, max-height 0.3s ease'; // Agregar transición suave
-
-                // Retrasar ligeramente la animación para que la transición tenga tiempo para aplicarse
-                setTimeout(() => {
-                    products.style.opacity = 1; // Mostrar los productos
-                }, 50);
+    // Obtener las categorías seleccionadas
+    const getSelectedCategories = () => {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const selectedCategories = [];
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                selectedCategories.push(checkbox.id);
             }
         });
+        return selectedCategories;
+    };
+
+    // Agregar eventos de cambio a todos los checkboxes
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', applyFilters);
     });
 });
