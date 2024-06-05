@@ -76,7 +76,7 @@ class DetalleOrdenHandler
     // Método para obtener los productos que se encuentran en el carrito de compras.(Seguir editando este) *****************************************************
     public function readDetail()
     {
-        $sql = 'SELECT id_detalle, Nombre_Producto, detalleOrdenes.precio_unitario, detalleOrdenes.cantidad
+        $sql = 'SELECT id_detalle, Nombre_Producto, detalleOrdenes.precio_unitario, detalleOrdenes.cantidad 
                 FROM detalleOrdenes
                 INNER JOIN ordenes USING(id_Orden)
                 INNER JOIN productos USING(id_Producto)
@@ -84,6 +84,20 @@ class DetalleOrdenHandler
         $params = array($_SESSION['idOrden']);
         return Database::getRows($sql, $params);
     }
+
+    
+    public function readRecord()
+    {
+        $sql = 'SELECT id_detalle, Nombre_Producto, detalleOrdenes.precio_unitario, Fecha_Orden, detalleOrdenes.cantidad, detalleOrdenes.comentario, detalleOrdenes.puntuacion
+                FROM detalleOrdenes
+                INNER JOIN ordenes USING(id_Orden)
+                INNER JOIN productos USING(id_Producto)
+                WHERE id_Orden = ?';
+        $params = array($_SESSION['idOrden']);
+        return Database::getRows($sql, $params);
+    }
+
+
 
     // Método para finalizar un pedido por parte del cliente.
     public function finishOrder()

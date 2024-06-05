@@ -10,7 +10,7 @@ const ITEM_FORM = document.getElementById('itemForm');
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para mostrar los productos del carrito de compras.
-    readDetail();
+    readRecord();
 });
 
 // Método del evento para cuando se envía el formulario de cambiar cantidad de producto.
@@ -39,7 +39,7 @@ ITEM_FORM.addEventListener('submit', async (event) => {
 *   Parámetros: ninguno.
 *   Retorno: ninguno.
 */
-async function readDetail() {
+async function readRecord() {
     // Petición para obtener los datos del pedido en proceso.
     const DATA = await fetchData(PEDIDO_API, 'readDetail');
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -60,22 +60,20 @@ async function readDetail() {
             <div class="card">
                 <img src="../../Resources/images/allclean.png" class="card-img-top" alt="Imagen 1">
                 <div class="card-body">
-                    <h5 class="card-title">NombreProducto</h5>
+                    <h5 class="card-title">${row.Nombre_Producto}</h5>
                     <hr>
-                    <p class="card-text">Precio unitario: </p>
-                    <p class="card-text">Cantidad: </p>
-                    <p class="card-text">Fecha de compra: </p>
-                    <button type="button" onclick="openUpdate()"
+                    <p class="card-text">Precio unitario: $${row.precio_unitario}</p>
+                    <p class="card-text">Cantidad: ${row.cantidad}</p>
+                    <p class="card-text">Fecha de compra: ${row.comentario}</p>
+                    <button type="button" onclick="openUpdate(${row.id_detalle})"
                         class="btn btn-primary add-review-btn">Agregar reseña</button>
                 </div>
             </div>
         </div>
             `;
         });
-        // Se muestra el total a pagar con dos decimales.
-        document.getElementById('pago').textContent = total.toFixed(2);
     } else {
-        sweetAlert(4, DATA.error, false, 'index.html');
+        sweetAlert(4, DATA.error, false);
     }
 }
 
@@ -84,58 +82,10 @@ async function readDetail() {
 *   Parámetros: id (identificador del producto) y quantity (cantidad actual del producto).
 *   Retorno: ninguno.
 */
-function openUpdate(id, quantity) {
+function openUpdate(id) {
     // Se abre la caja de diálogo que contiene el formulario.
     ITEM_MODAL.show();
     // Se inicializan los campos del formulario con los datos del registro seleccionado.
     document.getElementById('idDetalle').value = id;
-    document.getElementById('cantidadProducto').value = quantity;
-}
-
-/*
-*   Función asíncrona para mostrar un mensaje de confirmación al momento de finalizar el pedido.
-*   Parámetros: ninguno.
-*   Retorno: ninguno.
-*/
-async function finishOrder() {
-    // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
-    const RESPONSE = await confirmAction('¿Está seguro de finalizar el pedido?');
-    // Se verifica la respuesta del mensaje.
-    if (RESPONSE) {
-        // Petición para finalizar el pedido en proceso.
-        const DATA = await fetchData(PEDIDO_API, 'finishOrder');
-        // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-        if (DATA.status) {
-            sweetAlert(1, DATA.message, true, 'index.html');
-        } else {
-            sweetAlert(2, DATA.error, false);
-        }
-    }
-}
-
-/*
-*   Función asíncrona para mostrar un mensaje de confirmación al momento de eliminar un producto del carrito.
-*   Parámetros: id (identificador del producto).
-*   Retorno: ninguno.
-*/
-async function openDelete(id) {
-    // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
-    const RESPONSE = await confirmAction('¿Está seguro de remover el producto?');
-    // Se verifica la respuesta del mensaje.
-    if (RESPONSE) {
-        // Se define un objeto con los datos del producto seleccionado.
-        const FORM = new FormData();
-        FORM.append('idDetalle', id);
-        // Petición para eliminar un producto del carrito de compras.
-        const DATA = await fetchData(PEDIDO_API, 'deleteDetail', FORM);
-        // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-        if (DATA.status) {
-            await sweetAlert(1, DATA.message, true);
-            // Se carga nuevamente la tabla para visualizar los cambios.
-            readDetail();
-        } else {
-            sweetAlert(2, DATA.error, false);
-        }
-    }
 }
 

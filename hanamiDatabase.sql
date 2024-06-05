@@ -86,8 +86,8 @@ CREATE TABLE IF NOT EXISTS detalleOrdenes (
   id_producto INT,
   cantidad INT UNSIGNED,
   precio_unitario decimal(5,2) UNSIGNED,
-  comentario VARCHAR(250) UNSIGNED,
-  puntuacion VARCHAR(250) UNSIGNED,
+  comentario VARCHAR(250),
+  puntuacion VARCHAR(250),
   FOREIGN KEY (id_orden) REFERENCES ordenes (id_Orden),
   FOREIGN KEY (id_producto) REFERENCES productos (id_Producto)
 );
