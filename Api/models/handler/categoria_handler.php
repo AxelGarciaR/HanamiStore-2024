@@ -69,9 +69,9 @@ class CategoriaHandler
         return Database::executeRow($sql, $params);
     }
 
-    public function NewCategoria()
+    public function newCategoria()
     {
-        $sql = 'SELECT id_Producto, Nombre_Producto
+        $sql = 'SELECT id_Categoria, Nombre_Categoria
                 FROM categorias
                 ORDER BY id_Categoria DESC
                 LIMIT 10';
