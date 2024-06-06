@@ -2,7 +2,6 @@
 // Se incluye la clase de entrada
 require_once('../../models/data/ordenes_data.php');
 
-
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
@@ -17,6 +16,7 @@ if (isset($_GET['action'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'searchRows':
+                // Validación del campo de búsqueda
                 if (!Validator::validateSearch($_POST['search'])) {
                     $result['error'] = Validator::getSearchError();
                 } elseif ($result['dataset'] = $orden->searchRows()) {
@@ -27,6 +27,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'createRow':
+                // Validación de los datos del formulario
                 $_POST = Validator::validateForm($_POST);
                 if (
                     !$orden->setIdCliente($_POST['idCliente']) or
@@ -59,6 +60,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'updateRow':
+                // Validación de los datos del formulario
                 $_POST = Validator::validateForm($_POST);
                 if (
                     !$orden->setIdCliente($_POST['idCliente']) or
@@ -99,3 +101,4 @@ if (isset($_GET['action'])) {
 header('Content-type: application/json; charset=utf-8');
 // Se imprime el resultado en formato JSON y se retorna al controlador.
 print(json_encode($result));
+?>

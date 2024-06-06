@@ -92,7 +92,6 @@ body::-webkit-scrollbar-thumb {
 
 button {
     font-size: 24px;
-    width: 40px;
     height: 40px;
     cursor: pointer;
 }
@@ -201,3 +200,48 @@ button {
     }
     
 }
+
+/***Css comentarios***/
+
+.puntuacion{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+}
+
+.puntuacion p{
+    margin-bottom: 0;
+    margin-right: 10px;
+}
+
+.puntuacion img{
+    width: 30px;
+    height: 30px;
+}
+
+#comentarios{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.coso{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 90%;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+
+.cardComentario{
+    background-color: #F0F0F0;
+    padding: 15px ;
+    border-radius: 15px;
+    padding-bottom: 15px;
+}
+

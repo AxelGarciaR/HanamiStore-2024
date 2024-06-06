@@ -15,6 +15,7 @@
     <!-- Llamada a las hojas de estilos del framework e iconos -->
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
+    <link type="text/css" rel="stylesheet" href="../../Resources/css/cssDetalleProducto.css">
 </head>
 
 <body>
@@ -43,7 +44,8 @@
                             <!-- Campo oculto para asignar el id del producto -->
                             <input type="hidden" id="idProducto" name="idProducto">
                             <div class="col-6">
-                                <input type="number" id="cantidadProducto" name="cantidadProducto" min="1" class="form-control" placeholder="Ingrese cantidad" required>
+                                <input type="number" id="cantidadProducto" name="cantidadProducto" min="1"
+                                    class="form-control" placeholder="Ingrese cantidad" required>
                             </div>
                             <div class="col-6 align-self-end">
                                 <button type="submit" class="btn btn-primary">
@@ -54,6 +56,33 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <h4>Comentarios</h4>
+
+        <div class="flex-row flex-lg-wrap" id="comentarios">
+
+            <div class="coso">
+
+                <div class="cardComentario">
+
+                    <div class="puntuacion">
+                        <p>?/5</p>
+                        <img src="../../Resources/images/star.png" alt="">
+                    </div>
+
+                    <br>
+
+                    <div class="comentario">
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus error quibusdam unde
+                            cupiditate? Nemo quo sunt, reiciendis exercitationem neque rem sit eum autem impedit error
+                            doloribus quia veritatis magni earum!</p>
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
     </main>
