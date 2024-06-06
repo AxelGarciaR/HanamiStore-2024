@@ -73,7 +73,6 @@ class DetalleOrdenHandler
         return Database::executeRow($sql, $params);
     }
 
-    // Método para obtener los productos que se encuentran en el carrito de compras.(Seguir editando este) *****************************************************
     public function readDetail()
     {
         $sql = 'SELECT id_detalle, Nombre_Producto, detalleOrdenes.precio_unitario, detalleOrdenes.cantidad 
@@ -88,12 +87,14 @@ class DetalleOrdenHandler
     
     public function readRecord()
     {
+        $this->estado = 'Finalizado';
+
         $sql = 'SELECT id_detalle, Nombre_Producto, detalleOrdenes.precio_unitario, Fecha_Orden, detalleOrdenes.cantidad, detalleOrdenes.comentario, detalleOrdenes.puntuacion
                 FROM detalleOrdenes
                 INNER JOIN ordenes USING(id_Orden)
                 INNER JOIN productos USING(id_Producto)
-                WHERE id_Orden = ?';
-        $params = array($_SESSION['idOrden']);
+                WHERE id_Cliente = ? AND Estado_Orden = ?';
+        $params = array($_SESSION['idCliente'], $this->estado);
         return Database::getRows($sql, $params);
     }
 

@@ -41,7 +41,7 @@ ITEM_FORM.addEventListener('submit', async (event) => {
 */
 async function readRecord() {
     // Petición para obtener los datos del pedido en proceso.
-    const DATA = await fetchData(PEDIDO_API, 'readDetail');
+    const DATA = await fetchData(PEDIDO_API, 'readRecord');
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se inicializa el cuerpo de la tabla.
@@ -64,7 +64,7 @@ async function readRecord() {
                     <hr>
                     <p class="card-text">Precio unitario: $${row.precio_unitario}</p>
                     <p class="card-text">Cantidad: ${row.cantidad}</p>
-                    <p class="card-text">Fecha de compra: ${row.comentario}</p>
+                    <p class="card-text">Fecha de compra: ${row.Fecha_Orden}</p>
                     <button type="button" onclick="openUpdate(${row.id_detalle})"
                         class="btn btn-primary add-review-btn">Agregar reseña</button>
                 </div>
@@ -86,6 +86,6 @@ function openUpdate(id) {
     // Se abre la caja de diálogo que contiene el formulario.
     ITEM_MODAL.show();
     // Se inicializan los campos del formulario con los datos del registro seleccionado.
-    document.getElementById('idDetalle').value = id;
+    document.getElementById('idDetalle').value = id; 
 }
 
