@@ -68,4 +68,13 @@ class CategoriaHandler
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
+
+    public function NewCategoria()
+    {
+        $sql = 'SELECT id_Producto, Nombre_Producto
+                FROM categorias
+                ORDER BY id_Categoria DESC
+                LIMIT 10';
+        return Database::getRows($sql);
+    }
 }
