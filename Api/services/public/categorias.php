@@ -16,6 +16,7 @@ if (isset($_GET['action'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'searchRows':
+                // Validación del campo de búsqueda
                 if (!Validator::validateSearch($_POST['search'])) {
                     $result['error'] = Validator::getSearchError();
                 } elseif ($result['dataset'] = $categoria->searchRows($_POST['search'])) {
@@ -26,6 +27,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'createRow':
+                // Validación de los datos del formulario
                 $_POST = Validator::validateForm($_POST);
                 if (!$categoria->setNombreCategoria($_POST['nombreCategoria'])) {
                     $result['error'] = $categoria->getDataError();
@@ -62,6 +64,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'updateRow':
+                // Validación de los datos del formulario
                 $_POST = Validator::validateForm($_POST);
                 if (
                     !$categoria->setId($_POST['id_Categoria']) or
