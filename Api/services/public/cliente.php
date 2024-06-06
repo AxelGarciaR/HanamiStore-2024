@@ -38,9 +38,9 @@ if (isset($_GET['action'])) {
                     $cliente->setId($_SESSION['idCliente']) &&
                     $cliente->setNombre($_POST['nombreCliente']) &&
                     $cliente->setApellido($_POST['apellidoCliente']) &&
-                    $cliente->setNombrePerfil($_POST['perfilCliente']) &&
                     $cliente->setCorreo($_POST['correoCliente']) &&
                     $cliente->setDireccion($_POST['direccionCliente']) &&
+                    $cliente->setNombrePerfil($_POST['perfilCliente']) &&
                     $cliente->setClave($_POST['claveCliente']) // Se añade la clave del cliente
                 ) {
                     if ($cliente->editProfile()) {
@@ -73,10 +73,10 @@ if (isset($_GET['action'])) {
                 if(
                     !$cliente->setNombre($_POST['nombreCliente']) or
                     !$cliente->setApellido($_POST['apellidoCliente']) or
-                    !$cliente->setNombrePerfil($_POST['perfilCliente']) or
-                    !$cliente->setClave($_POST['claveCliente']) or
                     !$cliente->setCorreo($_POST['correoCliente']) or
-                    !$cliente->setDireccion($_POST['direccionCliente'])
+                    !$cliente->setDireccion($_POST['direccionCliente'])or
+                    !$cliente->setNombrePerfil($_POST['perfilCliente']) or
+                    !$cliente->setClave($_POST['claveCliente']) 
                 ) {
                     $result['error'] = $cliente->getDataError();
                 } elseif ($_POST['claveCliente'] != $_POST['confirmarClave']) {
