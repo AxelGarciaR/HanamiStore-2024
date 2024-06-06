@@ -86,6 +86,16 @@ class DetalleOrdenHandler
         return Database::getRows($sql, $params);
     }
 
+    public function readComment()
+    {
+        $sql = 'SELECT comentario , puntuacion  
+                FROM detalleOrdenes
+                INNER JOIN productos USING(id_Producto)
+                WHERE id_Producto = ?';
+        $params = array($this->producto);
+        return Database::getRows($sql, $params);
+    }
+
 
     public function readRecord()
     {

@@ -49,6 +49,20 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'No se a iniciado un historial';
                 }
                 break;
+            case 'readComment':
+                $_POST = Validator::validateForm($_POST);
+                if (
+                    !$pedido->setProducto($_POST['idProducto']) 
+                ) {
+                    $result['error'] = $pedido->getDataError();
+                } elseif ($pedido->readComment()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen comentarios';
+                    
+                } else {
+                    $result['error'] = 'No se han encontrado comentarios';
+                }
+                break;
                 // Acción para actualizar la cantidad de un producto en el carrito de compras.
             case 'updateDetail':
                 $_POST = Validator::validateForm($_POST);
@@ -69,7 +83,7 @@ if (isset($_GET['action'])) {
                 if (
                     !$pedido->setComentario($_POST['comentarioProducto']) or
                     !$pedido->setPuntuacion($_POST['puntuacionProducto']) or
-                    !$pedido->setIdDetalle($_POST['idDetalle']) 
+                    !$pedido->setIdDetalle($_POST['idDetalle'])
                 ) {
                     $result['error'] = $pedido->getDataError();
                 } elseif ($pedido->updateComment()) {
