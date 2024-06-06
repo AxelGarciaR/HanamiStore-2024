@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
     <title>Perfil</title>
@@ -25,74 +25,39 @@
         <div class="container">
             <div class="image-container">
                 <img src="../../Resources/images/userhanamipro.png" alt="Imagen">
-                <h2>Daniel Quintanilla</h2>
+                <h2></h2>
             </div>
 
-            <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <div class="input-group">
-                    <input type="text" readonly id="nombre" class="form-control pink-input" value="Daniel Alejandro">
-                    <div class="input-group-append">
-                        <span class="input-group-text">
-                            <img src="../../Resources/images/editarhanami.png" alt="Editar" width="20" height="20">
-                        </span>
-                    </div>
+            <form id="formularioPerfil">
+                <div>
+                    <label for="nombreCliente">Nombre:</label>
+                    <input type="text" id="nombreCliente" name="nombreCliente">
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label for="apellidos">Apellidos:</label>
-                <div class="input-group">
-                    <input type="text" readonly id="apellidos" class="form-control pink-input"
-                        value="Cortez Quintanilla">
-                    <div class="input-group-append">
-                        <span class="input-group-text">
-                            <img src="../../Resources/images/editarhanami.png" alt="Editar" width="20" height="20">
-                        </span>
-                    </div>
+                <div>
+                    <label for="apellidoCliente">Apellidos:</label>
+                    <input type="text" id="apellidoCliente" name="apellidoCliente">
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label for="correo">Correo Electrónico:</label>
-                <div class="input-group">
-                    <input type="text" readonly id="correo" class="form-control pink-input"
-                        value="prueba@ricadone.edu.sv">
-                    <div class="input-group-append">
-                        <span class="input-group-text">
-                            <img src="../../Resources/images/editarhanami.png" alt="Editar" width="20" height="20">
-                        </span>
-                    </div>
+                <div>
+                    <label for="correoCliente">Correo Electrónico:</label>
+                    <input type="email" id="correoCliente" name="correoCliente">
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label for="direccion">Dirección:</label>
-                <div class="input-group">
-                    <input type="text" readonly id="direccion" class="form-control pink-input"
-                        value="El Salvador, San Salvador, Mejicanos">
-                    <div class="input-group-append">
-                        <span class="input-group-text">
-                            <img src="../../Resources/images/editarhanami.png" alt="Editar" width="20" height="20">
-                        </span>
-                    </div>
+                <div>
+                    <label for="direccionCliente">Dirección:</label>
+                    <input type="text" id="direccionCliente" name="direccionCliente">
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label for="rol">Rol:</label>
-                <div class="input-group">
-                    <input type="text" readonly id="rol" class="form-control pink-input" value="Administrador">
-                    <div class="input-group-append">
-                        <span class="input-group-text">
-                            <img src="../../Resources/images/editarhanami.png" alt="Editar" width="20" height="20">
-                        </span>
-                    </div>
+                <div>
+                    <label for="perfilCliente">Nombre Perfil:</label>
+                    <input type="text" id="perfilCliente" name="perfilCliente">
                 </div>
-            </div>
+                <div>
+                    <label for="claveCliente">Contraseña:</label>
+                    <input type="password" id="claveCliente" name="claveCliente">
+                </div>
+                <div>
+                    <button type="submit">Guardar cambios</button>
+                </div>
+            </form>
 
-            <!-- Agregamos un ID al botón "Guardar cambios" -->
-            <button id="guardarCambiosButton" class="submit-button">Guardar cambios</button>
         </div>
 
         <div id="footer"> </div>
@@ -102,8 +67,8 @@
 
 <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
- <!-- Llamada al controlador general de la aplicación -->
- <script type="text/javascript" src="../../controllers/utils/components.js"></script>
+<!-- Llamada al controlador general de la aplicación -->
+<script type="text/javascript" src="../../controllers/utils/components.js"></script>
 <script src="../../Controllers/admin/footer.js"></script>
 <script src="../../controllers/public/navbarP.js"></script>
 <!-- Agregamos un nuevo script para manejar la alerta -->

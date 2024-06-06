@@ -40,7 +40,8 @@ if (isset($_GET['action'])) {
                     $cliente->setApellido($_POST['apellidoCliente']) &&
                     $cliente->setNombrePerfil($_POST['perfilCliente']) &&
                     $cliente->setCorreo($_POST['correoCliente']) &&
-                    $cliente->setDireccion($_POST['direccionCliente'])
+                    $cliente->setDireccion($_POST['direccionCliente']) &&
+                    $cliente->setClave($_POST['claveCliente']) // Se añade la clave del cliente
                 ) {
                     if ($cliente->editProfile()) {
                         $result['status'] = 1;
@@ -50,6 +51,15 @@ if (isset($_GET['action'])) {
                     }
                 } else {
                     $result['error'] = $cliente->getDataError();
+                }
+                break;
+            case 'getProfile':
+                // Obtener el perfil del cliente
+                if ($cliente->setId($_SESSION['idCliente']) && $row = $cliente->readOne()) {
+                    $result['status'] = 1;
+                    $result['data'] = $row;
+                } else {
+                    $result['error'] = 'No se pudo obtener la información del perfil';
                 }
                 break;
             default:

@@ -1,90 +1,78 @@
-// Obtener referencias a los botones de editar
-const editarBotones = document.querySelectorAll('.input-group-append img');
+// Constante para completar la ruta de la API.
+const PROFILE_API = 'services/public/cliente.php';
+// Constante para establecer el formulario de perfil.
+const PROFILE_FORM = document.getElementById('formularioPerfil');
 
-// Obtener referencia al botón "Guardar cambios"
-const guardarCambiosButton = document.getElementById('guardarCambiosButton');
-
-// Agregar un controlador de eventos para cada botón
-editarBotones.forEach(boton => {
-    boton.addEventListener('click', () => {
-        // Obtener el campo de texto asociado al botón
-        const input = boton.closest('.input-group').querySelector('input');
-        
-        // Habilitar la edición del campo de texto
-        input.removeAttribute('readonly');
-        
-        // Agregar la clase CSS para cambiar el estilo del botón
-        boton.classList.add('editar-activo');
-    });
+// Método del evento para cuando el documento ha cargado.
+document.addEventListener('DOMContentLoaded', () => {
+    // Llamada a la función para obtener y mostrar los datos del perfil del cliente.
+    getProfile();
 });
 
-// Agregar un controlador de eventos para el botón "Guardar cambios"
-guardarCambiosButton.addEventListener('click', () => {
-    // Obtener todos los campos de texto
-    const camposTexto = document.querySelectorAll('.form-control');
-    
-    // Crear un objeto con los datos editados
-    const datosEditados = {};
-    camposTexto.forEach(input => {
-        input.setAttribute('readonly', 'readonly');
-        datosEditados[input.name] = input.value;
-    });
-    
-    // Remover la clase de estilo activo de los botones de editar
-    editarBotones.forEach(boton => {
-        boton.classList.remove('editar-activo');
-    });
-
-    // Enviar los datos al servidor usando AJAX
-    guardarCambios(datosEditados);
+// Método del evento para cuando se envía el formulario de perfil.
+PROFILE_FORM.addEventListener('submit', async (event) => {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Constante tipo objeto con los datos del formulario.
+    const formData = new FormData(PROFILE_FORM);
+    // Llamada a la función para actualizar el perfil del cliente.
+    updateProfile(formData);
 });
 
-function guardarCambios(datos) {
-    Swal.fire({
-        title: '¿Guardar cambios?',
-        text: "¡Estás a punto de guardar los cambios!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, guardar cambios',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Si se confirma la acción, enviar los datos al servidor
-            fetch('ruta_al_controlador_de_perfil.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    action: 'updateProfile',
-                    datos: datos
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 1) {
-                    Swal.fire(
-                        '¡Guardado!',
-                        'Tus cambios han sido guardados correctamente.',
-                        'success'
-                    );
-                } else {
-                    Swal.fire(
-                        'Error',
-                        'Ocurrió un problema al guardar los cambios: ' + data.message,
-                        'error'
-                    );
-                }
-            })
-            .catch(error => {
-                Swal.fire(
-                    'Error',
-                    'Ocurrió un problema al comunicar con el servidor: ' + error,
-                    'error'
-                );
-            });
+/*
+*   Función asíncrona para obtener y mostrar los datos del perfil del cliente.
+*   Parámetros: ninguno.
+*   Retorno: ninguno.
+*/
+const getProfile = async () => {
+    try {
+        // Petición para obtener los datos del perfil del cliente.
+        const responseData = await fetchData(PROFILE_API, 'getProfile');
+        
+        // Verificar si el objeto responseData está definido y tiene la propiedad 'status'.
+        if (responseData && responseData.status) {
+            // Asignar los datos del perfil del cliente a los campos del formulario.
+            document.getElementById('nombreCliente').value = responseData.data.nombreCliente;
+            document.getElementById('apellidoCliente').value = responseData.data.apellidoCliente;
+            document.getElementById('correoCliente').value = responseData.data.correoE;
+            document.getElementById('direccionCliente').value = responseData.data.direccion;
+            document.getElementById('perfilCliente').value = responseData.data.nombrePerfil;
+            // Limpiar el campo de contraseña por seguridad.
+            document.getElementById('claveCliente').value = responseData.data.claveCliente;
+        } else {
+            // Si el objeto responseData no está definido o no tiene la propiedad 'status', muestra un mensaje de error.
+            throw new Error('No se pudo obtener los datos del perfil del cliente correctamente.');
         }
-    });
+    } catch (error) {
+        // Captura cualquier error y muestra un mensaje en la consola.
+        console.error('Error al obtener los datos del perfil del cliente:', error);
+        // También puedes manejar el error mostrando un mensaje al usuario si lo deseas.
+    }
+}
+
+/*
+*   Función asíncrona para actualizar el perfil del cliente.
+*   Parámetros: formData (objeto con los datos del formulario).
+*   Retorno: ninguno.
+*/
+const updateProfile = async (formData) => {
+    try {
+        // Petición para actualizar el perfil del cliente con los datos del formulario.
+        const responseData = await fetchData(PROFILE_API, 'updateProfile', formData);
+        
+        // Verificar si el objeto responseData está definido y tiene la propiedad 'status'.
+        if (responseData && responseData.status) {
+            // Mostrar un mensaje de éxito si la actualización fue exitosa.
+            alert(responseData.message);
+            // Limpiar el campo de contraseña después de la actualización exitosa.
+            document.getElementById('claveCliente').value = "";
+        } else {
+            // Si el objeto responseData no está definido o no tiene la propiedad 'status', muestra un mensaje de error.
+            throw new Error('No se pudo actualizar el perfil del cliente correctamente.');
+        }
+    } catch (error) {
+        // Captura cualquier error y muestra un mensaje en la consola.
+        console.error('Error al actualizar el perfil del cliente:', error);
+        // También puedes manejar el error mostrando un mensaje al usuario si lo deseas.
+    }
 }
