@@ -31,6 +31,27 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al cerrar la sesión';
                 }
                 break;
+            case 'updateProfile':
+                // Validar y actualizar el perfil del cliente
+                $_POST = json_decode(file_get_contents('php://input'), true); // Obtener los datos enviados en el cuerpo de la solicitud
+                if (
+                    $cliente->setId($_SESSION['idCliente']) &&
+                    $cliente->setNombre($_POST['nombreCliente']) &&
+                    $cliente->setApellido($_POST['apellidoCliente']) &&
+                    $cliente->setNombrePerfil($_POST['perfilCliente']) &&
+                    $cliente->setCorreo($_POST['correoCliente']) &&
+                    $cliente->setDireccion($_POST['direccionCliente'])
+                ) {
+                    if ($cliente->editProfile()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Perfil actualizado correctamente';
+                    } else {
+                        $result['error'] = 'Ocurrió un problema al actualizar el perfil';
+                    }
+                } else {
+                    $result['error'] = $cliente->getDataError();
+                }
+                break;
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';
         }
@@ -81,3 +102,4 @@ if (isset($_GET['action'])) {
 } else {
     print(json_encode('Recurso no disponible'));
 }
+?>
