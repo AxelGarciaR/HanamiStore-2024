@@ -1,5 +1,5 @@
 <?php
-// Se inclueye la clase de entrada
+// Se incluye la clase de entrada
 require_once('../../models/data/categoria_data.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
@@ -18,7 +18,7 @@ if (isset($_GET['action'])) {
             case 'searchRows':
                 if (!Validator::validateSearch($_POST['search'])) {
                     $result['error'] = Validator::getSearchError();
-                } elseif ($result['dataset'] = $categoria->searchRows()) {
+                } elseif ($result['dataset'] = $categoria->searchRows($_POST['search'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
                 } else {
@@ -27,9 +27,7 @@ if (isset($_GET['action'])) {
                 break;
             case 'createRow':
                 $_POST = Validator::validateForm($_POST);
-                if (
-                    !$categoria->setNombreCategoria($_POST['nombreCategoria'])
-                ) {
+                if (!$categoria->setNombreCategoria($_POST['nombreCategoria'])) {
                     $result['error'] = $categoria->getDataError();
                 } elseif ($categoria->createRow()) {
                     $result['status'] = 1;
@@ -47,7 +45,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'newCategoria':
-                if ($result['dataset'] = $categoria->NewCategoria()) {
+                if ($result['dataset'] = $categoria->newCategoria()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } else {
@@ -57,7 +55,7 @@ if (isset($_GET['action'])) {
             case 'readOne':
                 if (!$categoria->setId($_POST['id_Categoria'])) {
                     $result['error'] = $categoria->getDataError();
-                } elseif ($result['dataset'] = $producto->readOne()) {
+                } elseif ($result['dataset'] = $categoria->readOne()) {
                     $result['status'] = 1;
                 } else {
                     $result['error'] = 'Categoria inexistente';
@@ -82,7 +80,7 @@ if (isset($_GET['action'])) {
                     $result['error'] = $categoria->getDataError();
                 } elseif ($categoria->deleteRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Categoria eliminado correctamente';
+                    $result['message'] = 'Categoria eliminada correctamente';
                 } else {
                     $result['error'] = 'Ocurrió un problema al eliminar la categoria';
                 }
@@ -102,3 +100,4 @@ if (isset($_GET['action'])) {
 header('Content-type: application/json; charset=utf-8');
 // Se imprime el resultado en formato JSON y se retorna al controlador.
 print(json_encode($result));
+?>
