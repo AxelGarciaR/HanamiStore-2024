@@ -3,13 +3,13 @@ const PRODUCTO_API = 'services/public/productos.php';
 const PEDIDO_API = 'services/public/detalle_ordenes.php';
 // Constante tipo objeto para obtener los parámetros disponibles en la URL.
 const PARAMS = new URLSearchParams(location.search);
+// Constante para el container de comentarios
+const COMENTARIOS = document.getElementById('contenedorComentarios');
 // Constante para establecer el formulario de agregar un producto al carrito de compras.
 const SHOPPING_FORM = document.getElementById('shoppingForm');
 
 // Método manejador de eventos para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
-    // Llamada a la función para mostrar el encabezado y pie del documento.
-    loadTemplate();
     // Se establece el título del contenido principal.
     const MAIN_TITLE = document.getElementById('mainTitle');
     MAIN_TITLE.textContent = 'Detalles del producto';
@@ -28,12 +28,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('precioProducto').textContent = product.precio_producto;
         document.getElementById('existenciasProducto').textContent = product.CantidadP;
         document.getElementById('idProducto').value = product.id_Producto;
+
     } else {
         // Se presenta un mensaje de error cuando no existen datos para mostrar.
         MAIN_TITLE.textContent = DATA.error;
         // Se limpia el contenido cuando no hay datos para mostrar.
         document.getElementById('detalle').innerHTML = '';
     }
+    readComment();
 });
 
 // Método del evento para cuando se envía el formulario de agregar un producto al carrito.
@@ -54,6 +56,39 @@ SHOPPING_FORM.addEventListener('submit', async (event) => {
     }
 });
 
+async function readComment() {
+
+    const FORM = new FormData();
+    FORM.append('idProducto', PARAMS.get('id'));
+    
+    const DATA = await fetchData(PEDIDO_API, 'readComment', FORM);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    if (DATA.status) {
+
+        // Se inicializa el contenedor de productos.
+        COMENTARIOS.innerHTML = '';
+        // Se recorre el conjunto de registros fila por fila a través del objeto row.
+        DATA.COMENTARIOS.forEach(row => {
+            // Se crean y concatenan las tarjetas con los datos de cada producto.
+            COMENTARIOS.innerHTML += `
+                <div class="cardComentario">
+
+                    <div class="puntuacion">
+                        <p>${row.puntuacion}/5</p>
+                        <img src="../../Resources/images/star.png" alt="">
+                    </div>
+                    
+                    <br>
+                    
+                    <div class="comentario">
+                        <p>${row.comentario}</p>
+                    </div>
+    
+                </div>
+            `;
+        });
+    }
+}
 
 // Función para cargar las plantillas de encabezado y pie de página.
 function loadTemplate() {
