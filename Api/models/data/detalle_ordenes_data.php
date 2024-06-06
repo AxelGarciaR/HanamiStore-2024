@@ -69,6 +69,34 @@ class DetalleOrdenData extends DetalleOrdenHandler
         }
     }
 
+    public function setComentario($value, $min = 2, $max = 250)
+    {
+        if (!Validator::validateAlphabetic($value)) {
+            $this->data_error = 'El comentario debe ser un valor alfabético';
+            return false;
+        } elseif (Validator::validateLength($value, $min, $max)) {
+            $this->comentario = $value;
+            return true;
+        } else {
+            $this->data_error = 'El comentario debe de tener una longitud de ' . $min . ' y ' . $max;
+            return false;
+        }
+    }
+
+    public function setPuntuacion($value, $min = 1, $max = 1)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->puntuacion = $value;
+            return true;
+        } elseif (Validator::validateLength($value, $min, $max)) {
+            $this->puntuacion = $value;
+            return true;
+        } else {
+            $this->data_error = 'El valor de la valoracion solo puede ser un valor de un digito';
+            return false;
+        }
+    }
+
     // Método para obtener el error de los datos.
     public function getDataError()
     {

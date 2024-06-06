@@ -15,6 +15,8 @@ class DetalleOrdenHandler
     protected $producto = null;
     protected $cantidad = null;
     protected $estado = null;
+    protected $comentario = null;
+    protected $puntuacion  = null;
 
 
     /*
@@ -84,7 +86,7 @@ class DetalleOrdenHandler
         return Database::getRows($sql, $params);
     }
 
-    
+
     public function readRecord()
     {
         $this->estado = 'Finalizado';
@@ -98,6 +100,15 @@ class DetalleOrdenHandler
         return Database::getRows($sql, $params);
     }
 
+    // Método para actualizar la cantidad de un producto agregado al carrito de compras.
+    public function updateComment()
+    {
+        $sql = 'UPDATE detalleOrdenes 
+                 SET comentario = ?, puntuacion = ?
+                 WHERE id_detalle = ?';
+        $params = array($this->comentario, $this->puntuacion, $this->idDetalle);
+        return Database::executeRow($sql, $params);
+    }
 
 
     // Método para finalizar un pedido por parte del cliente.

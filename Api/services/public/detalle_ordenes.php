@@ -64,6 +64,21 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al modificar la cantidad';
                 }
                 break;
+            case 'updateComment':
+                $_POST = Validator::validateForm($_POST);
+                if (
+                    !$pedido->setComentario($_POST['comentarioProducto']) or
+                    !$pedido->setPuntuacion($_POST['puntuacionProducto']) or
+                    !$pedido->setIdDetalle($_POST['idDetalle']) 
+                ) {
+                    $result['error'] = $pedido->getDataError();
+                } elseif ($pedido->updateComment()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Comentario modificado correctamente';
+                } else {
+                    $result['error'] = 'Ocurrió un problema al modificar el comentario';
+                }
+                break;
                 // Acción para remover un producto del carrito de compras.
             case 'deleteDetail':
                 if (!$pedido->setIdDetalle($_POST['idDetalle'])) {

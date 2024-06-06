@@ -20,11 +20,11 @@ ITEM_FORM.addEventListener('submit', async (event) => {
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(ITEM_FORM);
     // Petición para actualizar la cantidad de producto.
-    const DATA = await fetchData(PEDIDO_API, 'updateDetail', FORM);
+    const DATA = await fetchData(PEDIDO_API, 'updateComment', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se actualiza la tabla para visualizar los cambios.
-        readDetail();
+        readRecord();
         // Se cierra la caja de diálogo del formulario.
         ITEM_MODAL.hide();
         // Se muestra un mensaje de éxito.
@@ -65,7 +65,7 @@ async function readRecord() {
                     <p class="card-text">Precio unitario: $${row.precio_unitario}</p>
                     <p class="card-text">Cantidad: ${row.cantidad}</p>
                     <p class="card-text">Fecha de compra: ${row.Fecha_Orden}</p>
-                    <button type="button" onclick="openUpdate(${row.id_detalle})"
+                    <button type="button" onclick="openUpdate(${row.id_detalle}, ${row.comentario}, ${row.puntuacion })"
                         class="btn btn-primary add-review-btn">Agregar reseña</button>
                 </div>
             </div>
@@ -82,10 +82,12 @@ async function readRecord() {
 *   Parámetros: id (identificador del producto) y quantity (cantidad actual del producto).
 *   Retorno: ninguno.
 */
-function openUpdate(id) {
+function openUpdate(idDetalle, comentario, puntuacion) {
     // Se abre la caja de diálogo que contiene el formulario.
     ITEM_MODAL.show();
     // Se inicializan los campos del formulario con los datos del registro seleccionado.
-    document.getElementById('idDetalle').value = id; 
+    document.getElementById('idDetalle').value = idDetalle; 
+    document.getElementById('comentarioProducto').value = comentario; 
+    document.getElementById('puntuacionProducto').value = puntuacion; 
 }
 
