@@ -65,7 +65,7 @@ async function readRecord() {
                     <p class="card-text">Precio unitario: $${row.precio_unitario}</p>
                     <p class="card-text">Cantidad: ${row.cantidad}</p>
                     <p class="card-text">Fecha de compra: ${row.Fecha_Orden}</p>
-                    <button type="button" onclick="openUpdate(${row.id_detalle}, ${row.comentario}, ${row.puntuacion })"
+                    <button type="button" onclick="openUpdate(${row.id_detalle})"
                         class="btn btn-primary add-review-btn">Agregar reseña</button>
                 </div>
             </div>
@@ -82,12 +82,12 @@ async function readRecord() {
 *   Parámetros: id (identificador del producto) y quantity (cantidad actual del producto).
 *   Retorno: ninguno.
 */
-function openUpdate(idDetalle, comentario, puntuacion) {
+function openUpdate(idDetalle) {
     // Se abre la caja de diálogo que contiene el formulario.
     ITEM_MODAL.show();
     // Se inicializan los campos del formulario con los datos del registro seleccionado.
     document.getElementById('idDetalle').value = idDetalle; 
-    document.getElementById('comentarioProducto').value = comentario; 
-    document.getElementById('puntuacionProducto').value = puntuacion; 
+
+    
 }
 
