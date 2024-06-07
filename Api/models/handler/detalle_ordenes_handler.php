@@ -12,7 +12,8 @@ class DetalleOrdenHandler
     protected $idOrden = null;
     protected $idDetalle = null;
     protected $cliente = null;
-    protected $producto = null;
+    protected $idProducto = null;
+    protected $idProductos = null;
     protected $cantidad = null;
     protected $estado = null;
     protected $comentario = null;
@@ -71,7 +72,7 @@ class DetalleOrdenHandler
         // Se realiza una subconsulta para obtener el precio del producto.
         $sql = 'INSERT INTO detalleOrdenes(id_producto, precio_unitario, cantidad, id_orden)
                 VALUES(?, (SELECT precio_producto FROM productos WHERE id_Producto = ?), ?, ?)';
-        $params = array($this->producto, $this->producto, $this->cantidad, $_SESSION['idOrden']);
+        $params = array($this->idProducto, $this->idProducto, $this->cantidad, $_SESSION['idOrden']);
         return Database::executeRow($sql, $params);
     }
 
@@ -92,7 +93,7 @@ class DetalleOrdenHandler
                 FROM detalleOrdenes
                 INNER JOIN productos USING(id_Producto)
                 WHERE id_Producto = ?';
-        $params = array($this->producto);
+        $params = array($this->idProductos);
         return Database::getRows($sql, $params);
     }
 
