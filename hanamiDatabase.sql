@@ -298,14 +298,45 @@ VALUES ('Marca2', 'Logo2');
 INSERT INTO marcas (Nombre_Marca, Logo_Marca)
 VALUES ('Marca3', 'Logo3');
 
-INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
-VALUES ('Producto1', 'Descripción1', 10.99, 'Imagen1', 100, 1, 0, 1);
 
 INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
-VALUES ('Producto2', 'Descripción2', 19.99, 'Imagen2', 50, 2, 5, 2);
+VALUES ('Espuma Limpiadora', 'Limpia profundamente los poros mientras elimina las impurezas.', 15.99, 'EspumaLimpiadora.jpg', 100, 1, 0, 1);
 
 INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
-VALUES ('Producto3', 'Descripción3', 5.99, 'Imagen3', 200, 3, 0, 3);
+VALUES ('Serum Hidratante', 'Hidrata y nutre la piel, dejándola suave y radiante.', 25.50, 'SerumHidratante.jpg', 100, 2, 0, 2);
+
+INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
+VALUES ('Exfoliante Facial', 'Elimina las células muertas de la piel para revelar una tez más brillante.', 18.75, 'ExfolianteFacial.jpg', 100, 3, 0, 3);
+
+INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
+VALUES ('Crema Hidratante', 'Hidratación intensiva para una piel suave y flexible durante todo el día.', 20.99, 'CremaHidratante.jpg', 100, 4, 0, 1);
+
+INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
+VALUES ('Serum Anti-Edad', 'Reduce visiblemente las arrugas y líneas finas para una apariencia más joven.', 30.25, 'SerumAntiEdad.jpg', 100, 5, 0, 2);
+
+INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
+VALUES ('Mascarilla Iluminadora', 'Revitaliza la piel opaca y fatigada para un brillo radiante.', 12.99, 'MascarillaIluminadora.jpg', 100, 6, 0, 3);
+
+INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
+VALUES ('Protector Solar FPS 50', 'Protege la piel de los daños causados por el sol y los rayos UV.', 14.50, 'ProtectorSolarFPS50.jpg', 100, 7, 0, 1);
+
+INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
+VALUES ('Aceite Limpiador', 'Elimina eficazmente el maquillaje y las impurezas sin resecar la piel.', 22.75, 'AceiteLimpiador.jpg', 100, 8, 0, 2);
+
+INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
+VALUES ('Loción Tonificante', 'Tonifica y equilibra la piel, dejándola fresca y revitalizada.', 17.99, 'LociónTonificante.jpg', 100, 9, 0, 3);
+
+INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
+VALUES ('Crema para Ojos', 'Reduce la hinchazón y las ojeras, iluminando el área de los ojos.', 28.50, 'CremaParaOjos.jpg', 100, 10, 0, 1);
+
+INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
+VALUES ('Gel Tratamiento de Manchas', 'Trata y previene eficazmente el acné y las imperfecciones.', 19.75, 'GelTratamientoDeManchas.jpg', 100, 11, 0, 2);
+
+INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
+VALUES ('Aceite Facial', 'Hidrata y suaviza la piel seca y deshidratada.', 24.99, 'AceiteFacial.jpg', 100, 12, 0, 3);
+
+INSERT INTO productos (Nombre_Producto, descripcion_producto, precio_producto, imagen_principal, CantidadP, id_subcategoria, descuento, id_Marca)
+VALUES ('Minimizador de Poros', 'Reduce la apariencia de los poros dilatados para una piel más suave.', 16.50, 'MinimizadorDePoros.jpg', 100, 13, 0, 1);
 
 INSERT INTO detalleOrdenes (id_orden, id_producto, cantidad, precio_unitario)
 VALUES (1, 1, 1, 2.50);
@@ -324,3 +355,7 @@ VALUES (3, 1, '¡Excelente producto! Lo recomendaría sin dudarlo.', '2024-03-11
 
 INSERT INTO valoraciones (Valoracion , id_detalle, comentario, fecha_comentario, estado_comentario )
 VALUES (3, 1, '¡Excelente producto! Lo recomendaría sin dudarlo.', '2024-03-11', 1);
+
+
+
+
