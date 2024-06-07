@@ -50,13 +50,26 @@ class DetalleOrdenData extends DetalleOrdenHandler
     public function setProducto($value)
     {
         if (Validator::validateNaturalNumber($value)) {
-            $this->producto = $value;
+            $this->idProducto = $value;
             return true;
         } else {
             $this->data_error = 'El identificador del producto es incorrecto';
             return false;
         }
     }
+
+    
+    public function setProductos($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->idProductos = $value;
+            return true;
+        } else {
+            $this->data_error = 'El identificador del producto es incorrecto';
+            return false;
+        }
+    }
+
 
     public function setCantidad($value)
     {

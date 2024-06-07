@@ -50,17 +50,12 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readComment':
-                $_POST = Validator::validateForm($_POST);
-                if (
-                    !$pedido->setProducto($_POST['idProducto']) 
-                ) {
+                if (!$pedido->setProductos($_POST['idProductos'])) {
                     $result['error'] = $pedido->getDataError();
-                } elseif ($pedido->readComment()) {
+                } elseif ($result['dataset'] = $pedido->readComment()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Existen comentarios';
-                    
                 } else {
-                    $result['error'] = 'No se han encontrado comentarios';
+                    $result['error'] = 'Comentario inexistente';
                 }
                 break;
                 // Acción para actualizar la cantidad de un producto en el carrito de compras.

@@ -60,6 +60,16 @@
 
         <h4>Comentarios</h4>
 
+        <form class="row" id="shoppingForm2">
+            <!-- Campo oculto para asignar el id del producto -->
+            <input type="hidden" id="idProductos" name="idProductos">
+            <div class="col-6 align-self-end">
+                <button type="submit" class="btn btn-primary">
+                    Ver comentarios
+                </button>
+            </div>
+        </form>
+
         <div class="flex-row flex-lg-wrap" id="comentarios">
 
             <div class="coso" id="contenedorComentarios">
@@ -87,8 +97,10 @@
 
     </main>
     <div id="footer"></div>
-    <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
-    <!-- Llamada al framework y librería de mensajes -->
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
     <!-- Llamada al controlador general de la aplicación -->
