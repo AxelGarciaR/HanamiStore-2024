@@ -1,114 +1,51 @@
 <!DOCTYPE html>
-<!-- Declaración del idioma para el documento -->
 <html lang="es">
 
 <head>
-    <!-- Título del documento -->
-    <title>Categorías</title>
-    <!-- Metadatos de la página web -->
-    <meta charset="utf-8">
-    <meta name="author" content="hanami authors">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- IMPORTACIÓN DE RECURSOS EXTERNOS -->
-    <!-- Llamada al icono de la página web -->
-    <link type="image/png" rel="icon" href="../../resources/img/icon.png">
-    <!-- Llamada a las hojas de estilos del framework e iconos -->
+    <title>Categorias</title>
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../Resources/css/admin&publicstyle.css">
+    <link rel="stylesheet" href="../../Resources/css/cssCategoriasPublic.css">
 </head>
 
 <body>
-  
-  <header class="header sticky-top">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar"></nav>
-</header>
-    <!-- Contenido principal del documento -->
-    <main>
-        <!-- Título del contenido principal -->
-        <h3 id="mainTitle">Categorías</h3>
+    <header class="header sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar"></nav>
+    </header>
+    <div class="container-fluid">
         <div class="row">
-            <!-- Formulario de búsqueda -->
-            <form class="col-sm-12 col-md-6" id="searchForm">
-                <div class="row">
-                    <div class="col-6">
-                        <input type="search" class="form-control" name="search" placeholder="Buscar" required>
-                    </div>
-                    <div class="col-6">
-                        <button type="submit" class="btn btn-success">
-                            <i class="bi bi-search"></i>
-                        </button>
-                        <button type="reset" class="btn btn-secondary" onclick="fillTable()">
-                            <i class="bi bi-x-square-fill"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-            <div class="col-sm-12 col-md-6 text-end">
-                <!-- Botón para abrir una caja de diálogo al momento de crear un nuevo registro -->
-                <button type="button" class="btn btn-primary" onclick="openCreate()">
-                    <i class="bi bi-plus-square-fill"></i>
+            <!-- Columna para los filtros de productos -->
+            <h2>Productos</h2>
+            <!-- Barra de búsqueda -->
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Buscar productos..." id="searchInput">
+                <button class="btn btn-outline-secondary" type="button" id="searchButton">
+                    <i class="bi bi-search"></i>
                 </button>
             </div>
-        </div>
 
-        <!-- Tabla para mostrar los registros existentes -->
-        <table class="table table-hover">
-            <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
-            <thead>
-                <tr>
-                    <td colspan="3" id="rowsFound"></td>
-                </tr>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
-            <tbody id="tableBody"></tbody>
-        </table>
-
-        <!-- Componente Modal para guardar un registro -->
-        <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="modalTitle" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modalTitle"></h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <!-- Formulario para guardar un registro -->
-                    <form id="saveForm">
-                        <div class="modal-body row g-3">
-                            <!-- Campo oculto para asignar el id del registro al momento de modificar -->
-                            <input type="number" class="d-none" id="idCategoria" name="idCategoria">
-                            <div class="col-sm-12 col-md-6">
-                                <label for="nombreCategoria" class="form-label">Nombre</label>
-                                <input id="nombreCategoria" type="text" name="nombreCategoria" class="form-control"
-                                    required>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <h4 id="mainTitle"></h4>
+            <!-- Contenedor para mostrar los productos disponibles de la categoría seleccionada -->
+            <div class="row" id="productos"></div>
         </div>
-    </main>
+    </div>
+
     <div id="footer"></div>
-    <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
-    <!-- Llamada al framework y librería de mensajes -->
-    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <script src="../../resources/js/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Llamada al controlador general de la aplicación -->
-    <script type="text/javascript" src="../../controllers/utils/components.js"></script>
-    <!-- Llamada al controlador del sitio privado -->
-    <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
-    <!-- Llamada al controlador de la página web -->
-    <script type="text/javascript" src="../../controllers/admin/categorias.js"></script>
-    <script src="../../controllers/admin/navbar.js"></script>
-    <script src="../../controllers/admin/footer.js"></script>
+    <script src="../../controllers/utils/components.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../../controllers/utils/components.js"></script>
+    <script src="../../Controllers/public/categoriasP.js"></script>
+    <script src="../../Controllers/admin/footer.js"></script>
+    <script src="../../Controllers/public/navbarP.js"></script>
 </body>
 
 </html>
