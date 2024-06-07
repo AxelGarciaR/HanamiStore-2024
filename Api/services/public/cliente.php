@@ -32,25 +32,24 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'updateProfile':
-                // Validar y actualizar el perfil del cliente
-                $_POST = json_decode(file_get_contents('php://input'), true); // Obtener los datos enviados en el cuerpo de la solicitud
-                if (
-                    $cliente->setId($_SESSION['idCliente']) &&
-                    $cliente->setNombre($_POST['nombreCliente']) &&
-                    $cliente->setApellido($_POST['apellidoCliente']) &&
-                    $cliente->setCorreo($_POST['correoCliente']) &&
-                    $cliente->setDireccion($_POST['direccionCliente']) &&
-                    $cliente->setNombrePerfil($_POST['perfilCliente']) &&
-                    $cliente->setClave($_POST['claveCliente']) // Se añade la clave del cliente
+                $_POST = Validator::validateForm($_POST);
+                if(
+                    !$cliente->setId($_SESSION['idCliente']) or
+                    !$cliente->setNombre($_POST['nombreCliente']) or
+                    !$cliente->setApellido($_POST['apellidoCliente']) or
+                    !$cliente->setNombrePerfil($_POST['perfilCliente']) or
+                    !$cliente->setClave($_POST['claveCliente']) or
+                    !$cliente->setCorreo($_POST['correoCliente']) or
+                    !$cliente->setDireccion($_POST['direccionCliente'])
                 ) {
-                    if ($cliente->editProfile()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Perfil actualizado correctamente';
-                    } else {
-                        $result['error'] = 'Ocurrió un problema al actualizar el perfil';
-                    }
-                } else {
                     $result['error'] = $cliente->getDataError();
+                } elseif ($_POST['claveCliente'] != $_POST['confirmarClave']) {
+                    $result['error'] = 'Contraseñas diferentes';
+                } elseif ($cliente->editProfile()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Cuenta actualizada correctamente';
+                } else {
+                    $result['error'] = 'Ocurrió un problema al actualziar la cuenta';
                 }
                 break;
             case 'getProfile':
@@ -73,10 +72,10 @@ if (isset($_GET['action'])) {
                 if(
                     !$cliente->setNombre($_POST['nombreCliente']) or
                     !$cliente->setApellido($_POST['apellidoCliente']) or
-                    !$cliente->setCorreo($_POST['correoCliente']) or
-                    !$cliente->setDireccion($_POST['direccionCliente'])or
                     !$cliente->setNombrePerfil($_POST['perfilCliente']) or
-                    !$cliente->setClave($_POST['claveCliente']) 
+                    !$cliente->setClave($_POST['claveCliente']) or
+                    !$cliente->setCorreo($_POST['correoCliente']) or
+                    !$cliente->setDireccion($_POST['direccionCliente'])
                 ) {
                     $result['error'] = $cliente->getDataError();
                 } elseif ($_POST['claveCliente'] != $_POST['confirmarClave']) {
