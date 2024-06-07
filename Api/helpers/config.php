@@ -6,6 +6,7 @@ date_default_timezone_set('America/El_Salvador');
 // Constantes para establecer las credenciales de conexión con el servidor de bases de datos.
 define('SERVER', 'localhost');
 define('DATABASE', 'hanamistore');
-define('USERNAME', 'root');
-define('PASSWORD', '');
+//Credenciales exclusivas
+define('USERNAME', 'hanamistore_user');
+define('PASSWORD', '12345678');
 ?>
