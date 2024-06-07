@@ -2,76 +2,50 @@
 <html lang="es">
 
 <head>
-    <title>Perfil</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../Resources/css/cssPerfilPublic.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorias</title>
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../Resources/css/admin&publicstyle.css">
+    <link rel="stylesheet" href="../../Resources/css/cssCategoriasPublic.css">
 </head>
 
 <body>
     <header class="header sticky-top">
         <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar"></nav>
     </header>
-
-    <div class="container-fluid flexi" id="jj">
-        <div class="row flex-column align-items-center">
-            <div class="col-lg-12 welcome">
-                <h1 class="text-center">Perfil</h1>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="image-container">
-                <img src="../../Resources/images/userhanamipro.png" alt="Imagen">
-                <h2></h2>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Columna para los filtros de productos -->
+            <h2>Productos</h2>
+            <!-- Barra de búsqueda -->
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Buscar productos..." id="searchInput">
+                <button class="btn btn-outline-secondary" type="button" id="searchButton">
+                    <i class="bi bi-search"></i>
+                </button>
             </div>
 
-            <form id="formularioPerfil">
-                <div>
-                    <label for="nombreCliente">Nombre:</label>
-                    <input type="text" id="nombreCliente" name="nombreCliente">
-                </div>
-                <div>
-                    <label for="apellidoCliente">Apellidos:</label>
-                    <input type="text" id="apellidoCliente" name="apellidoCliente">
-                </div>
-                <div>
-                    <label for="correoCliente">Correo Electrónico:</label>
-                    <input type="email" id="correoCliente" name="correoCliente">
-                </div>
-                <div>
-                    <label for="direccionCliente">Dirección:</label>
-                    <input type="text" id="direccionCliente" name="direccionCliente">
-                </div>
-                <div>
-                    <label for="perfilCliente">Nombre Perfil:</label>
-                    <input type="text" id="perfilCliente" name="perfilCliente">
-                </div>
-                <div>
-                    <label for="claveCliente">Contraseña:</label>
-                    <input type="password" id="claveCliente" name="claveCliente">
-                </div>
-                <div>
-                    <button type="submit">Guardar cambios</button>
-                </div>
-            </form>
-
+            <h4 id="mainTitle"></h4>
+            <!-- Contenedor para mostrar los productos disponibles de la categoría seleccionada -->
+            <div class="row" id="productos"></div>
         </div>
-
-        <div id="footer"> </div>
     </div>
 
-</body>
+    <div id="footer"></div>
 
-<script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
-<!-- Llamada al controlador general de la aplicación -->
-<script type="text/javascript" src="../../controllers/utils/components.js"></script>
-<script src="../../Controllers/admin/footer.js"></script>
-<script src="../../controllers/public/navbarP.js"></script>
-<!-- Agregamos un nuevo script para manejar la alerta -->
-<script src="../../Controllers/admin/perfilpublic.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <script src="../../resources/js/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Llamada al controlador general de la aplicación -->
+    <script src="../../controllers/utils/components.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../../controllers/utils/components.js"></script>
+    <script src="../../Controllers/public/categoriasP.js"></script>
+    <script src="../../Controllers/admin/footer.js"></script>
+    <script src="../../Controllers/public/navbarP.js"></script>
+</body>
 
 </html>
