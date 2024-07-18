@@ -128,18 +128,6 @@ class ProductosData extends ProductosHandler
         }
     }
 
-    
-    public function setEstado($value)
-    {
-        if (Validator::validateBoolean($value)) {
-            $this->estado = $value;
-            return true;
-        } else {
-            $this->data_error = 'El estado debe ser entre 0 y 1';
-            return false;
-        }
-    }
-
 
     //Funcion para validar validar el nombre del archivo
     public function setFilename()
