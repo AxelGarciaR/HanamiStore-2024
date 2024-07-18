@@ -3,6 +3,8 @@ const USER_API = 'services/admin/usuarios.php';
 
 // Constante para establecer el formulario de inicio de sesión.
 const LOGIN_FORM = document.getElementById('loginForm');
+const CORREO_LOGIN = document.getElementById('correoLogin');
+const CLAVE_LOGIN = document.getElementById('claveLogin');
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
@@ -25,6 +27,12 @@ LOGIN_FORM.addEventListener('submit', async (event) => {
     event.preventDefault();
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(LOGIN_FORM);
+
+    // Imprimir los campos enviados del formulario
+    for (let pair of FORM.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+    }
+
     // Petición para iniciar sesión.
     const DATA = await fetchData(USER_API, 'logIn', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
