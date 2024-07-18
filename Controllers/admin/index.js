@@ -1,3 +1,6 @@
+// Constante de api de usuario
+const USER_API = 'services/admin/usuarios.php';
+
 // Constante para establecer el formulario de inicio de sesión.
 const LOGIN_FORM = document.getElementById('loginForm');
 
@@ -26,8 +29,15 @@ LOGIN_FORM.addEventListener('submit', async (event) => {
     const DATA = await fetchData(USER_API, 'logIn', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
-        sweetAlert(1, DATA.message, true, 'Graficas.html');
+        // sweetAlert(1, DATA.message, true, 'panel_principal.html');
+        location.href = 'Graficas.html';
+        // Evitar que el usuario regrese después de iniciar sesión
     } else {
-        sweetAlert(2, DATA.error, false);
+        if (DATA.error == 'Acción no disponible dentro de la sesión') {
+            await sweetAlert(4, "Ya tiene una sesión activa", true); location.href = 'Graficas.html'
+        }
+        else {
+            await sweetAlert(2, DATA.error, false);
+        }
     }
 });

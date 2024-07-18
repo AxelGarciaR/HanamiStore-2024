@@ -4,7 +4,7 @@
 */
 
 // Constante para completar la ruta de la API.
-const USER_API = 'services/admin/usuarios.php';
+
 
 
 /*  Función asíncrona para cargar el encabezado y pie del documento.

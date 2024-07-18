@@ -177,9 +177,8 @@ if (isset($_GET['action'])) {
                 if ($usuario->checkUser($_POST['correoLogin'], $_POST['claveLogin'])) {
                     $result['status'] = 1;
                     $result['idadmin'] = $_SESSION['idAdministrador'];
-                    $result['message'] = 
-                    'Autenticación correcta';
-
+                    $result['message'] =
+                        'Autenticación correcta';
                 } else {
                     $result['error'] = 'Credenciales incorrectas';
                 }
