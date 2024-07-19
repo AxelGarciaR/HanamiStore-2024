@@ -7,6 +7,6 @@ date_default_timezone_set('America/El_Salvador');
 define('SERVER', 'localhost');
 define('DATABASE', 'hanamistore');
 //Credenciales exclusivas
-define('USERNAME', 'hanamistore_user');
-define('PASSWORD', '12345678');
+define('USERNAME', 'root');
+define('PASSWORD', '');
 ?>
