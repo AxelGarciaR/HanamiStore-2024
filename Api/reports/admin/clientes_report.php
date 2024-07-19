@@ -36,7 +36,7 @@ if ($dataCategorias = $categoria->readAll()) {
         // Se establece la categoría para obtener sus productos, de lo contrario se imprime un mensaje de error.
         if ($producto->setidSubcategoria($rowCategoria['id_categoria'])) {
             // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
-            if ($dataProductos = $producto->productosCategoria()) {
+            if ($dataProductos = $producto->readAll()) {
                 // Se recorren los registros fila por fila.
                 foreach ($dataProductos as $rowProducto) {
                     ($rowProducto['estado_producto']) ? $estado = 'Activo' : $estado = 'Inactivo';
