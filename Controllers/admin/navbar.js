@@ -1,3 +1,5 @@
+const USER_API = 'services/admin/usuarios.php';
+
 document.addEventListener('DOMContentLoaded', function () {
   const navbar = document.getElementById('navbar');
   navbar.innerHTML = /*Codigo para insertar en la plantilla de navbar*/`
@@ -15,9 +17,6 @@ document.addEventListener('DOMContentLoaded', function () {
         </li>
         <li class="nav-item">
           <a class="nav-link" href="Sub_categoria.html">Sub Categorias</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="Categorias.html">Categorias</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="graficas.html">Graficas</a>
@@ -38,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <a class="nav-link" href="Valoraciones.html">Valoraciones</a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" href="Index.html">Cerrar sesion</a>
+        <a class="nav-link" href="#" onclick="logOut()">Cerrar sesion</a>
       </li>
       </ul>
     </div>
