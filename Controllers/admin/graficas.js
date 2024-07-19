@@ -1,48 +1,79 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // Datos de ejemplo para las gráficas
-    var monthlySalesData = {
-      labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
-      datasets: [{
-        label: 'Ventas Mensuales',
-        data: [500, 800, 1200, 900, 1500, 1100],
-        backgroundColor: ['#FF85A2', '#FFB4C3', '#FFD8E0', '#FFECEA', '#FFF4F3', '#FFF9F8'],
-        hoverBackgroundColor: ['#FF85A2', '#FFB4C3', '#FFD8E0', '#FFECEA', '#FFF4F3', '#FFF9F8']
-      }]
-    };
+// Constante para completar la ruta de la API.
+const PRODUCTO_API = 'services/admin/productos.php';
 
-    var annualSalesData = {
-      labels: ['2021', '2022', '2023', '2024'],
-      datasets: [{
-        label: 'Ventas Anuales',
-        data: [5000, 7000, 9000, 6500],
-        backgroundColor: ['#FF85A2', '#FFB4C3', '#FFD8E0', '#FFECEA'],
-        hoverBackgroundColor: ['#FF85A2', '#FFB4C3', '#FFD8E0', '#FFECEA']
-      }]
-    };
+// Método del evento para cuando el documento ha cargado.
+document.addEventListener('DOMContentLoaded', () => {
+    // Constante para obtener el número de horas.
+    const HOUR = new Date().getHours();
+    // Se define una variable para guardar un saludo.
+    let greeting = '';
+    // Dependiendo del número de horas transcurridas en el día, se asigna un saludo para el usuario.
+    if (HOUR < 12) {
+        greeting = 'Buenos días';
+    } else if (HOUR < 19) {
+        greeting = 'Buenas tardes';
+    } else if (HOUR <= 23) {
+        greeting = 'Buenas noches';
+    }
+    // Llamada a la función para mostrar el encabezado y pie del documento.
+    loadTemplate();
+    // Se establece el título del contenido principal.
+    MAIN_TITLE.textContent = `${greeting}, bienvenido`;
+    // Llamada a la funciones que generan los gráficos en la página web.
+    graficoBarrasCategorias();
+    graficoPastelCategorias();
+});
 
-    // Opciones de configuración para las gráficas
-    var options = {
-      responsive: true,
-      maintainAspectRatio: false,
-      elements: {
-        arc: {
-          borderWidth: 0
-        }
-      }
-    };
+/*
+*   Función asíncrona para mostrar un gráfico de barras con la cantidad de productos por categoría.
+*   Parámetros: ninguno.
+*   Retorno: ninguno.
+*/
+const graficoBarrasCategorias = async () => {
+    // Petición para obtener los datos del gráfico.
+    const DATA = await fetchData(PRODUCTO_API, 'cantidadProductosCategoria');
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas.
+    if (DATA.status) {
+        // Se declaran los arreglos para guardar los datos a graficar.
+        let categorias = [];
+        let cantidades = [];
+        // Se recorre el conjunto de registros fila por fila a través del objeto row.
+        DATA.dataset.forEach(row => {
+            // Se agregan los datos a los arreglos.
+            categorias.push(row.nombre_categoria);
+            cantidades.push(row.cantidad);
+        });
+        // Llamada a la función para generar y mostrar un gráfico de barras. Se encuentra en el archivo components.js
+        barGraph('chart1', categorias, cantidades, 'Cantidad de productos', 'Cantidad de productos por categoría');
+    } else {
+        document.getElementById('chart1').remove();
+        console.log(DATA.error);
+    }
+}
 
-    // Crear las instancias de las gráficas
-    var ctx1 = document.getElementById('monthlySalesChart').getContext('2d');
-    new Chart(ctx1, {
-      type: 'doughnut',
-      data: monthlySalesData,
-      options: options
-    });
-
-    var ctx2 = document.getElementById('annualSalesChart').getContext('2d');
-    new Chart(ctx2, {
-      type: 'doughnut',
-      data: annualSalesData,
-      options: options
-    });
-  });
+/*
+*   Función asíncrona para mostrar un gráfico de pastel con el porcentaje de productos por categoría.
+*   Parámetros: ninguno.
+*   Retorno: ninguno.
+*/
+const graficoPastelCategorias = async () => {
+    // Petición para obtener los datos del gráfico.
+    const DATA = await fetchData(PRODUCTO_API, 'porcentajeProductosCategoria');
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas.
+    if (DATA.status) {
+        // Se declaran los arreglos para guardar los datos a gráficar.
+        let categorias = [];
+        let porcentajes = [];
+        // Se recorre el conjunto de registros fila por fila a través del objeto row.
+        DATA.dataset.forEach(row => {
+            // Se agregan los datos a los arreglos.
+            categorias.push(row.nombre_categoria);
+            porcentajes.push(row.porcentaje);
+        });
+        // Llamada a la función para generar y mostrar un gráfico de pastel. Se encuentra en el archivo components.js
+        pieGraph('chart2', categorias, porcentajes, 'Porcentaje de productos por categoría');
+    } else {
+        document.getElementById('chart2').remove();
+        console.log(DATA.error);
+    }
+}
