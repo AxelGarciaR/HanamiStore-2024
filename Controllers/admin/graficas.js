@@ -77,3 +77,4 @@ const graficoPastelCategorias = async () => {
         console.log(DATA.error);
     }
 }
+
