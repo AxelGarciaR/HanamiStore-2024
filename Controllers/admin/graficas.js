@@ -15,10 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (HOUR <= 23) {
         greeting = 'Buenas noches';
     }
-    // Llamada a la función para mostrar el encabezado y pie del documento.
-    loadTemplate();
-    // Se establece el título del contenido principal.
-    MAIN_TITLE.textContent = `${greeting}, bienvenido`;
     // Llamada a la funciones que generan los gráficos en la página web.
     graficoBarrasCategorias();
     graficoPastelCategorias();
@@ -78,3 +74,18 @@ const graficoPastelCategorias = async () => {
     }
 }
 
+/****LLAMADA PARA ABRIR LAS GRAFICAS****/
+
+const openReportClientes = () => {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}reports/admin/clientes_report.php`);
+    // Se abre el reporte en una nueva pestaña.
+    window.open(PATH.href);
+}
+
+const openReportProductosMarcas = () => {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}reports/admin/productos_marca_report.php`);
+    // Se abre el reporte en una nueva pestaña.
+    window.open(PATH.href);
+}

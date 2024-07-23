@@ -51,6 +51,16 @@ class ProductosHandler
         return Database::getRows($sql);
     }
 
+    
+    public function readByMarca() {
+        $sql = 'SELECT p.Nombre_Producto, p.precio_producto, p.CantidadP, s.nombre AS nombre_subcategoria
+                FROM productos p
+                JOIN sub_categorias s ON p.id_subcategoria = s.id_SubCategoria
+                WHERE p.id_Marca = ?';
+        $params = array($this->marca);
+        return Database::getRows($sql, $params);
+    }
+
     //Esta funcion es para hacer select de los productos de mayor id a menor para ver cuales son los mas nuevos
     public function NewProduct()
     {
