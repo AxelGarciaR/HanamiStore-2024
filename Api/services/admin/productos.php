@@ -1,7 +1,7 @@
 <?php
 // Se inclueye la clase de entrada
 require_once ('../../models/data/productos_data.php');
- 
+
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
@@ -54,41 +54,41 @@ if (isset($_GET['action'])) {
                 } else {
                     $result['error'] = 'No existen productos registrados';
                 }
-                case 'cantidadProductosCategoria':
-                    if ($result['dataset'] = $producto->cantidadProductosCategoria()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
-                    } else {
-                        $result['error'] = 'No existen productos registrados';
-                    }
-                    break;
+            case 'cantidadProductosCategoria':
+                if ($result['dataset'] = $producto->cantidadProductosCategoria()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                } else {
+                    $result['error'] = 'No existen productos registrados';
+                }
                 break;
-                case 'porcentajeProductosCategoria':
-                    if ($result['dataset'] = $producto->porcentajeProductosCategoria()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
-                    } else {
-                        $result['error'] = 'No existen productos registrados';
-                    }
-                    break;
                 break;
-                case 'productosMasVendidos':
-                    if ($result['dataset'] = $producto->productosMasVendidos()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
-                    } else {
-                        $result['error'] = 'No existen productos registrados';
-                    }
-                    break;
+            case 'porcentajeProductosCategoria':
+                if ($result['dataset'] = $producto->porcentajeProductosCategoria()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                } else {
+                    $result['error'] = 'No existen productos registrados';
+                }
                 break;
-                case 'ventasPorMes':
-                    if ($result['dataset'] = $producto->ventasPorMes()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
-                    } else {
-                        $result['error'] = 'No existen productos registrados';
-                    }
-                    break;
+                break;
+            case 'productosMasVendidos':
+                if ($result['dataset'] = $producto->productosMasVendidos()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                } else {
+                    $result['error'] = 'No existen productos registrados';
+                }
+                break;
+                break;
+            case 'ventasPorMes':
+                if ($result['dataset'] = $producto->ventasPorMes()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                } else {
+                    $result['error'] = 'No existen productos registrados';
+                }
+                break;
                 break;
             case 'readOne':
                 if (!$producto->setIdProducto($_POST['idProducto'])) {
@@ -132,6 +132,16 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al eliminar el producto';
                 }
                 break;
+            case 'proyeccionesProximosMeses':
+                $dataset = $producto->ProyeccionesProximosMeses();
+                if ($dataset) {
+                    $result['status'] = 1;
+                    $result['dataset'] = $dataset;
+                } else {
+                    $result['status'] = 0;
+                    $result['error'] = 'No hay datos disponibles para las proyecciones';
+                }
+                break;
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';
         }
@@ -142,7 +152,7 @@ if (isset($_GET['action'])) {
 } else {
     $result['error'] = 'Recurso no disponible';
 }
- 
+
 // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
 header('Content-type: application/json; charset=utf-8');
 // Se imprime el resultado en formato JSON y se retorna al controlador.

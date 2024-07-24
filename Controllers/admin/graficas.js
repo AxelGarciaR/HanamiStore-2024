@@ -1,5 +1,7 @@
 // Constante para completar la ruta de la API.
 const PRODUCTO_API = 'services/admin/productos.php';
+const CLIENTE_API = 'services/public/cliente.php';
+
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,13 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (HOUR <= 23) {
         greeting = 'Buenas noches';
     }
-    
+
     // Llamada a la funciones que generan los gráficos en la página web.
     graficoBarrasCategorias();
     graficoPastelCategorias();
     graficoProductosVendidos();
     graficoVentasMes();
-    graficoEdadesClientes(); // Corrección aquí
+    graficoProyeccionesMes(); // Corrección aquí
 });
 
 
@@ -41,7 +43,7 @@ const graficoBarrasCategorias = async () => {
         // Se recorre el conjunto de registros fila por fila a través del objeto row.
         DATA.dataset.forEach(row => {
             // Se agregan los datos a los arreglos.
-           Subcategorias.push(row.nombre);
+            Subcategorias.push(row.nombre);
             cantidades.push(row.CantidadP);
         });
         // Llamada a la función para generar y mostrar un gráfico de barras. Se encuentra en el archivo components.js
@@ -51,7 +53,7 @@ const graficoBarrasCategorias = async () => {
         console.log(DATA.error);
     }
 }
- 
+
 /*
 *   Función asíncrona para mostrar un gráfico de pastel con el porcentaje de productos por categoría.
 *   Parámetros: ninguno.
@@ -78,7 +80,7 @@ const graficoPastelCategorias = async () => {
         console.log(DATA.error);
     }
 }
- 
+
 const graficoProductosVendidos = async () => {
     const DATA = await fetchData(PRODUCTO_API, 'productosMasVendidos');
     if (DATA.status) {
@@ -94,10 +96,10 @@ const graficoProductosVendidos = async () => {
         console.log(DATA.error);
     }
 }
- 
+
 const renderChartPolar = (context, labels, data, title) => {
     const randomColors = generateRandomColors(labels.length); // Generar colores aleatorios
- 
+
     new Chart(context, {
         type: 'polarArea',
         data: {
@@ -113,7 +115,7 @@ const renderChartPolar = (context, labels, data, title) => {
         }
     });
 };
- 
+
 // Función para generar colores aleatorios en formato RGB
 const generateRandomColors = (numColors) => {
     const colors = [];
@@ -125,7 +127,7 @@ const generateRandomColors = (numColors) => {
     }
     return colors;
 };
- 
+
 const graficoVentasMes = async () => {
     const DATA = await fetchData(PRODUCTO_API, 'ventasPorMes');
     if (DATA.status) {
@@ -141,23 +143,33 @@ const graficoVentasMes = async () => {
         console.log(DATA.error);
     }
 }
- 
-const graficoEdadesClientes = async () => {
-    const DATA = await fetchData(CLIENTE_API, 'edadesClientes'); // Usar CLIENTE_API en lugar de PRODUCTO_API
-    if (DATA.status) {
-        let rangos = [];
-        let cantidades = [];
+
+const graficoProyeccionesMes = async () => {
+    const DATA = await fetchData(PRODUCTO_API, 'proyeccionesProximosMeses');
+
+    if (DATA && DATA.status) {
+        let meses = [];
+        let proyecciones = [];
+
         DATA.dataset.forEach(row => {
-            rangos.push(row.rango);
-            cantidades.push(row.cantidad);
+            meses.push(row.mes_proyeccion);
+            proyecciones.push(row.proyeccion_ventas);
         });
-        renderChart(document.getElementById('chartEdadesClientes').getContext('2d'), 'bar', rangos, cantidades, 'Edades de Clientes');
+
+        const chartTitle = 'Proyecciones de ventas para los siguientes meses';
+        const xAxisLabel = 'Mes';
+        const yAxisLabel = 'Monto de Ventas (Proyección)';
+
+        renderChart2(document.getElementById('chartProyeccionesMes').getContext('2d'), 'bar', meses, proyecciones, chartTitle, xAxisLabel, yAxisLabel);
     } else {
-        document.getElementById('chartEdadesClientes').remove();
-        console.log(DATA.error);
+        const chartElement = document.getElementById('chartProyeccionesMes');
+        if (chartElement) {
+            chartElement.remove();
+        }
+        console.log(DATA ? DATA.error : 'Error en la llamada a la API');
     }
-}
- 
+};
+
 // Función para renderizar los gráficos
 const renderChart = (context, type, labels, data, title) => {
     new Chart(context, {
