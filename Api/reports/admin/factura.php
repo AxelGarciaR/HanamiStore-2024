@@ -1,8 +1,11 @@
 <?php
 // Se incluye la clase con las plantillas para generar reportes.
-require_once('../../helpers/report.php');
+require_once ('../../helpers/report.php');
 // Se incluye la clase para manejar los datos de detalle de órdenes.
-require_once('../../models/handler/detalle_ordenes_handler.php');
+require_once ('../../models/handler/detalle_ordenes_handler.php');
+
+// Inicializar la variable $idOrden
+$idOrden = null;
 
 // Verificar si hay un pedido en la sesión
 if (isset($_SESSION['idOrden'])) {
@@ -10,6 +13,11 @@ if (isset($_SESSION['idOrden'])) {
 } else {
     die('No se ha especificado ningún pedido.');
 }
+
+// Se incluye la clase con las plantillas para generar reportes.
+require_once ('../../helpers/report.php');
+// Se incluye la clase para manejar los datos de detalle de órdenes.
+require_once ('../../models/handler/detalle_ordenes_handler.php');
 
 // Se instancia el handler para manejar los datos de detalle de órdenes.
 $detalleOrdenHandler = new DetalleOrdenHandler();
