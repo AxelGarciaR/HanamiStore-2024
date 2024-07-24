@@ -151,4 +151,30 @@ class DetalleOrdenHandler
         $params = array($this->idDetalle, $_SESSION['idOrden']);
         return Database::executeRow($sql, $params);
     }
+
+    public function factura()
+    {
+        $sql = 'SELECT
+                detalleOrdenes.id_detalle,
+                productos.Nombre_Producto AS nombre_producto,
+                detalleOrdenes.precio_unitario,
+                detalleOrdenes.cantidad AS cantidad_producto,
+                clientes.nombre_cliente,
+                clientes.apellido_cliente,
+                clientes.CorreoE AS dui_cliente,
+                ordenes.Fecha_Orden AS fecha_compra,
+                clientes.Direccion AS telefono_cliente
+            FROM
+                detalleOrdenes
+            INNER JOIN
+                ordenes ON detalleOrdenes.id_orden = ordenes.id_Orden
+            INNER JOIN
+                productos ON detalleOrdenes.id_producto = productos.id_Producto
+            INNER JOIN
+                clientes ON ordenes.id_Cliente = clientes.id_cliente
+            WHERE
+                detalleOrdenes.id_orden = ?';
+        $params = array($_SESSION['idOrden']);
+        return Database::getRows($sql, $params);
+    }
 }
