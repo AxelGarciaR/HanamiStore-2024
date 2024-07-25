@@ -18,6 +18,7 @@ if ($dataCategoria = $categoria->readAll()) {
     $pdf->setFont('Arial', 'B', 11);
     // Se imprimen las celdas con los encabezados.
     $pdf->cell(25, 10, 'Nombre', 1, 0, 'C', 1);
+    $pdf->cell(30, 10, 'Estado', 1, 1, 'C', 1);
 
     // Se establece un color de relleno para mostrar el nombre del usuario.
     $pdf->setFillColor(240);
@@ -26,7 +27,7 @@ if ($dataCategoria = $categoria->readAll()) {
 
     // Se recorren los registros fila por fila.
     foreach ($dataCategoria as $rowCategoria) {
-        ($rowCategoria['estado']) ? $estado = 'Activo' : $estado = 'Inactivo';
+        $estado = isset($rowCategoria['estado']) ? ($rowCategoria['estado'] ? 'Activo' : 'Inactivo') : 'Desconocido';
         // Se imprimen las celdas con los datos de los clientes.
         $pdf->cell(25, 10, $pdf->encodeString($rowCategoria['Nombre_Categoria']), 1, 0);
         $pdf->cell(30, 10, $estado, 1, 1);
@@ -36,3 +37,4 @@ if ($dataCategoria = $categoria->readAll()) {
 }
 // Se llama implícitamente al método footer() y se envía el documento al navegador web.
 $pdf->output('I', 'Categorias.pdf');
+?>

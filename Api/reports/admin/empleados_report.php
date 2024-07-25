@@ -7,7 +7,7 @@ require_once('../../models/data/usuarios_data.php');
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-$pdf->startReport('Reporte de usuarios registrados');
+$pdf->startReport('Reporte de empleados registrados');
 // Se instancia el módelo de clientes para obtener los datos.
 $usuarios = new UsuarioData;
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
@@ -29,11 +29,15 @@ if ($dataUsuario = $usuarios->readAll()) {
 
     // Se recorren los registros fila por fila.
     foreach ($dataUsuario as $rowUsuario) {
-        ($rowUsuario['estado']) ? $estado = 'Activo' : $estado = 'Inactivo';
+        $estado = isset($rowUsuario['estado']) ? ($rowUsuario['estado'] ? 'Activo' : 'Inactivo') : 'Desconocido';
+        $clave = isset($rowUsuario['clave']) ? $rowUsuario['clave'] : 'Desconocida';
+        $nombre = isset($rowUsuario['nombre_usuario']) ? $rowUsuario['nombre_usuario'] : 'Desconocido';
+        $correo = isset($rowUsuario['correo']) ? $rowUsuario['correo'] : 'Desconocido';
+
         // Se imprimen las celdas con los datos de los clientes.
-        $pdf->cell(25, 10, $pdf->encodeString($rowUsuario['nombre_usuario']), 1, 0);
-        $pdf->cell(30, 10, $pdf->encodeString($rowUsuario['clave']), 1, 0);
-        $pdf->cell(50, 10, $pdf->encodeString($rowUsuario['correo']), 1, 0);
+        $pdf->cell(25, 10, $pdf->encodeString($nombre), 1, 0);
+        $pdf->cell(30, 10, $pdf->encodeString($clave), 1, 0);
+        $pdf->cell(50, 10, $pdf->encodeString($correo), 1, 0);
         $pdf->cell(30, 10, $estado, 1, 1);
     }
 } else {
@@ -41,3 +45,4 @@ if ($dataUsuario = $usuarios->readAll()) {
 }
 // Se llama implícitamente al método footer() y se envía el documento al navegador web.
 $pdf->output('I', 'Usuarios.pdf');
+?>
