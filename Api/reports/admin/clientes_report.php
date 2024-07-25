@@ -4,17 +4,35 @@ require_once('../../helpers/report.php');
 // Se incluyen las clases para la transferencia y acceso a datos.
 require_once('../../models/data/cliente_data.php');
 
+// Función para obtener el nombre del administrador
+function getAdminName($adminId)
+{
+    $db = new Database;
+    $sql = 'SELECT nombre_usuario FROM usuarios WHERE id_usuario = ?';
+    $params = array($adminId);
+    if ($data = $db->getRow($sql, $params)) {
+        return $data['nombre_usuario'];
+    } else {
+        return 'Desconocido'; // Devuelve 'Desconocido' si no se encuentra el nombre
+    }
+}
+
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 
+// Suponiendo que tienes el ID del administrador en sesión
+$adminId = 1; // Ejemplo, debes obtener el ID del administrador en sesión de tu lógica de autenticación
+
+// Obtener el nombre del administrador en sesión
+$adminName = getAdminName($adminId);
 
 // Se establece el color de fondo para el encabezado del documento.
 $pdf->setFillColor(255, 200, 221); // Color FFC8DD en RGB
 
-// Se inicia el reporte con el encabezado del documento.
-$pdf->startReport('Reporte de clientes registrados');
+// Se inicia el reporte con el encabezado del documento y el nombre del administrador.
+$pdf->startReport('Reporte de clientes registrados - Generado por: ' . $adminName);
 
-// Se instancia el módelo de clientes para obtener los datos.
+// Se instancia el modelo de clientes para obtener los datos.
 $cliente = new ClienteData;
 
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
@@ -31,9 +49,9 @@ if ($dataCliente = $cliente->readAll()) {
     $pdf->cell(30, 10, 'Direccion', 1, 0, 'C', 1);
     $pdf->cell(30, 10, 'Estado', 1, 1, 'C', 1);
 
-    // Se establece un color de relleno para mostrar el nombre del usuario.
+    // Se establece un color de relleno para mostrar los datos de los clientes.
     $pdf->setFillColor(255, 240, 245); // Un color de relleno más claro para las filas
-    // Se establece la fuente para los datos de los usuarios.
+    // Se establece la fuente para los datos de los clientes.
     $pdf->setFont('Arial', '', 11);
 
     // Se recorren los registros fila por fila.
@@ -48,6 +66,7 @@ if ($dataCliente = $cliente->readAll()) {
         $pdf->cell(30, 10, $estado, 1, 1, '', 1);
     }
 } else {
+    // Si no hay clientes para mostrar, se imprime un mensaje.
     $pdf->cell(0, 10, $pdf->encodeString('No hay clientes que mostrar'), 1, 1);
 }
 

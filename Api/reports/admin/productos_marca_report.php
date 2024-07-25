@@ -5,10 +5,27 @@ require_once('../../helpers/report.php');
 require_once('../../models/data/productos_data.php');
 require_once('../../models/data/marcas_data.php');
 
+function getAdminName($adminId)
+{
+    $db = new Database;
+    $sql = 'SELECT nombre_usuario FROM usuarios WHERE id_usuario = ?';
+    $params = array($adminId);
+    if ($data = $db->getRow($sql, $params)) {
+        return $data['nombre_usuario'];
+    } else {
+        return 'Desconocido'; // Devuelve 'Desconocido' si no se encuentra el nombre
+    }
+}
+// Suponiendo que tienes el ID del administrador en sesión
+$adminId = 1; // Ejemplo, debes obtener el ID del administrador en sesión de tu lógica de autenticación
+
+// Obtener el nombre del administrador en sesión
+$adminName = getAdminName($adminId);
+
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-$pdf->startReport('Productos por marca');
+$pdf->startReport('Productos por marca - Generado por: ' . $adminName);
 
 // Se instancia el modelo Marca para obtener los datos.
 $marca = new MarcasData;

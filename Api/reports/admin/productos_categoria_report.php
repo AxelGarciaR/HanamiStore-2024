@@ -4,10 +4,28 @@ require_once('../../helpers/report.php');
 // Se incluyen las clases para la transferencia y acceso a datos.
 require_once('../../models/data/categoria_data.php');
 
+// Función para obtener el nombre del administrador
+function getAdminName($adminId)
+{
+    $db = new Database;
+    $sql = 'SELECT nombre_usuario FROM usuarios WHERE id_usuario = ?';
+    $params = array($adminId);
+    if ($data = $db->getRow($sql, $params)) {
+        return $data['nombre_usuario'];
+    } else {
+        return 'Desconocido'; // Devuelve 'Desconocido' si no se encuentra el nombre
+    }
+}
+// Suponiendo que tienes el ID del administrador en sesión
+$adminId = 1; // Ejemplo, debes obtener el ID del administrador en sesión de tu lógica de autenticación
+
+// Obtener el nombre del administrador en sesión
+$adminName = getAdminName($adminId);
+
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-$pdf->startReport('Reporte de categorías y productos registrados');
+$pdf->startReport('Reporte de categorías y productos registrados - Generado por: ' . $adminName);
 // Se instancia el modelo de categorías para obtener los datos.
 $categoria = new CategoriaData;
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
