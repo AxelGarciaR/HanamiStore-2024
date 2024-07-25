@@ -7,44 +7,62 @@ require_once('../../models/data/categoria_data.php');
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-$pdf->startReport('Reporte de categorías registrados');
+$pdf->startReport('Reporte de categorías y productos registrados');
 // Se instancia el modelo de categorías para obtener los datos.
 $categoria = new CategoriaData;
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
-if ($dataCategoria = $categoria->readAll()) {
+if ($dataCategoria = $categoria->readAllReport()) {
     // Ancho total de la tabla
-    $anchoTotal = 100;
+    $anchoTotal = 190;
 
     // Calcula la posición x inicial para centrar la tabla
     $posXInicial = ($pdf->GetPageWidth() - $anchoTotal) / 2;
 
-    // Establece un color de relleno para los encabezados.
-    $pdf->setFillColor(255, 200, 221); // Color FFC8DD en RGB
-    // Establece la fuente para los encabezados.
-    $pdf->setFont('Arial', 'B', 11);
-    // Imprime las celdas con los encabezados.
-    $pdf->SetX($posXInicial);
-    $pdf->cell(50, 10, 'Nombre', 1, 0, 'C', 1);
-    $pdf->cell(50, 10, 'Estado', 1, 1, 'C', 1);
-
-    // Establece la fuente para los datos de las categorías.
-    $pdf->setFont('Arial', '', 11);
+    // Variables para controlar la categoría actual
+    $currentCategory = null;
 
     // Recorre los registros fila por fila.
     foreach ($dataCategoria as $rowCategoria) {
-        $estado = isset($rowCategoria['estado']) ? ($rowCategoria['estado'] ? 'Activo' : 'Inactivo') : 'Desconocido';
+        // Verifica si la categoría ha cambiado para imprimir el nombre de la nueva categoría
+        if ($currentCategory !== $rowCategoria['Nombre_Categoria']) {
+            $currentCategory = $rowCategoria['Nombre_Categoria'];
+
+            // Deja un espacio antes de imprimir una nueva categoría
+            $pdf->Ln(5);
+
+            // Imprime una celda que abarque toda la tabla con el nombre de la categoría
+            $pdf->SetX($posXInicial);
+            $pdf->setFillColor(255, 200, 221); // Color FFC8DD en RGB
+            $pdf->setFont('Arial', 'B', 12);
+            $pdf->cell($anchoTotal, 10, $pdf->encodeString('Categoría: ' . $currentCategory), 1, 1, 'C', 1);
+
+            // Imprime los encabezados de los productos
+            $pdf->SetX($posXInicial);
+            $pdf->setFont('Arial', 'B', 11);
+            $pdf->cell(30, 10, 'ID Producto', 1, 0, 'C', 1);
+            $pdf->cell(50, 10, 'Nombre Producto', 1, 0, 'C', 1);
+            $pdf->cell(50, 10, 'Descripcion', 1, 0, 'C', 1);
+            $pdf->cell(30, 10, 'Precio', 1, 0, 'C', 1);
+            $pdf->cell(30, 10, 'Cantidad', 1, 1, 'C', 1);
+        }
+
+        // Se establece la fuente para los datos de los productos.
+        $pdf->setFont('Arial', '', 11);
 
         // Establece un color de relleno alternante para las filas de datos.
         $pdf->setFillColor(255, 240, 245); // Color más claro
 
-        // Imprime las celdas con los datos de las categorías.
+        // Imprime las celdas con los datos de los productos.
         $pdf->SetX($posXInicial);
-        $pdf->cell(50, 10, $pdf->encodeString($rowCategoria['Nombre_Categoria']), 1, 0, '', 1);
-        $pdf->cell(50, 10, $estado, 1, 1, '', 1);
+        $pdf->cell(30, 10, $rowCategoria['id_Producto'], 1, 0, '', 1);
+        $pdf->cell(50, 10, $pdf->encodeString($rowCategoria['Nombre_Producto']), 1, 0, '', 1);
+        $pdf->cell(50, 10, $pdf->encodeString($rowCategoria['descripcion_producto']), 1, 0, '', 1);
+        $pdf->cell(30, 10, $rowCategoria['precio_producto'], 1, 0, '', 1);
+        $pdf->cell(30, 10, $rowCategoria['CantidadP'], 1, 1, '', 1);
     }
 } else {
-    $pdf->cell(0, 10, $pdf->encodeString('No hay categorías que mostrar'), 1, 1);
+    $pdf->cell(0, 10, $pdf->encodeString('No hay productos para mostrar'), 1, 1);
 }
 // Se llama implícitamente al método footer() y se envía el documento al navegador web.
-$pdf->output('I', 'Categorias.pdf');
+$pdf->output('I', 'Categorias_y_Productos.pdf');
 ?>

@@ -47,6 +47,30 @@ class CategoriaHandler
         return Database::getRows($sql); // Ejecuta la consulta y devuelve los resultados.
     }
 
+    public function readAllReport()
+    {
+        $sql = 'SELECT 
+        c.id_Categoria, 
+        c.Nombre_Categoria,
+        p.id_Producto,
+        p.Nombre_Producto,
+        p.descripcion_producto,
+        p.precio_producto,
+        p.imagen_principal,
+        p.CantidadP,
+        p.descuento,
+        p.id_Marca
+        FROM 
+        categorias c
+        JOIN 
+        sub_categorias sc ON c.id_Categoria = sc.id_Categoria
+        JOIN 
+        productos p ON sc.id_SubCategoria = p.id_subcategoria
+        ORDER BY 
+        c.Nombre_Categoria, p.Nombre_Producto;'; // Consulta SQL para seleccionar todas las categorías.
+        return Database::getRows($sql); // Ejecuta la consulta y devuelve los resultados.
+    }
+
     // Método para leer una categoría específica de la base de datos.
     public function readOne()
     {
@@ -81,8 +105,7 @@ class CategoriaHandler
     {
         $sql = 'SELECT id_Categoria, Nombre_Categoria
                 FROM categorias
-                ORDER BY id_Categoria'; 
+                ORDER BY id_Categoria';
         return Database::getRows($sql); // Ejecuta la consulta y devuelve los resultados.
     }
 }
-?>
