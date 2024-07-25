@@ -145,7 +145,7 @@ async function openDelete(id) {
 
 const openFactura = () => {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/admin/factura.php`);
+    const PATH = new URL(`${SERVER_URL}reports/public/factura.php`);
     // Se abre el reporte en una nueva pestaña.
     window.open(PATH.href);
 }
