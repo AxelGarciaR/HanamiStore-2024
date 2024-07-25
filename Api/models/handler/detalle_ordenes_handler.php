@@ -161,7 +161,7 @@ class DetalleOrdenHandler
                 detalleOrdenes.cantidad AS cantidad_producto,
                 clientes.nombre_cliente,
                 clientes.apellido_cliente,
-                clientes.CorreoE AS dui_cliente,
+                clientes.CorreoE AS correo_cliente,
                 ordenes.Fecha_Orden AS fecha_compra,
                 clientes.Direccion AS telefono_cliente
             FROM

@@ -116,12 +116,9 @@ async function finishOrder() {
         const DATA = await fetchData(PEDIDO_API, 'finishOrder');
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (DATA.status) {
-            //Se abre la factura 
-            openFactura();
             //Se mustra la alerta de exito
             sweetAlert(1, DATA.message, true);
             // Recargar la página si la respuesta no es satisfactoria.
-            window.location.reload();
         } else {
             sweetAlert(2, DATA.error, false);
         }

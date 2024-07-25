@@ -3,7 +3,7 @@
 require_once('../../helpers/report.php');
 require_once('../../models/handler/detalle_ordenes_handler.php');
 require_once('../../models/data/detalle_ordenes_data.php');
- 
+
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
@@ -25,12 +25,12 @@ $dataFactura = $pedido->factura();
 // Verificar si hay datos para mostrar en la factura
 if ($dataFactura) {
     // Configurar estilos y encabezados para el reporte
-    $pdf->setFillColor(143, 194, 187); // Color FFC8DD en RGB
+    $pdf->setFillColor(143, 194, 187); // Color en RGB
     $pdf->setFont('Arial', 'B', 12);
 
     // Imprimir encabezados de la tabla de productos
     $pdf->setFont('Arial', 'B', 12);
-    $pdf->setFillColor(143, 194, 187); // Color FFC8DD en RGB
+    $pdf->setFillColor(143, 194, 187); // Color en RGB
     $pdf->Cell(70, 10, 'Producto', 1, 0, 'C', 1);
     $pdf->Cell(30, 10, 'Cantidad', 1, 0, 'C', 1);
     $pdf->Cell(30, 10, 'Precio', 1, 0, 'C', 1);
@@ -57,9 +57,28 @@ if ($dataFactura) {
 
     // Imprimir el total de la orden
     $pdf->setFont('Arial', 'B', 12);
-    $pdf->setFillColor(143, 194, 187); // Color FFC8DD en RGB
+    $pdf->setFillColor(143, 194, 187); // Color en RGB
     $pdf->Cell(130, 10, 'Total', 1, 0, 'R', 1);
     $pdf->Cell(30, 10, '$' . number_format($total, 2), 1, 1, 'C', 1);
+
+    // Imprimir los detalles del cliente
+    $pdf->Ln(10); // Espacio para separar la tabla del total
+    $pdf->setFont('Arial', 'B', 12);
+    $pdf->Cell(0, 10, 'Detalles del Cliente', 0, 1, 'L');
+
+    // Información del cliente
+    foreach ($dataFactura as $rowFactura) {
+        $pdf->setFont('Arial', '', 12);
+        $pdf->Cell(50, 10, 'Nombre: ', 0, 0, 'L');
+        $pdf->Cell(0, 10, $pdf->encodeString($rowFactura['nombre_cliente'] . ' ' . $rowFactura['apellido_cliente']), 0, 1, 'L');
+        $pdf->Cell(50, 10, 'Correo: ', 0, 0, 'L');
+        $pdf->Cell(0, 10, $pdf->encodeString($rowFactura['correo_cliente']), 0, 1, 'L');
+        $pdf->Cell(50, 10, 'Teléfono: ', 0, 0, 'L');
+        $pdf->Cell(0, 10, $pdf->encodeString($rowFactura['telefono_cliente']), 0, 1, 'L');
+        $pdf->Cell(50, 10, 'Fecha de Compra: ', 0, 0, 'L');
+        $pdf->Cell(0, 10, $pdf->encodeString(date('d/m/Y', strtotime($rowFactura['fecha_compra']))), 0, 1, 'L');
+        break; // Solo necesitamos los detalles del cliente una vez
+    }
 } else {
     // Mostrar un mensaje si no hay datos para mostrar
     $pdf->Cell(0, 10, $pdf->encodeString('No hay datos para mostrar'), 1, 1, 'C');
