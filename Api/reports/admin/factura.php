@@ -33,7 +33,7 @@ $pdf->startReport('Factura');
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
 if ($dataFactura) {
     // Se establece un color de relleno para los encabezados.
-    $pdf->setFillColor(143, 194, 187);
+    $pdf->setFillColor(255, 200, 221); // Color FFC8DD en RGB
     // Se establece la fuente para los encabezados.
     $pdf->setFont('Arial', 'B', 12);
 
@@ -61,7 +61,7 @@ if ($dataFactura) {
     $pdf->Cell(30, 10, 'Subtotal', 1, 1, 'C', 1);
 
     // Se establece un color de relleno para los datos de productos.
-    $pdf->setFillColor(200, 231, 226);
+    $pdf->setFillColor(255, 240, 245); // Color más claro
     // Se establece la fuente para los datos.
     $pdf->setFont('Arial', '', 11);
 
@@ -72,16 +72,20 @@ if ($dataFactura) {
         $subtotal = $rowFactura['precio_unitario'] * $rowFactura['cantidad_producto'];
         $total += $subtotal;
 
+        // Establecer el color de relleno para las filas de datos
+        $pdf->setFillColor(255, 240, 245); // Color más claro
+
         // Se imprimen las celdas con los datos de productos.
-        $pdf->Cell(70, 10, $pdf->encodeString($rowFactura['nombre_producto']), 1, 0, 'L');
-        $pdf->Cell(30, 10, $pdf->encodeString($rowFactura['cantidad_producto']), 1, 0, 'C');
-        $pdf->Cell(30, 10, '$' . number_format($rowFactura['precio_unitario'], 2), 1, 0, 'C');
-        $pdf->Cell(30, 10, '$' . number_format($subtotal, 2), 1, 1, 'C');
+        $pdf->Cell(70, 10, $pdf->encodeString($rowFactura['nombre_producto']), 1, 0, 'L', 1);
+        $pdf->Cell(30, 10, $pdf->encodeString($rowFactura['cantidad_producto']), 1, 0, 'C', 1);
+        $pdf->Cell(30, 10, '$' . number_format($rowFactura['precio_unitario'], 2), 1, 0, 'C', 1);
+        $pdf->Cell(30, 10, '$' . number_format($subtotal, 2), 1, 1, 'C', 1);
     }
 
     // Imprimir el total
+    $pdf->setFillColor(255, 200, 221); // Color para el total
     $pdf->Cell(130, 10, 'Total', 1, 0, 'R', 1);
-    $pdf->Cell(30, 10, '$' . number_format($total, 2), 1, 1, 'C');
+    $pdf->Cell(30, 10, '$' . number_format($total, 2), 1, 1, 'C', 1);
 } else {
     $pdf->Cell(0, 10, $pdf->encodeString('No hay datos para mostrar'), 1, 1, 'C');
 }
