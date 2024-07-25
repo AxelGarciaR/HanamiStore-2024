@@ -44,6 +44,25 @@ class OrdenesHandler
         return Database::getRows($sql);
     }
 
+    public function readOrdenesReport()
+    {
+        $sql = 'SELECT 
+        o.id_Orden, 
+        o.id_Cliente, 
+        o.Fecha_Orden, 
+        o.Estado_Orden,
+        c.nombre_cliente,
+        c.apellido_cliente,
+        c.CorreoE
+        FROM 
+        ordenes o
+        JOIN 
+        clientes c ON o.id_Cliente = c.id_cliente
+        ORDER BY 
+        o.Estado_Orden;';
+        return Database::getRows($sql);
+    }
+
     public function readOne()
     {
         $sql = 'SELECT id_Orden, id_Cliente, Fecha_Orden, Estado_Orden

@@ -25,3 +25,14 @@ body::-webkit-scrollbar-thumb {
     border-radius: 10px;
     border-right: 2px solid #F0F0F0;
 }
+.btn-warning {
+    background-color: rgba(255, 145, 187, 0.8);
+    border-color: rgba(255, 200, 221, 0.8);
+    color: #000; /* Cambia el color del texto si es necesario */
+}
+
+.btn-warning:hover {
+    background-color: rgba(255, 145, 187, 0.8);
+    border-color: rgba(255, 200, 221, 1);
+    color: #000; /* Cambia el color del texto si es necesario */
+}

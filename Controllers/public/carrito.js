@@ -28,7 +28,7 @@ ITEM_FORM.addEventListener('submit', async (event) => {
         // Se cierra la caja de diálogo del formulario.
         ITEM_MODAL.hide();
         // Se muestra un mensaje de éxito.
-        sweetAlert(1, DATA.message, true);
+        sweetAlert(1, DATA.message, true, "Carrito.html");
     } else {
         sweetAlert(2, DATA.error, false);
     }
@@ -40,48 +40,54 @@ ITEM_FORM.addEventListener('submit', async (event) => {
 *   Retorno: ninguno.
 */
 async function readDetail() {
-    // Petición para obtener los datos del pedido en proceso.
-    const DATA = await fetchData(PEDIDO_API, 'readDetail');
-    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-    if (DATA.status) {
-        // Se inicializa el cuerpo de la tabla.
-        TABLE_BODY.innerHTML = '';
-        // Se declara e inicializa una variable para calcular el importe por cada producto.
-        let subtotal = 0;
-        // Se declara e inicializa una variable para sumar cada subtotal y obtener el monto final a pagar.
-        let total = 0;
-        // Se recorre el conjunto de registros fila por fila a través del objeto row.
-        DATA.dataset.forEach(row => {
-            subtotal = row.precio_unitario * row.cantidad;
-            total += subtotal;
-            // Se crean y concatenan las filas de la tabla con los datos de cada registro.
-            TABLE_BODY.innerHTML += `
-            <div class="card col-12  mb-4 rounded rounded-white">
-            <div class="row">
-                <div class="col-md-4">
-                    <img src="../../Resources/images/allclean.png" class="img-fluid" alt="Producto 2">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">${row.Nombre_Producto}</h5>
-                        <p class="card-text">$${row.precio_unitario}</p>
-                        <p class="card-text">Cantidad: ${row.cantidad}</p>
-                        <p class="card-text">Total de producto: $${subtotal.toFixed(2)}</p>
-                        <button type="button" onclick="openUpdate(${row.id_detalle}, ${row.cantidad})"
-                            class="btn btn-danger btn-block btn-pale-pink">Cantidad</button>
-                        <button type="button" onclick="openDelete(${row.id_detalle})"
-                            class="btn btn-danger btn-block btn-pale-pink">Eliminar</button>
+    try {
+        // Petición para obtener los datos del pedido en proceso.
+        const DATA = await fetchData(PEDIDO_API, 'readDetail');
+
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+        if (DATA.status) {
+            // Se inicializa el cuerpo de la tabla.
+            TABLE_BODY.innerHTML = '';
+            // Se declara e inicializa una variable para calcular el importe por cada producto.
+            let subtotal = 0;
+            // Se declara e inicializa una variable para sumar cada subtotal y obtener el monto final a pagar.
+            let total = 0;
+            // Se recorre el conjunto de registros fila por fila a través del objeto row.
+            DATA.dataset.forEach(row => {
+                subtotal = row.precio_unitario * row.cantidad;
+                total += subtotal;
+                // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+                TABLE_BODY.innerHTML += `
+                <div class="card col-12  mb-4 rounded rounded-white">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="../../Resources/images/allclean.png" class="img-fluid" alt="Producto 2">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">${row.Nombre_Producto}</h5>
+                            <p class="card-text">$${row.precio_unitario}</p>
+                            <p class="card-text">Cantidad: ${row.cantidad}</p>
+                            <p class="card-text">Total de producto: $${subtotal.toFixed(2)}</p>
+                            <button type="button" onclick="openUpdate(${row.id_detalle}, ${row.cantidad})"
+                                class="btn btn-danger btn-block btn-pale-pink">Cantidad</button>
+                            <button type="button" onclick="openDelete(${row.id_detalle})"
+                                class="btn btn-danger btn-block btn-pale-pink">Eliminar</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            `;
-        });
-        // Se muestra el total a pagar con dos decimales.
-        document.getElementById('pago').textContent = total.toFixed(2);
-    } else {
-        sweetAlert(4, DATA.error, false, 'index.html');
+                `;
+            });
+            // Se muestra el total a pagar con dos decimales.
+            document.getElementById('pago').textContent = total.toFixed(2);
+        } else {
+            sweetAlert(4, DATA.error, false);
+        }
+    } catch (error) {
+        console.error('Error al obtener datos del pedido:', error);
     }
 }
+
 
 /*
 *   Función para abrir la caja de diálogo con el formulario de cambiar cantidad de producto.
@@ -110,7 +116,9 @@ async function finishOrder() {
         const DATA = await fetchData(PEDIDO_API, 'finishOrder');
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (DATA.status) {
-            sweetAlert(1, DATA.message, true, 'index.html');
+            //Se mustra la alerta de exito
+            sweetAlert(1, DATA.message, true);
+            // Recargar la página si la respuesta no es satisfactoria.
         } else {
             sweetAlert(2, DATA.error, false);
         }
@@ -145,8 +153,7 @@ async function openDelete(id) {
 
 const openFactura = () => {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/admin/factura.php`);
+    const PATH = new URL(`${SERVER_URL}reports/public/factura.php`);
     // Se abre el reporte en una nueva pestaña.
     window.open(PATH.href);
 }
-
