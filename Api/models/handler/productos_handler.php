@@ -126,6 +126,8 @@ class ProductosHandler
     }
 
 
+
+
     //Esta funcion es para actualizar un producto
     public function updateRow()
     {
@@ -171,23 +173,64 @@ class ProductosHandler
         $params = array($this->marca);
         return Database::getRows($sql, $params);
     }
+    public function VentasUltimosMeses()
+    {
+        $sql = 'SELECT 
+                    DATE_FORMAT(p.Fecha_Orden, "%Y-%m") AS mes,
+                    SUM(dp.cantidad * dp.precio_unitario) AS monto_ventas,
+                    COALESCE(SUM(dp.cantidad * dp.precio_unitario) - LAG(SUM(dp.cantidad * dp.precio_unitario)) OVER (ORDER BY DATE_FORMAT(p.Fecha_Orden, "%Y-%m")), 0) AS incremento,
+                    CASE 
+                        WHEN LAG(SUM(dp.cantidad * dp.precio_unitario)) OVER (ORDER BY DATE_FORMAT(p.Fecha_Orden, "%Y-%m")) = 0 THEN NULL
+                        ELSE ROUND((SUM(dp.cantidad * dp.precio_unitario) - LAG(SUM(dp.cantidad * dp.precio_unitario)) OVER (ORDER BY DATE_FORMAT(p.Fecha_Orden, "%Y-%m"))) / LAG(SUM(dp.cantidad * dp.precio_unitario)) OVER (ORDER BY DATE_FORMAT(p.Fecha_Orden, "%Y-%m")) * 100, 2)
+                    END AS porcentaje_incremento,
+                    (SELECT AVG(monto_ventas) 
+                     FROM ( 
+                         SELECT 
+                             SUM(dp.cantidad * dp.precio_unitario) AS monto_ventas
+                         FROM 
+                             detalleordenes dp
+                         INNER JOIN 
+                             ordenes p ON dp.id_orden = p.id_orden
+                         WHERE 
+                             p.Fecha_Orden BETWEEN DATE_SUB(CURDATE(), INTERVAL 6 MONTH) AND CURDATE()
+                         GROUP BY 
+                             DATE_FORMAT(p.Fecha_Orden, "%Y-%m")
+                     ) AS subconsulta) AS promedio_ventas_ultimos_6_meses
+                FROM 
+                    detalleordenes dp
+                INNER JOIN 
+                    ordenes p ON dp.id_orden = p.id_orden
+                WHERE 
+                    p.Fecha_Orden BETWEEN DATE_SUB(CURDATE(), INTERVAL 6 MONTH) AND CURDATE()
+                GROUP BY 
+                    DATE_FORMAT(p.Fecha_Orden, "%Y-%m")
+                ORDER BY 
+                    DATE_FORMAT(p.Fecha_Orden, "%Y-%m");';
+    
+        return Database::getRows($sql);
+    }
+    
+    
+
+    
+
 
     public function ProyeccionesProximosMeses()
-    {
-        $sql = 'WITH VentasUltimosMeses AS (
+{
+    $sql = 'WITH VentasUltimosMeses AS (
                 SELECT
-                    DATE_FORMAT(p.fecha_registro, "%Y-%m") AS mes,
-                    SUM(dp.cantidad_producto * dp.precio_producto) AS monto_ventas
+                    DATE_FORMAT(p.Fecha_Orden, "%Y-%m") AS mes,
+                    SUM(dp.cantidad * dp.precio_unitario) AS monto_ventas
                 FROM
-                    detalle_pedido dp
+                    detalleordenes dp
                 INNER JOIN
-                    pedido p ON dp.id_pedido = p.id_pedido
+                    ordenes p ON dp.id_orden = p.id_orden
                 WHERE
-                    p.fecha_registro BETWEEN DATE_SUB(CURDATE(), INTERVAL 5 MONTH) AND CURDATE()
+                    p.Fecha_Orden BETWEEN DATE_SUB(CURDATE(), INTERVAL 6 MONTH) AND CURDATE()
                 GROUP BY
-                    DATE_FORMAT(p.fecha_registro, "%Y-%m")
+                    DATE_FORMAT(p.Fecha_Orden, "%Y-%m")
                 ORDER BY
-                    DATE_FORMAT(p.fecha_registro, "%Y-%m")
+                    DATE_FORMAT(p.Fecha_Orden, "%Y-%m")
             ),
             IncrementoPromedio AS (
                 SELECT
@@ -200,10 +243,10 @@ class ProductosHandler
                 ) AS subconsulta
             )
             SELECT
-                DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL seq MONTH), "%Y-%m") AS mes_proyeccion,
+                DATE_FORMAT(DATE_ADD(LAST_DAY(CURDATE()), INTERVAL seq MONTH), "%Y-%m") AS mes_proyeccion,
                 CONCAT(
-                    DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL seq MONTH), "%M"), " ",
-                    DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL seq MONTH), "%Y")
+                    DATE_FORMAT(DATE_ADD(LAST_DAY(CURDATE()), INTERVAL seq MONTH), "%M"), " ",
+                    DATE_FORMAT(DATE_ADD(LAST_DAY(CURDATE()), INTERVAL seq MONTH), "%Y")
                 ) AS nombre_mes_proyeccion,
                 ROUND(
                     (SELECT monto_ventas
@@ -219,15 +262,19 @@ class ProductosHandler
                  SELECT 3 UNION ALL
                  SELECT 4 UNION ALL
                  SELECT 5 UNION ALL
-                 SELECT 6 -- Se añade el sexto mes para proyectar 6 meses
+                 SELECT 6
                 ) AS secuencia
             CROSS JOIN
                 IncrementoPromedio
             ORDER BY
-                mes_proyeccion;
-            ';
+                mes_proyeccion;';
 
-        return Database::getRows($sql);
-    }
+    return Database::getRows($sql);
+}
+ 
+    
+
+
+    
 
 }

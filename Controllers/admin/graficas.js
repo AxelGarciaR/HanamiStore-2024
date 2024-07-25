@@ -2,7 +2,6 @@
 const PRODUCTO_API = 'services/admin/productos.php';
 const CLIENTE_API = 'services/public/cliente.php';
 
-
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
     // Constante para obtener el número de horas.
@@ -25,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     graficoVentasMes();
     graficoProyeccionesMes(); // Corrección aquí
 });
-
 
 /*
 *   Función asíncrona para mostrar un gráfico de barras con la cantidad de productos por categoría.
@@ -160,7 +158,7 @@ const graficoProyeccionesMes = async () => {
         const xAxisLabel = 'Mes';
         const yAxisLabel = 'Monto de Ventas (Proyección)';
 
-        renderChart2(document.getElementById('chartProyeccionesMes').getContext('2d'), 'bar', meses, proyecciones, chartTitle, xAxisLabel, yAxisLabel);
+        renderChart(document.getElementById('chartProyeccionesMes').getContext('2d'), 'bar', meses, proyecciones, chartTitle, xAxisLabel, yAxisLabel);
     } else {
         const chartElement = document.getElementById('chartProyeccionesMes');
         if (chartElement) {
@@ -207,6 +205,13 @@ const openReportClientes = () => {
 const openReportProductosMarcas = () => {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
     const PATH = new URL(`${SERVER_URL}reports/admin/productos_marca_report.php`);
+    // Se abre el reporte en una nueva pestaña.
+    window.open(PATH.href);
+}
+
+const openReportEmpleados = () => {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}reports/admin/empleados_report.php`);
     // Se abre el reporte en una nueva pestaña.
     window.open(PATH.href);
 }
