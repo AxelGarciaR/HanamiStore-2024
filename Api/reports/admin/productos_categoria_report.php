@@ -16,6 +16,7 @@ function getAdminName($adminId)
         return 'Desconocido'; // Devuelve 'Desconocido' si no se encuentra el nombre
     }
 }
+
 // Suponiendo que tienes el ID del administrador en sesión
 $adminId = 1; // Ejemplo, debes obtener el ID del administrador en sesión de tu lógica de autenticación
 
@@ -24,14 +25,17 @@ $adminName = getAdminName($adminId);
 
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
+
 // Se inicia el reporte con el encabezado del documento.
 $pdf->startReport('Reporte de categorías y productos registrados - Generado por: ' . $adminName);
+
 // Se instancia el modelo de categorías para obtener los datos.
 $categoria = new CategoriaData;
+
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
 if ($dataCategoria = $categoria->readAllReport()) {
-    // Ancho total de la tabla
-    $anchoTotal = 190;
+    // Ancho total de la tabla (ajústalo según necesites)
+    $anchoTotal = 140; // Reduje el ancho total para alinear mejor los datos según la estructura mostrada
 
     // Calcula la posición x inicial para centrar la tabla
     $posXInicial = ($pdf->GetPageWidth() - $anchoTotal) / 2;
@@ -59,7 +63,6 @@ if ($dataCategoria = $categoria->readAllReport()) {
             $pdf->setFont('Arial', 'B', 11);
             $pdf->cell(30, 10, 'ID Producto', 1, 0, 'C', 1);
             $pdf->cell(50, 10, 'Nombre Producto', 1, 0, 'C', 1);
-            $pdf->cell(50, 10, 'Descripcion', 1, 0, 'C', 1);
             $pdf->cell(30, 10, 'Precio', 1, 0, 'C', 1);
             $pdf->cell(30, 10, 'Cantidad', 1, 1, 'C', 1);
         }
@@ -74,13 +77,13 @@ if ($dataCategoria = $categoria->readAllReport()) {
         $pdf->SetX($posXInicial);
         $pdf->cell(30, 10, $rowCategoria['id_Producto'], 1, 0, '', 1);
         $pdf->cell(50, 10, $pdf->encodeString($rowCategoria['Nombre_Producto']), 1, 0, '', 1);
-        $pdf->cell(50, 10, $pdf->encodeString($rowCategoria['descripcion_producto']), 1, 0, '', 1);
         $pdf->cell(30, 10, $rowCategoria['precio_producto'], 1, 0, '', 1);
         $pdf->cell(30, 10, $rowCategoria['CantidadP'], 1, 1, '', 1);
     }
 } else {
     $pdf->cell(0, 10, $pdf->encodeString('No hay productos para mostrar'), 1, 1);
 }
+
 // Se llama implícitamente al método footer() y se envía el documento al navegador web.
 $pdf->output('I', 'Categorias_y_Productos.pdf');
 ?>
