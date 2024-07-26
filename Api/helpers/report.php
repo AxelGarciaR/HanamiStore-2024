@@ -63,9 +63,10 @@ class Report extends FPDF
     public function header()
     {
         // Se establece el logo
-        $this->image('../../images/HanamiLogo.png', 15, 15, 20);
+        $this->image('../../images/HanamiLogo.png', 15, 15, 25);
         // Se establece el logo de fondo
-        $this->image('../../images/HanamiLogoBack.png', 15, 50, 186);
+        $this->image('../../images/HanamiLogoBack.png', 15, 90, 186);
+        $this->image('../../images/HanamiBorder.png', 80, 15, 140);
         // Se ubica el título.
         $this->cell(20);
         $this->setFont('Arial', 'B', 15);
