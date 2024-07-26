@@ -27,7 +27,7 @@ if ($dataOrdenes = $ordenes->readOrdenesReport()) {
     
     // Imprime las celdas con los encabezados, centrando la tabla en la página.
     $pdf->SetX($posXInicial);
-    $pdf->cell(25, 10, 'NO orden', 1, 0, 'C', 1);
+    $pdf->cell(25, 10, 'NO. orden', 1, 0, 'C', 1);
     $pdf->cell(40, 10, 'Apellido Cliente', 1, 0, 'C', 1);
     $pdf->cell(60, 10, 'Correo Cliente', 1, 0, 'C', 1);
     $pdf->cell(30, 10, 'Fecha Orden', 1, 0, 'C', 1);
