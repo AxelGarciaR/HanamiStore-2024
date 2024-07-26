@@ -37,7 +37,7 @@ if ($dataUsuario = $usuarios->readAll()) {
     $pdf->SetX($xOffset);
 
     // Se imprimen las celdas con los encabezados.
-    $pdf->cell($cellWidths[0], 10, 'NO Usuario', 1, 0, 'C', 1);
+    $pdf->cell($cellWidths[0], 10, 'NO. Usuario', 1, 0, 'C', 1);
     $pdf->cell($cellWidths[1], 10, 'Nombre', 1, 0, 'C', 1);
     $pdf->cell($cellWidths[2], 10, 'Correo', 1, 1, 'C', 1);
 
