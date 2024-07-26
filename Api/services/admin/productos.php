@@ -132,8 +132,8 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al eliminar el producto';
                 }
                 break;
-            case 'proyeccionesProximosMeses':
-                $dataset = $producto->ProyeccionesProximosMeses();
+            case 'VentasUltimosMesesConProyeccion':
+                $dataset = $producto->VentasUltimosMesesConProyeccion();
                 if ($dataset) {
                     $result['status'] = 1;
                     $result['dataset'] = $dataset;

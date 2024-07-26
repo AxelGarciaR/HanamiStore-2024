@@ -173,105 +173,108 @@ class ProductosHandler
         $params = array($this->marca);
         return Database::getRows($sql, $params);
     }
-    public function VentasUltimosMeses()
-    {
-        $sql = 'SELECT 
-                    DATE_FORMAT(p.Fecha_Orden, "%Y-%m") AS mes,
-                    SUM(dp.cantidad * dp.precio_unitario) AS monto_ventas,
-                    COALESCE(SUM(dp.cantidad * dp.precio_unitario) - LAG(SUM(dp.cantidad * dp.precio_unitario)) OVER (ORDER BY DATE_FORMAT(p.Fecha_Orden, "%Y-%m")), 0) AS incremento,
-                    CASE 
-                        WHEN LAG(SUM(dp.cantidad * dp.precio_unitario)) OVER (ORDER BY DATE_FORMAT(p.Fecha_Orden, "%Y-%m")) = 0 THEN NULL
-                        ELSE ROUND((SUM(dp.cantidad * dp.precio_unitario) - LAG(SUM(dp.cantidad * dp.precio_unitario)) OVER (ORDER BY DATE_FORMAT(p.Fecha_Orden, "%Y-%m"))) / LAG(SUM(dp.cantidad * dp.precio_unitario)) OVER (ORDER BY DATE_FORMAT(p.Fecha_Orden, "%Y-%m")) * 100, 2)
-                    END AS porcentaje_incremento,
-                    (SELECT AVG(monto_ventas) 
-                     FROM ( 
-                         SELECT 
-                             SUM(dp.cantidad * dp.precio_unitario) AS monto_ventas
-                         FROM 
-                             detalleordenes dp
-                         INNER JOIN 
-                             ordenes p ON dp.id_orden = p.id_orden
-                         WHERE 
-                             p.Fecha_Orden BETWEEN DATE_SUB(CURDATE(), INTERVAL 6 MONTH) AND CURDATE()
-                         GROUP BY 
-                             DATE_FORMAT(p.Fecha_Orden, "%Y-%m")
-                     ) AS subconsulta) AS promedio_ventas_ultimos_6_meses
-                FROM 
-                    detalleordenes dp
-                INNER JOIN 
-                    ordenes p ON dp.id_orden = p.id_orden
-                WHERE 
-                    p.Fecha_Orden BETWEEN DATE_SUB(CURDATE(), INTERVAL 6 MONTH) AND CURDATE()
-                GROUP BY 
-                    DATE_FORMAT(p.Fecha_Orden, "%Y-%m")
-                ORDER BY 
-                    DATE_FORMAT(p.Fecha_Orden, "%Y-%m");';
     
-        return Database::getRows($sql);
-    }
-    
-    
-
-    
-
-
-    public function ProyeccionesProximosMeses()
-{
-    $sql = 'WITH VentasUltimosMeses AS (
-                SELECT
-                    DATE_FORMAT(p.Fecha_Orden, "%Y-%m") AS mes,
-                    SUM(dp.cantidad * dp.precio_unitario) AS monto_ventas
-                FROM
-                    detalleordenes dp
-                INNER JOIN
-                    ordenes p ON dp.id_orden = p.id_orden
-                WHERE
-                    p.Fecha_Orden BETWEEN DATE_SUB(CURDATE(), INTERVAL 6 MONTH) AND CURDATE()
-                GROUP BY
-                    DATE_FORMAT(p.Fecha_Orden, "%Y-%m")
-                ORDER BY
-                    DATE_FORMAT(p.Fecha_Orden, "%Y-%m")
-            ),
-            IncrementoPromedio AS (
-                SELECT
-                    AVG(incremento) AS promedio_incremento
-                FROM (
-                    SELECT
-                        monto_ventas - LAG(monto_ventas) OVER (ORDER BY mes) AS incremento
-                    FROM
-                        VentasUltimosMeses
-                ) AS subconsulta
-            )
+    public function VentasUlmimosMeses() {
+        $sql = "
             SELECT
-                DATE_FORMAT(DATE_ADD(LAST_DAY(CURDATE()), INTERVAL seq MONTH), "%Y-%m") AS mes_proyeccion,
-                CONCAT(
-                    DATE_FORMAT(DATE_ADD(LAST_DAY(CURDATE()), INTERVAL seq MONTH), "%M"), " ",
-                    DATE_FORMAT(DATE_ADD(LAST_DAY(CURDATE()), INTERVAL seq MONTH), "%Y")
-                ) AS nombre_mes_proyeccion,
-                ROUND(
-                    (SELECT monto_ventas
-                     FROM VentasUltimosMeses
-                     ORDER BY mes DESC
-                     LIMIT 1
-                    ) * POW(1 + (IFNULL(promedio_incremento, 0) / 100), seq)
-                    , 2
-                ) AS proyeccion_ventas
+                DATE_FORMAT(p.Fecha_Orden, '%M %Y') AS mes,
+                SUM(dp.precio_unitario * dp.cantidad) AS monto_ventas
             FROM
-                (SELECT 1 AS seq UNION ALL
-                 SELECT 2 UNION ALL
-                 SELECT 3 UNION ALL
-                 SELECT 4 UNION ALL
-                 SELECT 5 UNION ALL
-                 SELECT 6
-                ) AS secuencia
-            CROSS JOIN
-                IncrementoPromedio
+                detalleordenes dp
+            JOIN
+                ordenes p ON dp.id_orden = p.id_orden
+            WHERE
+                p.Fecha_Orden >= DATE_FORMAT(CURRENT_DATE - INTERVAL 5 MONTH, '%Y-%m-01')
+            GROUP BY
+                DATE_FORMAT(p.fecha_registro, '%Y-%m')
             ORDER BY
-                mes_proyeccion;';
-
-    return Database::getRows($sql);
-}
- 
+                p.Fecha_Orden ASC;
+        ";
+     
+        $ventas = Database::getRows($sql);
+     
+        if (count($ventas) > 0) {
+            $incrementos = [];
+            for ($i = 1; $i < count($ventas); $i++) {
+                $incremento = $ventas[$i]['monto_ventas'] - $ventas[$i - 1]['monto_ventas'];
+                $porcentaje_incremento = ($ventas[$i - 1]['monto_ventas'] != 0) ? ($incremento / $ventas[$i - 1]['monto_ventas']) * 100 : 0;
+                $incrementos[] = [
+                    'mes' => $ventas[$i]['mes'],
+                    'monto_ventas' => number_format($ventas[$i]['monto_ventas'], 2),
+                    'incremento' => number_format($incremento, 2),
+                    'porcentaje_incremento' => number_format($porcentaje_incremento, 2)
+                ];
+            }
+            return $incrementos;
+        } else {
+     
+           
+            return [];
+        }
+    }
+    public function VentasUltimosMesesConProyeccion() {
+        // Consulta para obtener las ventas de los últimos 5 meses
+        $sql = "
+            SELECT
+                DATE_FORMAT(p.Fecha_Orden, '%M %Y') AS mes,
+                SUM(dp.precio_unitario * dp.cantidad) AS monto_ventas
+            FROM
+                detalleordenes dp
+            JOIN
+                ordenes p ON dp.id_orden = p.id_orden
+            WHERE
+                p.Fecha_Orden >= DATE_FORMAT(CURRENT_DATE - INTERVAL 5 MONTH, '%Y-%m-01')
+            GROUP BY
+                DATE_FORMAT(p.Fecha_Orden, '%Y-%m')
+            ORDER BY
+                p.Fecha_Orden ASC;
+        ";
+     
+        $ventas = Database::getRows($sql);
+     
+        if (count($ventas) > 0) {
+            $incrementos = [];
+            $total_porcentaje_incremento = 0;
+     
+            // Calcular los incrementos entre meses y los porcentajes de incremento
+            for ($i = 1; $i < count($ventas); $i++) {
+                $incremento = $ventas[$i]['monto_ventas'] - $ventas[$i - 1]['monto_ventas'];
+                $porcentaje_incremento = ($ventas[$i - 1]['monto_ventas'] != 0) ? ($incremento / $ventas[$i - 1]['monto_ventas']) * 100 : 0;
+                $incrementos[] = [
+                    'mes' => $ventas[$i]['mes'],
+                    'monto_ventas' => number_format($ventas[$i]['monto_ventas'], 2),
+                    'incremento' => number_format($incremento, 2),
+                    'porcentaje_incremento' => number_format($porcentaje_incremento, 2)
+                ];
+                $total_porcentaje_incremento += $porcentaje_incremento;
+            }
+     
+            // Calcular el promedio del incremento porcentual mensual
+            $promedio_porcentaje_incremento = $total_porcentaje_incremento / 4; // Dividir entre 4 ya que tenemos 5 meses y 4 incrementos
+     
+            // Proyectar las ventas para el sexto mes usando el promedio del porcentaje de incremento
+            $ventas_mes_pasado = $ventas[count($ventas) - 1]['monto_ventas'];
+            $proyeccion_incremento = ($promedio_porcentaje_incremento / 100) * $ventas_mes_pasado;
+            $proyeccion_sexto_mes = $ventas_mes_pasado + $proyeccion_incremento;
+     
+            // Obtener el nombre del mes siguiente al último mes registrado
+            $ultimo_mes = date('Y-m', strtotime(end($ventas)['mes']));
+            $mes_siguiente = date('F Y', strtotime($ultimo_mes . ' +1 month'));
+     
+            // Formatear los datos de proyección
+            $incrementos[] = [
+                'mes' => $mes_siguiente,
+                'monto_ventas' => number_format($proyeccion_sexto_mes, 2),
+                'incremento' => number_format($proyeccion_incremento, 2),
+                'porcentaje_incremento' => number_format($promedio_porcentaje_incremento, 2)
+            ];
+     
+            return $incrementos;
+        } else {
+            return [];
+        }
+    }
+     
     
 
 

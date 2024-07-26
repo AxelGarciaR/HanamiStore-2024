@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     graficoPastelCategorias();
     graficoProductosVendidos();
     graficoVentasMes();
-    graficoProyeccionesMes(); // Corrección aquí
+    VentasUltimosMesesConProyeccion(); // Corrección aquí
 });
 
 /*
@@ -72,7 +72,7 @@ const graficoPastelCategorias = async () => {
             porcentajes.push(row.porcentaje);
         });
         // Llamada a la función para generar y mostrar un gráfico de pastel. Se encuentra en el archivo components.js
-        pieGraph('chart2', categorias, porcentajes, 'Porcentaje de productos por categoría');
+        pieGraph('chart2', categorias, porcentajes, 'Porcentaje de productos por subcategoría');
     } else {
         document.getElementById('chart2').remove();
         console.log(DATA.error);
@@ -142,31 +142,38 @@ const graficoVentasMes = async () => {
     }
 }
 
-const graficoProyeccionesMes = async () => {
-    const DATA = await fetchData(PRODUCTO_API, 'proyeccionesProximosMeses');
-
-    if (DATA && DATA.status) {
-        let meses = [];
-        let proyecciones = [];
-
-        DATA.dataset.forEach(row => {
-            meses.push(row.mes_proyeccion);
-            proyecciones.push(row.proyeccion_ventas);
-        });
-
-        const chartTitle = 'Proyecciones de ventas para los siguientes meses';
-        const xAxisLabel = 'Mes';
-        const yAxisLabel = 'Monto de Ventas (Proyección)';
-
-        renderChart(document.getElementById('chartProyeccionesMes').getContext('2d'), 'bar', meses, proyecciones, chartTitle, xAxisLabel, yAxisLabel);
-    } else {
-        const chartElement = document.getElementById('chartProyeccionesMes');
-        if (chartElement) {
-            chartElement.remove();
+const VentasUltimosMesesConProyeccion = async () => {
+    try {
+        // Petición para obtener los datos del gráfico.
+        const DATA = await fetchData(PRODUCTO_API, 'VentasUltimosMesesConProyeccion');
+ 
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas.
+        if (DATA.status) {
+            // Se declaran los arreglos para guardar los datos a graficar.
+            let meses = [];
+            let ventas = [];
+ 
+            // Procesa los datos obtenidos
+            DATA.dataset.forEach((row) => {
+                meses.push(row.mes);
+                let ventasMes = parseFloat(row.monto_ventas.replace(',', ''));
+                ventas.push(ventasMes);
+            });
+ 
+            // Llamada a la función para generar y mostrar un gráfico de barras.
+            barGraph('chartProyeccionesMes', meses, ventas, 'Ventas de los últimos meses y su proyección del siguiente mes');
+        } else {
+            const chartElement = document.getElementById('chartProyeccionesMes');
+            if (chartElement) {
+                chartElement.remove();
+            }
+            console.log(DATA.error);
         }
-        console.log(DATA ? DATA.error : 'Error en la llamada a la API');
+    } catch (error) {
+        console.error('Error al obtener los datos para el gráfico:', error);
     }
-};
+}
+
 
 // Función para renderizar los gráficos
 const renderChart = (context, type, labels, data, title) => {
