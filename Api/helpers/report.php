@@ -1,6 +1,8 @@
 <?php
 // Se incluye la clase para generar archivos PDF.
 require_once('../../libraries/fpdf185/fpdf.php');
+// Se incluye la clase para trabajar con la base de datos.
+require_once('../../helpers/database.php');
 
 
 /*
@@ -54,10 +56,16 @@ class Report extends FPDF
     *   Se sobrescribe el método de la librería para establecer la plantilla del encabezado de los reportes.
     *   Se llama automáticamente en el método addPage()
     */
+
+    // Se instancia el modelo de usuarios para obtener los datos.
+    
+
     public function header()
     {
-        // Se establece el logo.
-     //   $this->image('../imagenes/HanamiLogo.png', 15, 15, 20);
+        // Se establece el logo
+        $this->image('../../images/HanamiLogo.png', 15, 15, 20);
+        // Se establece el logo de fondo
+        $this->image('../../images/HanamiLogoBack.png', 15, 50, 186);
         // Se ubica el título.
         $this->cell(20);
         $this->setFont('Arial', 'B', 15);
@@ -66,6 +74,8 @@ class Report extends FPDF
         $this->cell(20);
         $this->setFont('Arial', '', 10);
         $this->cell(166, 10, 'Fecha/Hora: ' . date('d-m-Y H:i:s'), 0, 1, 'C');
+        $this->cell(166, 10, $this->encodeString('Nombre del usuario solicitante: ' .  $_SESSION['nombreAdministrador']), 0 , 1, 'A');
+        $this->cell(166, 10, $this->encodeString('Correo del usuarios solicitante: ' .  $_SESSION['aliasAdmin']), 0 , 1, 'A');
         // Se agrega un salto de línea para mostrar el contenido principal del documento.
         $this->ln(10);
     }
@@ -81,6 +91,7 @@ class Report extends FPDF
         // Se establece la fuente para el número de página.
         $this->setFont('Arial', 'I', 8);
         // Se imprime una celda con el número de página.
+        //$this->cell(0, 10, $this->encodeString('Factura generada por: ' . $_SESSION['']), 0, 1, 'C');
         $this->cell(0, 10, $this->encodeString('Página ') . $this->pageNo() . '/{nb}', 0, 0, 'C');
     }
 }

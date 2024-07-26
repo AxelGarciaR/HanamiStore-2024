@@ -18,7 +18,7 @@ class UsuariosHandler
     //Esta funcion valida las credenciales en el inicio de sesion
     public function checkUser($username, $password)
     {
-        $sql = 'SELECT id_usuario, correo, clave
+        $sql = 'SELECT id_usuario, nombre_usuario, correo, clave
                 FROM usuarios
                 WHERE  correo = ?';
         $params = array($username);
@@ -27,6 +27,7 @@ class UsuariosHandler
         } elseif (password_verify($password, $data['clave'])) {
             $_SESSION['idAdministrador'] = $data['id_usuario'];
             $_SESSION['aliasAdmin'] = $data['correo'];
+            $_SESSION['nombreAdministrador'] = $data['nombre_usuario'];
             return true;
         } else {
             return false;

@@ -4,33 +4,15 @@ require_once('../../helpers/report.php');
 // Se incluyen las clases para la transferencia y acceso a datos.
 require_once('../../models/data/cliente_data.php');
 
-// Función para obtener el nombre del administrador
-function getAdminName($adminId)
-{
-    $db = new Database;
-    $sql = 'SELECT nombre_usuario FROM usuarios WHERE id_usuario = ?';
-    $params = array($adminId);
-    if ($data = $db->getRow($sql, $params)) {
-        return $data['nombre_usuario'];
-    } else {
-        return 'Desconocido'; // Devuelve 'Desconocido' si no se encuentra el nombre
-    }
-}
 
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
-
-// Suponiendo que tienes el ID del administrador en sesión
-$adminId = 1; // Ejemplo, debes obtener el ID del administrador en sesión de tu lógica de autenticación
-
-// Obtener el nombre del administrador en sesión
-$adminName = getAdminName($adminId);
 
 // Se establece el color de fondo para el encabezado del documento.
 $pdf->setFillColor(255, 200, 221); // Color FFC8DD en RGB
 
 // Se inicia el reporte con el encabezado del documento y el nombre del administrador.
-$pdf->startReport('Reporte de clientes registrados - Generado por: ' . $adminName);
+$pdf->startReport('Reporte de clientes registrados');
 
 // Se instancia el modelo de clientes para obtener los datos.
 $cliente = new ClienteData;
